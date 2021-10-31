@@ -34,6 +34,10 @@ public class FrontTestBase {
         driver.get(Variables.REGISTER_URL);
         Assert.assertEquals(driver.getCurrentUrl(), Variables.REGISTER_URL);
     }
+    protected void goToAddProjectPage() {
+        driver.get(Variables.ADD_PROJECT_URL);
+        Assert.assertEquals(driver.getCurrentUrl(), Variables.ADD_PROJECT_URL);
+    }
 
     protected void register(String fullName,String account,String password,String typePasswordAgain){
         goToRegisterPage();
