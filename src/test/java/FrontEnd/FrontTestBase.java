@@ -3,6 +3,8 @@ package FrontEnd;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,6 +19,9 @@ public class FrontTestBase {
     @Before
     public void setup() {
         driver = new ChromeDriver();
+        Dimension dimension = new Dimension(1920, 1080);
+        driver.manage().window().setSize(dimension);
+        driver.manage().window().maximize();
     }
 
     @After
@@ -67,7 +72,7 @@ public class FrontTestBase {
 
     protected  void login(String account, String password)
     {
-    goToLoginPage();
+        goToLoginPage();
         WebElement accountInput = driver.findElement(By.xpath("//input[@name='account']"));
         WebElement passwordInput = driver.findElement(By.xpath("//input[@name='password']"));
         By loginButtonLocator = By.xpath("//button[normalize-space()='登入']");
@@ -80,6 +85,10 @@ public class FrontTestBase {
         WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         waiter.until(ExpectedConditions.elementToBeClickable(loginButtonLocator));
         loginButton.click();
+
+        // Wait page loaded
+        WebDriverWait loginWaiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        loginWaiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[normalize-space()='Services']")));
     }
 
     public boolean isAlertPresent() {
@@ -101,6 +110,28 @@ public class FrontTestBase {
         }
 
         return presentFlag;
+    }
 
+    public void scrollAndClick(By by)
+    {
+        WebElement element = driver.findElement(by);
+        int elementPosition = element.getLocation().getY();
+        String js = String.format("window.scroll(0, %s)", elementPosition);
+        ((JavascriptExecutor)driver).executeScript(js);
+        element.click();
+    }
+
+    public void scrollToElement(By by){
+        scrollToElement(by, 150);
+    }
+
+    public void scrollToElement(By by, int fixedY)
+    {
+        WebElement element = driver.findElement(by);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
+        String js = String.format("scroll(0, %s);", fixedY);
+        ((JavascriptExecutor)driver).executeScript("scroll(0, 150);");
     }
 }
