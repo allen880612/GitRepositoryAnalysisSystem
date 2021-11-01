@@ -91,36 +91,6 @@ public class FrontTestBase {
         loginWaiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[normalize-space()='Services']")));
     }
 
-    public boolean isAlertPresent() {
-
-        boolean presentFlag = false;
-
-        try {
-            // Check the presence of alert
-            driver.switchTo().alert();
-            // Alert present; set the flag
-            presentFlag = true;
-            // if present consume the alert
-//            alert.accept();
-
-        } catch (NoAlertPresentException ex) {
-            // Alert not present
-//            ex.printStackTrace();
-            presentFlag = false;
-        }
-
-        return presentFlag;
-    }
-
-    public void scrollAndClick(By by)
-    {
-        WebElement element = driver.findElement(by);
-        int elementPosition = element.getLocation().getY();
-        String js = String.format("window.scroll(0, %s)", elementPosition);
-        ((JavascriptExecutor)driver).executeScript(js);
-        element.click();
-    }
-
     public void scrollToElement(By by){
         scrollToElement(by, 150);
     }

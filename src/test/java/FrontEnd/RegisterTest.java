@@ -22,7 +22,7 @@ public class RegisterTest extends FrontTestBase {
     @Test
     public void RegisterSuccessful(){
         register("register","register","register","register");
-        //TODO: Better Way to Wait until alert present
+
         WebDriverWait wait = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
