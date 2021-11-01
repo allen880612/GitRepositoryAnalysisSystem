@@ -26,7 +26,13 @@ public class AddProjectTest extends FrontTestBase {
     @Test
     public void addRepoFailedTest(){
         login("test","test");
-        goToAddProjectPage();
+
+        WebDriverWait loginWaiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        loginWaiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        loginWaiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='add_project_btn']")));
+
+        WebElement addProjectButton = driver.findElement(By.xpath("//*[@id='add_project_btn']"));
+        addProjectButton.click();
 
         String repoUrl = "https://qiurunze123/GeekQ-Tools";
         addRepo(repoUrl);
