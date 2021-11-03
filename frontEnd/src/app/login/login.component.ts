@@ -56,4 +56,8 @@ export class LoginComponent implements OnInit {
   RoutetoSignup(){
     this.redirectTo("signup");
   }
+
+  RoutetoGitOAuth(){
+    this.redirectTo("");
+  }
 }

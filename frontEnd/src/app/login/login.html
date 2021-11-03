@@ -28,9 +28,12 @@
         <h2>密碼</h2>
           <input type="password" name = "password" placeholder="請輸入密碼" [(ngModel)]="passwordInput" required>
         <h3  style="color:red; " >{{badRequest}}</h3>
+        <div>
             <button  type="submit" (click)="logInCheck()">登入</button>
             <button  type="submit" (click)="RoutetoSignup()">註冊</button>
             <br>
+        </div>
+        <i class="fab fa-github-square" (click)="RoutetoGitOAuth()"></i>
     </form>
 </body>
 </html>
