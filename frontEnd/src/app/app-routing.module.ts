@@ -16,12 +16,14 @@ import {IssueTrackComponent} from './issue-track/issue-track.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {ProjectoverviewComponent} from './projectoverview/projectoverview.component';
 import {ComparemultiprojectComponent} from './comparemultiproject/comparemultiproject.component';
+import {AuthorizeComponent} from './authorize/authorize.component';
 
 
 const routes: Routes = [
   {path: 'homepage', component: HomepageComponent},
   {path: '', component: HomepageComponent},
   {path: 'LoginPage', component: LoginComponent},
+  {path: 'oauth2/github/callback', component: AuthorizeComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'choose-project', component: ChooseProjectComponent},
