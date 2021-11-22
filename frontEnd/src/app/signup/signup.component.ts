@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import { SignupService } from './signup.service';
 import {Router} from '@angular/router';
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-signup',
@@ -10,15 +11,23 @@ import {Router} from '@angular/router';
 
 
 export class SignupComponent implements OnInit {
+  // @ViewChild('submit') submitButton;
+  submitButton: any;
   UserInput = '';
   accountInput='';
   passwordInput='';
   RetrypasswordInput = '';
   badRequest = '';
   datas: any;
-  constructor(private router: Router, private signupService: SignupService) { }
+  isNameValid: boolean;
+  isAccountValid: boolean;
+  isPasswordValid: boolean;
+  isSamePassword: boolean;
+  constructor(private router: Router, private signupService: SignupService, @Inject(DOCUMENT) document) { }
 
   ngOnInit(): void {
+    this.submitButton = document.getElementById('submit');
+    this.submitButton.disabled = true;
   }
   redirectTo(url){
     this.router.navigateByUrl(url.toString());
@@ -52,4 +61,43 @@ export class SignupComponent implements OnInit {
         );
   }
 
+  onPasswordChange(value: any) {
+    this.isPasswordValid = this.isInputValid(value);
+    this.isAllInputValid();
+    // console.log(this.submitButton.textContent);
+    // console.log(value);
+  }
+
+  onAccountChange(value: any) {
+    this.isAccountValid = this.isInputValid(value);
+    this.isAllInputValid();
+  }
+
+  onNameChange(value: any) {
+    this.isNameValid = this.isInputValid(value);
+    this.isAllInputValid();
+  }
+
+  isInputValid(value: string) {
+    if (value === "") {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  isAllInputValid() {
+    if (this.isPasswordValid && this.isAccountValid && this.isNameValid && this.isSamePassword) {
+      this.submitButton.disabled = false;
+    }
+    else {
+      this.submitButton.disabled = true;
+    }
+  }
+
+  onRetryPasswordChange(value: any) {
+    this.isSamePassword = value == this.passwordInput;
+    this.isAllInputValid();
+  }
 }
