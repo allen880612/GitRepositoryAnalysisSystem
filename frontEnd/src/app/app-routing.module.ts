@@ -17,6 +17,7 @@ import {HomepageComponent} from './homepage/homepage.component';
 import {ProjectoverviewComponent} from './projectoverview/projectoverview.component';
 import {ComparemultiprojectComponent} from './comparemultiproject/comparemultiproject.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
+import {AddProjectChooseComponent} from './add-project-choose/add-project-choose.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'choose-project', component: ChooseProjectComponent},
   {path: 'choose-repository', component: ChooseRepositoryComponent},
-  {path: 'createproject', component: AddProjectComponent},
+  {path: 'createproject/github', component: AddProjectComponent},
+  {path: 'createproject', component: AddProjectChooseComponent},
   {path: 'add-repo', component: AddRepoComponent},
   {path: 'add-project-from-github', component: AddProjectFromGithubComponent},
   {path: 'add-repo-from-github', component: AddRepoFromGithubComponent},
