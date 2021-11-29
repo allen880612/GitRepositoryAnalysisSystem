@@ -5,11 +5,15 @@ import usecase.gitrepository.CreateGitRepositoryInput;
 public class CreateGitRepositoryInputImpl implements CreateGitRepositoryInput {
     private String ownerName;
     private String repoName;
+    private String projectID;
 
     @Override
     public String getOwnerName() {
         return ownerName;
     }
+
+    @Override
+    public void setRepoName(String repoName) { this.repoName = repoName; }
 
     @Override
     public void setOwnerName(String ownerName) {
@@ -22,7 +26,10 @@ public class CreateGitRepositoryInputImpl implements CreateGitRepositoryInput {
     }
 
     @Override
-    public void setRepoName(String repoName) {
-        this.repoName = repoName;
+    public void setProjectID(String projectID) { this.projectID = projectID; }
+
+    @Override
+    public String getProjectID() {
+        return projectID;
     }
 }

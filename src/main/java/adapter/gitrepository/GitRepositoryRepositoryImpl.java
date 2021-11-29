@@ -19,7 +19,7 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
         conn = Database.getConnection();
     }
     public GitRepository getGitRepositoryById(String id){
-        final String query = "SELECT reponame, ownername FROM gitrepository WHERE id=?";
+        final String query = "SELECT reponame, ownername,projectid FROM gitrepository WHERE id=?";
         GitRepository gitRepository;
         try{
 
@@ -32,7 +32,8 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
             gitRepository = new GitRepository(
                     id,
                     resultSet.getString("reponame"),
-                    resultSet.getString("ownername")
+                    resultSet.getString("ownername"),
+                    resultSet.getString("projectid")
             );
             return gitRepository;
         }catch(Exception e){
@@ -43,13 +44,14 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
 
     public void createGitRepository(GitRepository gitRepository) {
         gitRepositories.add(gitRepository);
-        final String insert = " INSERT INTO gitrepository(id, reponame, ownername) VALUES(?,?,?) ";
+        final String insert = " INSERT INTO gitrepository(id, reponame, ownername, projectid) VALUES(?,?,?,?) ";
         try {
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
             preparedStatement.setString (1,gitRepository.getId());
             preparedStatement.setString (2, gitRepository.getRepoName());
             preparedStatement.setString (3, gitRepository.getOwnerName());
+            preparedStatement.setString (4, gitRepository.getProjectID());
             preparedStatement.execute();
         }catch (Exception e){
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
             preparedStatement.executeUpdate();
         }catch (Exception e){e.printStackTrace();}
     }
+
 
 
 }

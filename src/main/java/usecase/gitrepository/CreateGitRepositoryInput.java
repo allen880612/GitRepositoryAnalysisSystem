@@ -8,6 +8,9 @@ public interface CreateGitRepositoryInput {
     void setRepoName(String repoName);
     String getRepoName();
 
+    void setProjectID(String projectID);
+    String getProjectID();
+
 
 
 }

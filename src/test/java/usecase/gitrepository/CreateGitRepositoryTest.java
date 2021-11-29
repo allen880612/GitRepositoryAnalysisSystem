@@ -22,6 +22,7 @@ public class CreateGitRepositoryTest {
         CreateGitRepositoryInput input = new CreateGitRepositoryInputImpl();
         input.setRepoName("MakeBigMoney");
         input.setOwnerName("ku");
+        input.setProjectID("projectIdTest");
 
         CreateGitRepositoryOutput output = new CreateGitRepositoryOutputImpl();
 

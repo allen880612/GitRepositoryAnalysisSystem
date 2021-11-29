@@ -11,7 +11,7 @@ public class CreateGitRepositoryUseCase {
 
 
     public void execute(CreateGitRepositoryInput input, CreateGitRepositoryOutput output) {
-        GitRepository newGitRepository = new GitRepository(input.getRepoName(), input.getOwnerName());
+        GitRepository newGitRepository = new GitRepository(input.getRepoName(), input.getOwnerName(),input.getProjectID());
         gitRepositoryRepository.createGitRepository(newGitRepository);
         output.setResult(newGitRepository);
     }
