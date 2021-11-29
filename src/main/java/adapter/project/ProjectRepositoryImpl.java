@@ -21,10 +21,25 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     public void createProject(Project project){
-        String id = "";
-        project.addGitRepository(id);
-        updateProject(project);
-        project.removeGitRepository(id);
+//        String id = "";
+//        project.addGitRepository(id);
+//        updateProject(project);
+//        project.removeGitRepository(id);
+        if(!projects.contains(project)) projects.add(project);
+
+        final String insert = " INSERT INTO project(id, name, description) VALUES(?,?,?) ";
+
+        assert conn != null;
+        try{
+            assert conn != null;
+            PreparedStatement preparedStatement = conn.prepareStatement(insert);
+            preparedStatement.setString (1, project.getId());
+            preparedStatement.setString (2, project.getName());
+            preparedStatement.setString (3, project.getDescription());
+            preparedStatement.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void updateProject(Project project){
@@ -63,7 +78,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     public Project getProjectById(String id) {
-        final String query = "SELECT name, repoid, description, starttime FROM project WHERE id=?";
+        final String query = "SELECT name, repo.id as repoid, description, starttime " +
+                             "FROM project " +
+                             "LEFT JOIN gitrepository as repo " +
+                             "on project.id = repo.projectid " +
+                             "WHERE project.id =?";
         Project project;
         List<String> gitRepositories = new ArrayList<>();
         try{
@@ -76,6 +95,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
             String name = resultSet.getString("name");
             String description = resultSet.getString("description");
             String startTime = resultSet.getString("starttime");
+
             do{
                 gitRepositories.add(resultSet.getString("repoid"));
             }

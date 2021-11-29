@@ -20,9 +20,9 @@ public class CreateGitRepositoryTest {
     @Test
     public void Create_Git_Repository_Should_Commit_To_Repository_Test(){
         CreateGitRepositoryInput input = new CreateGitRepositoryInputImpl();
-        input.setRepoName("MakeBigMoney");
-        input.setOwnerName("ku");
-        input.setProjectID("projectIdTest");
+        input.setRepoName("P2_repo2");
+        input.setOwnerName("user");
+        input.setProjectID("projectIdTest2");
 
         CreateGitRepositoryOutput output = new CreateGitRepositoryOutputImpl();
 
@@ -31,6 +31,6 @@ public class CreateGitRepositoryTest {
 
         GitRepository gitRepository = gitRepositoryRepository.getGitRepositoryById(output.getResult().getId());
         Assert.assertEquals(gitRepository.getRepoName(), output.getResult().getRepoName());
-        gitRepositoryRepository.deleteGitRepository(gitRepository.getId());
+//        gitRepositoryRepository.deleteGitRepository(gitRepository.getId());
     }
 }

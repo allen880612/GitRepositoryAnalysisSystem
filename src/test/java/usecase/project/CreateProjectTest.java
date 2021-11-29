@@ -9,6 +9,7 @@ import adapter.project.CreateProjectUseCase;
 import adapter.project.ProjectRepositoryImpl;
 import domain.Account;
 import domain.Project;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +22,7 @@ public class CreateProjectTest {
     private AccountRepository accountRepository = new AccountRepositoryImpl();
     private ProjectRepository projectRepository = new ProjectRepositoryImpl();
     private Account account;
+
     @Before
     public void setUp(){
         CreateAccountInput input = new CreateAccountInputImpl();
@@ -33,6 +35,11 @@ public class CreateProjectTest {
         createAccountUseCase.execute(input, output);
         account = accountRepository.getAccountById(output.getId());
         Assert.assertEquals("bigMoney", account.getAccount());
+    }
+
+    @After
+    public void tearDown(){
+        accountRepository.deleteAccount(account.getId());
     }
 
     @Test
@@ -59,7 +66,6 @@ public class CreateProjectTest {
         Account accountInDB = accountRepository.getAccountById(account.getId());
         Assert.assertEquals(1, accountInDB.getProjects().size());
 
-        accountRepository.deleteAccount(accountInDB.getId());
         accountRepository.deleteAccountRelations(accountInDB.getId());
         projectRepository.deleteProject(project.getId());
     }
