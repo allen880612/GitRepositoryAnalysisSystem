@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
       state: 'RRRRRRRRR',
       allow_signup: 'true'
     };
-    console.log('clientId: ', env.clientId);
+    // console.log('clientId: ', env.clientId);
     const url = 'https://github.com/login/oauth/authorize?';
     const searchParams = new URLSearchParams(params);
     const authUrl = url + searchParams.toString();
