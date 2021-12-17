@@ -5,27 +5,30 @@ import domain.Account;
 
 import java.sql.SQLException;
 
-public class CreateAccountUseCase {
+public class AuthorizeGithubUseCase {
 
     private AccountRepository accountRepository;
-    public CreateAccountUseCase(AccountRepository accountRepository){
+    public AuthorizeGithubUseCase(AccountRepository accountRepository){
         this.accountRepository = accountRepository;
 
     }
-    public void execute(CreateAccountInput input, CreateAccountOutput output) {
+    public void execute(AuthorizeGithubInput input, AuthorizeGithubOutput output) {
 
         Account admin = new Account(
                 input.getName(),
                 input.getAccount(),
                 input.getPassword()
         );
+        admin.setGithubToken(input.getToken());
+
         output.setId(admin.getId());
-        output.setAccount(admin);
-        // TODO: should rethrow & add isSuccessful in output
+        output.setName(admin.getName());
+        output.setIsSuccessful(true);
+
         try {
             accountRepository.createAccount(admin);
         } catch (SQLException e) {
-            e.printStackTrace();
+            output.setIsSuccessful(false);
         }
     }
 }

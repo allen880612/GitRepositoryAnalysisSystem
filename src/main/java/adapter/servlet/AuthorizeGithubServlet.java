@@ -29,8 +29,8 @@ public class AuthorizeGithubServlet extends HttpServlet{
         String client_secret = System.getenv("Github_Client_Secret");
 
         JSONObject body = new JSONObject();
-        body.put("client_id", client_id);
-        body.put("client_secret", client_secret);
+        body.put("client_id", "27ea0af1aeabd39a7d5d");
+        body.put("client_secret", "73982553f4ca36536646a033e1595dc126694b2e");
         body.put("code", code);
 
         PostJSONWithHttpURLConnection jp = new PostJSONWithHttpURLConnection();
