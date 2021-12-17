@@ -1,7 +1,7 @@
 package adapter.servlet;
 
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
+import usecase.HttpsRequester;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ public class VerifyUrlServlet extends HttpServlet {
         String needVerifyUrl = requestBody.getString("githubUrl");
         JSONObject returnJson = new JSONObject();
 
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         String[] metadatas = needVerifyUrl.split("/");
 
         response.setContentType("text/json");
@@ -38,7 +38,7 @@ public class VerifyUrlServlet extends HttpServlet {
     }
 
     private boolean findKeyWord(String[] metadatas, String keyWord){
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONObject verifyJson = null;
         try {
             for (int i = 0; i < metadatas.length; i++) {

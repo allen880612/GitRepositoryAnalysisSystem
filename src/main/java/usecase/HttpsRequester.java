@@ -10,13 +10,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GithubRepositoryAccessor {
+public class HttpsRequester {
     private InputStream is;
     private InputStreamReader isr;
     private HttpsURLConnection httpsConnection;
     private Map<String, String> properties;
 
-    public GithubRepositoryAccessor(){
+    public HttpsRequester(){
         properties = new HashMap<>();
     }
 

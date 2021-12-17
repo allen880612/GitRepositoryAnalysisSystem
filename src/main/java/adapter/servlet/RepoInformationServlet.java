@@ -4,7 +4,7 @@ import adapter.gitrepository.GitRepositoryRepositoryImpl;
 import domain.GitRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
+import usecase.HttpsRequester;
 import usecase.gitrepository.GitRepositoryRepository;
 
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class RepoInformationServlet extends HttpServlet {
                         gitRepository.getOwnerName() + "/" +
                         gitRepository.getRepoName();
         String contributorsUrl = repoInfoUrl + "/contributors";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
 
         JSONObject repoJson = (JSONObject) accessor.httpsGet(repoInfoUrl).get(0);
         JSONArray contributorsJson  = accessor.httpsGet(contributorsUrl);

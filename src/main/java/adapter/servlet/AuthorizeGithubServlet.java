@@ -1,6 +1,5 @@
 package adapter.servlet;
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
 import usecase.PostJSONWithHttpURLConnection;
 
 import javax.servlet.ServletException;

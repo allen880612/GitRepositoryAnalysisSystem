@@ -2,7 +2,7 @@ package adapter.servlet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
+import usecase.HttpsRequester;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +36,7 @@ public class IssuesServlet extends HttpServlet {
 
     private JSONArray getIssuesInfoJsonArray(String owner, String repo) throws IOException {
         String apiUrl = "https://api.github.com/search/issues?q=repo:" + owner + "/" + repo + "%20is:issue&per_page=100";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONArray jsonArray = accessor.httpsGet(apiUrl);
         JSONArray itemsJsonArray = jsonArray.getJSONObject(0).getJSONArray("items");
         JSONArray issuesResult = new JSONArray();
