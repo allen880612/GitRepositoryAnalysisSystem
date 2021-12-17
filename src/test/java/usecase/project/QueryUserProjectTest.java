@@ -24,7 +24,7 @@ public class QueryUserProjectTest {
         AccountRepository accountRepository = new AccountRepositoryImpl();
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
 
-        String userId = "boss";
+        String userId = "4d0f5ebc-a68f-4581-9527-406176dc581e";
         Account account = accountRepository.getAccountById(userId);
         JSONArray jsonArray = new JSONArray();
 
@@ -38,6 +38,6 @@ public class QueryUserProjectTest {
             jsonObject.put("gitRepoCount", project.getGitRepositories().size());
             jsonArray.put(jsonObject);
         }
-        Assert.assertEquals(6, jsonArray.length());
+        Assert.assertEquals(2, jsonArray.length());
     }
 }

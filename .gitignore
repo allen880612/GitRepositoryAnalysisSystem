@@ -4,3 +4,4 @@ build
 src/main/java/database/Database.java
 src/main/java/database/Database.java
 frontEnd/package-lock.json
+src/main/webapp/frontEnd/
