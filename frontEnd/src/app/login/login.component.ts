@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       request => {
         this.datas = request;
         if (this.datas.redirect){
-          this.router.navigate([this.datas.redirect.toString()]);
+          this.router.navigate(['choose-project']);
           console.log("userId =",this.datas.userId.toString());
           sessionStorage.setItem('Username', this.datas.userName.toString());
           sessionStorage.setItem('UserID', this.datas.userId.toString());
