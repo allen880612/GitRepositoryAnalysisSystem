@@ -27,13 +27,11 @@ export class AuthorizeComponent implements OnInit {
     const data = JSON.stringify(callBackData);
     this.authorizeService.getAccessToken(data).subscribe(
       request => {
-        console.log('post response =' + request.toString());
-        const token = request.access_token.toString();
-        console.log('token =', token);
+        console.log(request.toString());
+
         this.router.navigateByUrl('homepage');
-        sessionStorage.setItem('Username', 'githubOAuth');
-        sessionStorage.setItem('UserID', 'githubOAuth');
-        sessionStorage.setItem('Token', token);
+        sessionStorage.setItem('Username', request.name);
+        sessionStorage.setItem('UserID', request.id);
       });
   }
 }

@@ -28,6 +28,7 @@ repositories {
 dependencies {
 
     // https://mvnrepository.com/artifact/org.json/json
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     compile group: 'org.json', name: 'json', version: '20201115'
     compile group: 'org.springframework', name: 'spring-test', version: '4.3.3.RELEASE'

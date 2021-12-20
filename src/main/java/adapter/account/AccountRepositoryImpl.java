@@ -159,6 +159,36 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Account getAccountWithToken(Account account) {
+        final String query = " SELECT id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ?";
+        Account queryAccount = null;
+        try {
+            PreparedStatement ps = null;
+            ResultSet resultSet;
+            this.conn = Database.getConnection();
+            assert conn != null;
+            ps = conn.prepareStatement(query);
+
+            ps.setString(1,account.getName());
+            ps.setString(2,account.getAccount());
+            ps.setString(3,account.getGithubToken());
+            resultSet = ps.executeQuery();
+            if(!resultSet.first()) return null;
+            queryAccount = new Account(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("account"),
+                    ""
+            );
+            queryAccount.setGithubToken(resultSet.getString("token"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryAccount;
+    }
+
+    @Override
     public void deleteAccount(String id) {
         final String delete = "DELETE FROM user WHERE id=?";
         try{

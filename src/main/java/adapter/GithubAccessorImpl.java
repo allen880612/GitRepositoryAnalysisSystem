@@ -2,6 +2,7 @@ package adapter;
 
 import adapter.account.CreateAccountInputImpl;
 import dto.GithubUserDTO;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import usecase.GithubAccessor;
 import usecase.HttpsRequester;
@@ -51,10 +52,13 @@ public class GithubAccessorImpl implements GithubAccessor {
     }
 
     @Override
-    public GithubUserDTO getRequester(String token) {
+    public GithubUserDTO getUserInfo(String token) {
         getRequester = new HttpsRequester();
+        getRequester.addHTTPSGetProperty("Content-Type", "application/json");
+        getRequester.addHTTPSGetProperty("Authorization", "Bearer " + token);
         GithubUserDTO githubUserDTO = new GithubUserDTO();
         JSONObject response = null;
+
         try {
             response = getRequester.httpsGet("https://api.github.com/user").getJSONObject(0);
         } catch (IOException e) {
@@ -62,9 +66,9 @@ public class GithubAccessorImpl implements GithubAccessor {
             return githubUserDTO;
         }
 
+        githubUserDTO.setId(response.get("id").toString());
         githubUserDTO.setName(response.get("login").toString());
         githubUserDTO.setAccount(response.get("email").toString());
-        
         return githubUserDTO;
     }
 }
