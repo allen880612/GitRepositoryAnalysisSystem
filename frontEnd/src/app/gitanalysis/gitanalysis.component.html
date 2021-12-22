@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="gitanalysis.component.css">
+  <title>
+  </title>
+</head>
+
+<body>
+<div style="padding:10px 100px 10px 100px;">
+  <div class="myButton">
+    <button>Issue</button>
+    <button>Contributor</button>
+    <button>Code Base</button>
+    <button (click)="getCommitTrend()">Commit</button>
+    <button>Bug List</button>
+  </div>
+
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+  </canvas>
+  <td>
+    <caption style="text-align:center; color:blue" *ngFor="let barChar of leftTatolbarCharlist">{{barChar[5]}}
+      <canvas baseChart width="500%"
+              [datasets]="barChar[4]"
+              [labels]="barChar[3]"
+              [options]="barChar[0]"
+              [legend]="barChar[2]"
+              [chartType]="barChar[1]">
+      </canvas>
+    </caption>
+  </td>
+  <td>
+    <caption style="text-align:center; color:blue" *ngFor="let barChar of rightTatolbarCharlist">{{barChar[5]}}
+      <canvas baseChart  width="500%"
+              [datasets]="barChar[4]"
+              [labels]="barChar[3]"
+              [options]="barChar[0]"
+              [legend]="barChar[2]"
+              [chartType]="barChar[1]">
+      </canvas>
+    </caption>
+  </td>
+</div>
+</body>
+
+</html>
+
+<app-footer></app-footer>

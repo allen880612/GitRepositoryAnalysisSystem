@@ -35,5 +35,10 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  Navitogitanalysis(){
+    this.redirectTo("gitanalysis");
+  }
+
+
 
 }

@@ -18,5 +18,14 @@ export class GetProjectInfoService {
       return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getUserProject', body, options);
     }
 
-
+  public getRepoDataOfProject(body) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/json'
+    });
+    const options = {
+      headers
+    };
+    const r = this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getProjectGitRepositories', body, options);
+    return r;
+  }
 }

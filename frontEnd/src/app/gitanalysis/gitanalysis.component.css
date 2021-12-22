@@ -1,0 +1,17 @@
+div.myButton > button {
+  border-style: solid;
+  border-color: #4e555b;
+  border-width: medium;
+
+  background-color: #6c757d;
+  font-family: "微軟正黑體", sans-serif;
+  color: whitesmoke;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+div.myButton > button:hover {
+  background-color: #1d2124;
+}

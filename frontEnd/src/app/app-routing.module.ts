@@ -17,6 +17,8 @@ import {HomepageComponent} from './homepage/homepage.component';
 import {ProjectoverviewComponent} from './projectoverview/projectoverview.component';
 import {ComparemultiprojectComponent} from './comparemultiproject/comparemultiproject.component';
 import {AuthorizeComponent} from './authorize/authorize.component';
+import {SonarqubeComponent} from "./sonarqube/sonarqube.component";
+import {GitanalysisComponent} from "./gitanalysis/gitanalysis.component";
 
 
 const routes: Routes = [
@@ -38,6 +40,8 @@ const routes: Routes = [
   {path: 'issue-track', component: IssueTrackComponent},
   {path: 'projectoverview', component: ProjectoverviewComponent},
   {path: 'multiproject', component: ComparemultiprojectComponent},
+  {path: 'sonarqube', component: SonarqubeComponent},
+  {path: 'gitanalysis', component: GitanalysisComponent},
   {path: '**', component: LoginComponent}
 
 
