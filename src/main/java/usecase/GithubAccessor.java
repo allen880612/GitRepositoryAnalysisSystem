@@ -4,5 +4,5 @@ import dto.GithubUserDTO;
 
 public interface GithubAccessor {
     String getGitHubToken(String code);
-    GithubUserDTO getRequester(String token);
+    GithubUserDTO getUserInfo(String token);
 }

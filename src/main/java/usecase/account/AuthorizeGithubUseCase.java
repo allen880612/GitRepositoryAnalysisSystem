@@ -13,22 +13,28 @@ public class AuthorizeGithubUseCase {
 
     }
     public void execute(AuthorizeGithubInput input, AuthorizeGithubOutput output) {
-
-        Account admin = new Account(
+        Account authAccount = new Account(
                 input.getName(),
                 input.getAccount(),
                 input.getPassword()
         );
-        admin.setGithubToken(input.getToken());
+        authAccount.setGithubToken(input.getToken());
 
-        output.setId(admin.getId());
-        output.setName(admin.getName());
-        output.setIsSuccessful(true);
-
-        try {
-            accountRepository.createAccount(admin);
-        } catch (SQLException e) {
-            output.setIsSuccessful(false);
+        boolean isRegistered = accountRepository.verifyAccountWithToken(authAccount);
+        if (isRegistered) {
+            Account existAccount = accountRepository.getAccountWithToken(authAccount);
+//            System.out.println(existAccount.getId());
+            output.setId(existAccount.getId());
+            output.setName(existAccount.getName());
+        } else {
+//            System.out.println("new Account");
+            output.setId(authAccount.getId());
+            output.setName(authAccount.getName());
+            try {
+                accountRepository.createAccount(authAccount);
+            } catch (SQLException e) {
+                output.setIsSuccessful(false);
+            }
         }
     }
 }
