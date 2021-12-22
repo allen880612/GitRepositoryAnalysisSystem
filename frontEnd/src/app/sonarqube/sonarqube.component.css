@@ -1,0 +1,13 @@
+.sonarTable {
+  align-content: center;
+  border-style: dashed;
+  border-color: #0a0800;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.bug{
+  transform:translateX(-5px);
+}
