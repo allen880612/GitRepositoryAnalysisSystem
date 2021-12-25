@@ -38,7 +38,7 @@ import { AuthorizeComponent } from './authorize/authorize.component';
 import { SonarqubeComponent } from './sonarqube/sonarqube.component';
 import { GitanalysisComponent } from './gitanalysis/gitanalysis.component';
 import { ProjectAnalysisComponent } from './project-analysis/project-analysis.component';
-import { ContributorComponent } from './contributor/contributor.component';
+// import { ContributorComponent } from './contributor/contributor.component';
 
 
 
@@ -71,7 +71,7 @@ import { ContributorComponent } from './contributor/contributor.component';
     SonarqubeComponent,
     GitanalysisComponent,
     ProjectAnalysisComponent,
-    ContributorComponent,
+    // ContributorComponent,
 
 
   ],
