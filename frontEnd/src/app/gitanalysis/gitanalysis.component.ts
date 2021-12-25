@@ -45,12 +45,18 @@ export class GitanalysisComponent implements OnInit {
   commitCounts: any;
   owner: any;
   repo: any;
+//控制canvas
+  total_commit_canvas:boolean;
+  contributor_commit_canvas:boolean;
 
   // tslint:disable-next-line:typedef
   ngOnInit(): void {
+    // document.getElementById('contributor_canvas').style.display="none"
+    // document.getElementById('total_canvas').style.display="none"
     this.repo = window.sessionStorage.getItem('repoName');
     this.owner = window.sessionStorage.getItem('owner');
-
+    this.total_commit_canvas=false;
+    this.contributor_commit_canvas=false;
     console.log(this.repo)
     console.log(this.owner)
 
@@ -58,6 +64,10 @@ export class GitanalysisComponent implements OnInit {
   }
 
   getContributor(){
+    document.getElementById('total_canvas').style.display="none"
+    document.getElementById('contributor_canvas').style.display=""
+    if(!this.contributor_commit_canvas){
+
     const commitData = {
       owner: undefined,
       repo: undefined
@@ -67,6 +77,7 @@ export class GitanalysisComponent implements OnInit {
     const data = JSON.stringify(commitData);
     this.commitTrendService.getCommit(data).subscribe(
       request => {
+        this.datas = request;
     //個別圖
     for (let i = 1; i < this.datas.length; i++) {
       for (const temp of this.datas[i].weeks_stats) {
@@ -108,13 +119,17 @@ export class GitanalysisComponent implements OnInit {
     for (let i = Math.round(this.tatolbarCharlist.length / 2); i < this.tatolbarCharlist.length; i++) {
       this.rightTatolbarCharlist.push(this.tatolbarCharlist[i]);
     }
+        this.contributor_commit_canvas=true;
       }
     );
   }
-
+  }
 
   getCommitTrend() {
+    document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('total_canvas').style.display=""
+    if(!this.total_commit_canvas){
+
     const commitData = {
       owner: undefined,
       repo: undefined
@@ -125,7 +140,6 @@ export class GitanalysisComponent implements OnInit {
     const data = JSON.stringify(commitData);
     this.commitTrendService.getCommit(data).subscribe(
       request => {
-
         this.datas = request;
 
         // all 圖
@@ -139,10 +153,11 @@ export class GitanalysisComponent implements OnInit {
           this.barChartData[3].data.push(+temp.lines_count.toString());
         }
         this.commitCounts = this.datas[0].total_commits;
+        this.total_commit_canvas=true;
       }
     );
 
 
   }
-
+  }
 }
