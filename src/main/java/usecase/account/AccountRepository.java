@@ -12,6 +12,7 @@ public interface AccountRepository {
     void updateAccountOwnProject(Account account);
     boolean verifyAccount(Account account);
     boolean verifyAccountWithToken(Account account);
+    Account getAccountWithToken(Account account);
     void deleteAccount(String id);
     void deleteAccountRelations(String id);
     boolean deleteProjectRelations(String userId, String projectId);
