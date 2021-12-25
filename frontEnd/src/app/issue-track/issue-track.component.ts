@@ -53,6 +53,9 @@ export class IssueTrackComponent implements OnInit {
     this.repo = window.sessionStorage.getItem('repoName');
     this.owner = window.sessionStorage.getItem('owner');
 
+    console.log(this.repo);
+    console.log(this.owner);
+
     this.getIssueTrack();
   }
   // tslint:disable-next-line:typedef

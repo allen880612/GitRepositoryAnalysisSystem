@@ -62,3 +62,7 @@
 .personal-avatar{
   border-radius: 50%;
 }
+
+.mat-expansion-panel {
+  width: 100%;
+}

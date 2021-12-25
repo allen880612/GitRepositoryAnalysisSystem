@@ -65,6 +65,7 @@ export class GitanalysisComponent implements OnInit {
 
   getContributor(){
     document.getElementById('total_canvas').style.display="none"
+    document.getElementById('issue_track').style.display="none"
     document.getElementById('contributor_canvas').style.display=""
     if(!this.contributor_commit_canvas){
 
@@ -127,6 +128,7 @@ export class GitanalysisComponent implements OnInit {
 
   getCommitTrend() {
     document.getElementById('contributor_canvas').style.display="none"
+    document.getElementById('issue_track').style.display="none"
     document.getElementById('total_canvas').style.display=""
     if(!this.total_commit_canvas){
 
@@ -156,8 +158,12 @@ export class GitanalysisComponent implements OnInit {
         this.total_commit_canvas=true;
       }
     );
-
-
   }
+  }
+
+  getIssueTrack() {
+    document.getElementById('contributor_canvas').style.display="none"
+    document.getElementById('total_canvas').style.display="none"
+    document.getElementById('issue_track').style.display=""
   }
 }
