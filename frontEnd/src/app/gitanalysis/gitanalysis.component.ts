@@ -54,7 +54,7 @@ export class GitanalysisComponent implements OnInit {
     console.log(this.repo)
     console.log(this.owner)
 
-    this.getCommitTrend();
+    // this.getCommitTrend();
   }
 
   getContributor(){
@@ -114,6 +114,7 @@ export class GitanalysisComponent implements OnInit {
 
 
   getCommitTrend() {
+    document.getElementById('total_canvas').style.display=""
     const commitData = {
       owner: undefined,
       repo: undefined
