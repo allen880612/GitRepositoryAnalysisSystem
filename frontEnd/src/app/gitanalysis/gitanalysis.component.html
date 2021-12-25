@@ -1,19 +1,10 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="gitanalysis.component.css">
-  <title>
-  </title>
-</head>
-
-<body>
 <div style="padding:10px 100px 10px 100px;">
   <div class="myButton">
-    <button>Issue</button>
-    <button>Contributor</button>
-    <button>Code Base</button>
-    <button (click)="getCommitTrend()">Commit</button>
-    <button>Bug List</button>
+      <button>Issue</button>
+      <button (click)="getContributor()">Contributor</button>
+      <button>Code Base</button>
+      <button (click)="getCommitTrend()">Commit</button>
+      <button>Bug List</button>
   </div>
 
   <canvas baseChart
@@ -46,8 +37,3 @@
     </caption>
   </td>
 </div>
-</body>
-
-</html>
-
-<app-footer></app-footer>

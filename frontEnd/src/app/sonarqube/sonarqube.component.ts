@@ -3,8 +3,6 @@ import {SonarqubeService} from "./sonarqube.service";
 import {Router} from "@angular/router";
 import {GetProjectInfoService} from "../choose-project/get-project-info.service";
 
-
-
 class JSONObject {
 }
 

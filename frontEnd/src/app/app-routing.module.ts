@@ -19,6 +19,7 @@ import {ComparemultiprojectComponent} from './comparemultiproject/comparemultipr
 import {AuthorizeComponent} from './authorize/authorize.component';
 import {SonarqubeComponent} from "./sonarqube/sonarqube.component";
 import {GitanalysisComponent} from "./gitanalysis/gitanalysis.component";
+import {ProjectAnalysisComponent} from "./project-analysis/project-analysis.component";
 
 
 const routes: Routes = [
@@ -42,9 +43,8 @@ const routes: Routes = [
   {path: 'multiproject', component: ComparemultiprojectComponent},
   {path: 'sonarqube', component: SonarqubeComponent},
   {path: 'gitanalysis', component: GitanalysisComponent},
+  {path: 'project-analysis', component: ProjectAnalysisComponent},
   {path: '**', component: LoginComponent}
-
-
 ];
 
 @NgModule({
