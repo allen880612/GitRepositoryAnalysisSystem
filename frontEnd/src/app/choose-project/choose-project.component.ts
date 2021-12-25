@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router,ActivatedRoute} from '@angular/router';
 import {GetProjectInfoService} from './get-project-info.service';
 import {DeleteProjectService} from './delete-project.service';
+import {GetRepoInfoOfChosenProjectService} from "../choose-repository/get-repo-info-of-chosen-project.service";
 
 @Component({
   selector: 'app-choose-project',
@@ -20,7 +21,13 @@ export class ChooseProjectComponent implements OnInit {
   UserID = '';
   ChosenProjectID = '';
 
-  constructor(private router: Router, private getProjectInfoService: GetProjectInfoService, private delProjectService: DeleteProjectService, private activerouter:ActivatedRoute ) {}
+  ProjectID = '';
+  repo_datas: any;
+  owner = new Array();
+  repoNames = new Array();
+  totalData = new Array();
+
+  constructor(private router: Router, private getrepoinfoofchosenproject: GetRepoInfoOfChosenProjectService, private getProjectInfoService: GetProjectInfoService, private delProjectService: DeleteProjectService, private activerouter:ActivatedRoute ) {}
 
   ngOnInit(): void {
     this.UserID = window.sessionStorage.getItem('UserID');
@@ -28,7 +35,6 @@ export class ChooseProjectComponent implements OnInit {
   }
 
    getTotalProjectInfo() {
-
       const UserProjectData = {
         userId:undefined,
       };
@@ -47,7 +53,33 @@ export class ChooseProjectComponent implements OnInit {
     const chosenId: string = event.target.id.toString();
     sessionStorage.setItem('ChosenProjectID', chosenId);
     console.log("chosenid:",chosenId)
-    this.router.navigate(['choose-repository']);
+
+    this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
+
+    const UserRepoData = {
+      projectId:undefined,
+    };
+    UserRepoData.projectId  = this.ProjectID;
+    const data = JSON.stringify(UserRepoData);
+    this.getrepoinfoofchosenproject.getRepoDataOfProject(data).subscribe(
+      request => {
+        this.repo_datas = request;
+        console.log(this.repo_datas);
+        for(let item of this.repo_datas){
+          this.repoNames.push(item.repoName);
+          this.owner.push(item.ownerName);
+
+          console.log(this.repoNames);
+          console.log(this.owner);
+
+          sessionStorage.setItem('repoName', this.repoNames[0]);
+          sessionStorage.setItem('owner', this.owner[0]);
+        }
+      }
+    );
+
+    // this.router.navigate(['choose-repository']);
+    this.router.navigate(['sonarqube']);
   }
 
 

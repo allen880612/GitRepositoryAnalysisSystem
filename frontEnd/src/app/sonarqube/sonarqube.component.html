@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="sonarqube.component.css">
+  <title>
+    SonarQube
+  </title>
+</head>
+
+<body>
+<div style="padding:10px 100px 10px 100px;">
+  <div>
+    <br>
+    <div>
+      <table class="sonarTable">
+        <tr>
+          <td style="margin: 20px">
+            SonarQube
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="./assets/images/CodeCoverage.png" width="40" height="40" alt="Code Coverage">
+            Code Coverage
+            <br>
+            <div>{{datas.coverage}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="./assets/images/bug.png" width="50" height="50" alt="Bugs">
+            Bugs
+            <br>
+            <div>{{datas.bugs}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="./assets/images/CodeSmell.png" width="40" height="40" alt="Code Smells">
+            Code Smells
+            <br>
+            <div>{{datas.codeSmell}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="./assets/images/duplicate.png" width="40" height="40" alt="Duplication">
+            Duplication
+            <br>
+            <div>{{datas.duplication}}</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <button (click)="getCommitTrend()">Commit</button>
+  </div>
+</div>
+</body>
+
+</html>
+
+<app-footer></app-footer>
