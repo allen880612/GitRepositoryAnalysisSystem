@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,12 +42,12 @@ public class HttpsRequester {
         return (HttpsURLConnection) requestUrl.openConnection();
     }
 
-    private void setConnectionProperty(HttpsURLConnection conn){
+    private void setConnectionProperty(URLConnection conn){
         for(String property : this.properties.keySet())
             conn.setRequestProperty(property, this.properties.get(property));
     }
 
-    private BufferedReader getJSONUsingHttpsGet(HttpsURLConnection httpsConnection) throws IOException {
+    private BufferedReader getJSONUsingHttpsGet(URLConnection httpsConnection) throws IOException {
         is = httpsConnection.getInputStream();
         isr = new InputStreamReader(is, "UTF-8");
         return new BufferedReader(isr);

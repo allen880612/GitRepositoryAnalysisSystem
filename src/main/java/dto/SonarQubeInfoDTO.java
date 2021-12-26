@@ -2,9 +2,18 @@ package dto;
 
 public class SonarQubeInfoDTO {
     private double coverage;
+    private  boolean isSuccessful = true;
     private int bugs;
     private int codeSmell;
     private double duplication;
+
+    public boolean isSuccessful() {
+        return isSuccessful;
+    }
+
+    public void setSuccessful(boolean successful) {
+        isSuccessful = successful;
+    }
 
     public double getCoverage() {
         return coverage;
