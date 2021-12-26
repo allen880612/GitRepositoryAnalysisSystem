@@ -2,7 +2,8 @@
 <div style="margin-top: 30px">
   <mat-accordion class="example-headers-align">
     <ng-container *ngFor="let title of titles ; let i = index">
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel class="mainPanel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+
         <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
           <mat-panel-title>
             <div>
@@ -12,7 +13,7 @@
           </mat-panel-title>
 
           <mat-panel-description>
-            <tr>
+            <tr style="width: 50vw">
               <p>{{title}}</p>
                 <ng-container *ngFor="let label of labels[i] ; let j = index">
                   <td>
@@ -22,9 +23,9 @@
             </tr>
 
             <p class="status">{{States[i]}}</p>
-
           </mat-panel-description>
         </mat-expansion-panel-header>
+
         <br>
         <br>
         <br>

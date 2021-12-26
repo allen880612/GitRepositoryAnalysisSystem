@@ -25,8 +25,21 @@ export class GitanalysisComponent implements OnInit {
     {data: [], label: 'Commit Trend'},
     {data: [], label: 'Additions'},
     {data: [], label: 'Deletions'},
-    {data: [], label: 'Code Lines'}
+    // {data: [], label: 'CodeBase'}
   ];
+
+  //codebase圖
+
+  barCodeBaseChartData = [
+    {data: [], label: 'CodeBase'}
+  ];
+  barCodeBaseChartLabels = [];
+  barCodeBaseChartOptions = {
+    responsive: true
+  };
+  barCodeBaseChartLegend = true;
+  barCodeBaseChartType = 'line';
+
 
   // 個人圖
 
@@ -48,6 +61,7 @@ export class GitanalysisComponent implements OnInit {
 //控制canvas
   total_commit_canvas:boolean;
   contributor_commit_canvas:boolean;
+  codebase_canvas:boolean;
 
   // tslint:disable-next-line:typedef
   ngOnInit(): void {
@@ -64,6 +78,7 @@ export class GitanalysisComponent implements OnInit {
   }
 
   getContributor(){
+    document.getElementById('codebase_canvas').style.display="none"
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display="none"
     document.getElementById('contributor_canvas').style.display=""
@@ -127,6 +142,7 @@ export class GitanalysisComponent implements OnInit {
   }
 
   getCommitTrend() {
+    document.getElementById('codebase_canvas').style.display="none"
     document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('issue_track').style.display="none"
     document.getElementById('total_canvas').style.display=""
@@ -152,7 +168,7 @@ export class GitanalysisComponent implements OnInit {
           this.barChartData[0].data.push(+temp.commits.toString());
           this.barChartData[1].data.push(+temp.additions.toString());
           this.barChartData[2].data.push(+temp.deletions.toString());
-          this.barChartData[3].data.push(+temp.lines_count.toString());
+          // this.barChartData[3].data.push(+temp.lines_count.toString());
         }
         this.commitCounts = this.datas[0].total_commits;
         this.total_commit_canvas=true;
@@ -160,8 +176,39 @@ export class GitanalysisComponent implements OnInit {
     );
   }
   }
+getCodeBase(){
+  document.getElementById('total_canvas').style.display="none"
+  document.getElementById('issue_track').style.display="none"
+  document.getElementById('contributor_canvas').style.display="none"
+  document.getElementById('codebase_canvas').style.display=""
+  if(!this.codebase_canvas){
 
+
+     const commitData = {
+       owner: undefined,
+       repo: undefined
+  };
+
+  commitData.owner = this.owner;
+  commitData.repo = this.repo;
+  const data = JSON.stringify(commitData);
+  this.commitTrendService.getCommit(data).subscribe(
+    request => {
+      this.datas = request;
+      // all 圖
+      for (const temp of this.datas[0].weeks_stats) {
+        const s = new Date(+temp.start_week * 1000);
+        // clear?
+        this.barCodeBaseChartLabels.push(s.toLocaleDateString());
+        this.barCodeBaseChartData[0].data.push(+temp.lines_count.toString());
+      }
+      this.codebase_canvas=true;
+    }
+  );
+  }
+}
   getIssueTrack() {
+    document.getElementById('codebase_canvas').style.display="none"
     document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display=""

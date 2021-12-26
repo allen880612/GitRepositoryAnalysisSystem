@@ -2,12 +2,12 @@
   <div class="myButton">
       <button (click)="getIssueTrack()">Issue</button>
       <button (click)="getContributor()">Contributor</button>
-      <button>Code Base</button>
+      <button (click)="getCodeBase()">Code Base</button>
       <button (click)="getCommitTrend()">Commit</button>
       <button>Bug List</button>
   </div>
 
-  <div id="total_canvas" style="display:none;">
+  <div id="total_canvas" style="display:none; margin-top: 30px">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -17,7 +17,17 @@
     </canvas>
   </div>
 
-  <div id="contributor_canvas" style="display:none;">
+  <div id="codebase_canvas" style="display:none; margin-top: 30px">
+    <canvas baseChart
+            [datasets]="barCodeBaseChartData"
+            [labels]="barCodeBaseChartLabels"
+            [options]="barCodeBaseChartOptions"
+            [legend]="barCodeBaseChartLegend"
+            [chartType]="barCodeBaseChartType">
+    </canvas>
+  </div>
+
+  <div id="contributor_canvas" style="display:none; margin-top: 30px">
     <td>
       <caption style="text-align:center; color:blue" *ngFor="let barChar of leftTatolbarCharlist">{{barChar[5]}}
         <canvas baseChart width="500%"

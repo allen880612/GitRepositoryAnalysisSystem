@@ -66,3 +66,7 @@
 .mat-expansion-panel {
   width: 100%;
 }
+
+.mainPanel {
+  width: 70vw;
+}
