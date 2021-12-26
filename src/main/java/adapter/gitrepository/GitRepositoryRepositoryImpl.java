@@ -60,6 +60,7 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
     public void deleteGitRepository(String id) {
         final String delete = "DELETE FROM gitrepository WHERE id=?";
         try{
+            assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
