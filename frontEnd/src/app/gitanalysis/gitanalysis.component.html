@@ -4,7 +4,7 @@
       <button (click)="getContributor()">Contributor</button>
       <button (click)="getCodeBase()">Code Base</button>
       <button (click)="getCommitTrend()">Commit</button>
-      <button>Bug List</button>
+      <button (click)="getBugList()">Bug List</button>
   </div>
 
   <div id="total_canvas" style="display:none; margin-top: 30px">
@@ -52,7 +52,11 @@
     </td>
   </div>
 
-  <div id="issue_track" style="display:none;">
-      <app-issue-track></app-issue-track>
+  <div id="issue_track" style="display:none; margin-top: 30px">
+    <app-issue-track></app-issue-track>
+  </div>
+
+  <div id="bug_list" style="display:none; margin-top: 30px">
+    <app-buglist></app-buglist>
   </div>
 </div>

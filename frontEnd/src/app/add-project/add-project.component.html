@@ -37,11 +37,12 @@
                     <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
                         <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-5"><br>Create Project</h4>
                         <form action="" class="addProject" method="post">
+<!--                          git專案新增版面-->
                             <div class="rgba" style="text-align:left;">
                                 <table>
                                     <tr>
                                         <td rowspan="3" width="25%" style="text-align:left;">
-                                            <h4 class="display-4">Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
+                                            <h4 class="display-4">Git Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
                                         </td>
                                         <td colspan="1" width="25%" style="text-align:right;">
                                           <h4 class="display-4">Add Github Repo Link : <br>
@@ -60,6 +61,36 @@
                                   <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription" id="ProjectDescriptionInputText" name="ProjectDescriptionInputTextArea" rows="10" cols="50" size="50%" maxlength="80" placeholder="長度限制:80字" type="text"
                                         onkeyup=""></textarea></h4>
                             </div>
+<!--                          git專案新增版面-->
+
+<!--                          sonar專案新增版面-->
+                          <div class="rgba" style="text-align:left;">
+                            <table>
+                              <tr>
+                                <td rowspan="3" width="25%" style="text-align:left;">
+                                  <h4 class="display-4">Sonar Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
+                                </td>
+                                <td colspan="1" width="25%" style="text-align:right;">
+                                  <h4 class="display-4">Add Sonar Repo Link : <br>
+                                    <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" ><span class="  text-black display-4" href="#"></span>
+                                    <button type="submit" (click)="CheckGitRepoUrlVaild()">Add</button>
+                                  </h4>
+                                  <h3  style="color:red; " >{{badImportMsg}}</h3>
+                                  <section *ngFor="let item of InputGitRepoUrlList">
+                                    <h4><div style="text-align:left;">{{item}}[導入成功] <br></div></h4>
+                                  </section>
+
+                                </td>
+                              </tr>
+                            </table>
+                            <h4 class="display-4 ">Project Description(optional):<br>
+                              <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription" id="ProjectDescriptionInputText" name="ProjectDescriptionInputTextArea" rows="10" cols="50" size="50%" maxlength="80" placeholder="長度限制:80字" type="text"
+                                        onkeyup=""></textarea></h4>
+                          </div>
+<!--                          sonar專案新增版面-->
+
+
+
                             <div style="text-align:center;" class="display-4">
                                 <button type="submit" class = "ProjectCreation" (click)="CreatProject()" >Create Project</button>
                             </div>

@@ -82,6 +82,8 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display="none"
     document.getElementById('contributor_canvas').style.display=""
+    document.getElementById('bug_list').style.display="none"
+
     if(!this.contributor_commit_canvas){
 
     const commitData = {
@@ -146,6 +148,7 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('issue_track').style.display="none"
     document.getElementById('total_canvas').style.display=""
+    document.getElementById('bug_list').style.display="none"
     if(!this.total_commit_canvas){
 
     const commitData = {
@@ -176,35 +179,36 @@ export class GitanalysisComponent implements OnInit {
     );
   }
   }
-getCodeBase(){
-  document.getElementById('total_canvas').style.display="none"
-  document.getElementById('issue_track').style.display="none"
-  document.getElementById('contributor_canvas').style.display="none"
-  document.getElementById('codebase_canvas').style.display=""
-  if(!this.codebase_canvas){
+  getCodeBase(){
+    document.getElementById('total_canvas').style.display="none"
+    document.getElementById('issue_track').style.display="none"
+    document.getElementById('contributor_canvas').style.display="none"
+    document.getElementById('codebase_canvas').style.display=""
+    document.getElementById('bug_list').style.display="none"
+    if(!this.codebase_canvas){
 
 
-     const commitData = {
-       owner: undefined,
-       repo: undefined
-  };
+       const commitData = {
+         owner: undefined,
+         repo: undefined
+    };
 
-  commitData.owner = this.owner;
-  commitData.repo = this.repo;
-  const data = JSON.stringify(commitData);
-  this.commitTrendService.getCommit(data).subscribe(
-    request => {
-      this.datas = request;
-      // all 圖
-      for (const temp of this.datas[0].weeks_stats) {
-        const s = new Date(+temp.start_week * 1000);
-        // clear?
-        this.barCodeBaseChartLabels.push(s.toLocaleDateString());
-        this.barCodeBaseChartData[0].data.push(+temp.lines_count.toString());
+    commitData.owner = this.owner;
+    commitData.repo = this.repo;
+    const data = JSON.stringify(commitData);
+    this.commitTrendService.getCommit(data).subscribe(
+      request => {
+        this.datas = request;
+        // all 圖
+        for (const temp of this.datas[0].weeks_stats) {
+          const s = new Date(+temp.start_week * 1000);
+          // clear?
+          this.barCodeBaseChartLabels.push(s.toLocaleDateString());
+          this.barCodeBaseChartData[0].data.push(+temp.lines_count.toString());
+        }
+        this.codebase_canvas=true;
       }
-      this.codebase_canvas=true;
-    }
-  );
+    );
   }
 }
   getIssueTrack() {
@@ -212,5 +216,14 @@ getCodeBase(){
     document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display=""
+    document.getElementById('bug_list').style.display="none"
+  }
+
+  getBugList() {
+    document.getElementById('codebase_canvas').style.display="none"
+    document.getElementById('contributor_canvas').style.display="none"
+    document.getElementById('total_canvas').style.display="none"
+    document.getElementById('issue_track').style.display="none"
+    document.getElementById('bug_list').style.display=""
   }
 }

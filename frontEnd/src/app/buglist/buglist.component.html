@@ -1,0 +1,30 @@
+<meta charset="UTF-8" />
+<div>
+  <mat-accordion class="example-headers-align">
+    <ng-container *ngFor="let title of titles ; let i = index">
+      <mat-expansion-panel class="mainPanel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+
+        <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+          <mat-panel-title>
+<!--            <div>-->
+<!--              <img [src]="avatars[i]" height="45" class="personal-avatar">-->
+<!--              {{posters[i]}}-->
+<!--            </div>-->
+            {{title}}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <tr style="width: 50vw">
+              <p>{{severities[i]}}</p>
+                <td>
+                  <mat-basic-chip>{{efforts[i]}}</mat-basic-chip>
+                </td>
+            </tr>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+      </mat-expansion-panel>
+
+    </ng-container>
+  </mat-accordion>
+</div>

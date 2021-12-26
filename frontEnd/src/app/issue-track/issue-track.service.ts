@@ -6,8 +6,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class IssueTrackService {
-
-
   constructor(private httpClient: HttpClient) {}
 
   // tslint:disable-next-line:typedef
