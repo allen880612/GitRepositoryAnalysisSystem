@@ -2,7 +2,7 @@ package adapter.servlet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.HttpsRequester;
+import adapter.HttpsRequester;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

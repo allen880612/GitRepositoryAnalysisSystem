@@ -4,8 +4,8 @@ import domain.SonarProject;
 import dto.SonarQubeInfoDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.HttpsRequester;
 import usecase.SonarQubeAccessor;
+import usecase.URLRequester;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +13,7 @@ import java.util.Base64;
 import java.util.List;
 
 public class SonarQubeAccessorImpl implements SonarQubeAccessor {
-    private HttpsRequester getRequester;
+    private URLRequester getRequester;
 
     private String hostUrl;
     private String projectKey;
@@ -24,7 +24,7 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
         this.projectKey = sonarProject.getProjectKey();
         this.token = sonarProject.getToken();
 
-        this.getRequester = new HttpsRequester();
+        this.getRequester = new HttpRequester();
         initializeAuthorization();
     }
 
@@ -33,7 +33,7 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
         this.projectKey = projectKey;
         this.token = token;
 
-        this.getRequester = new HttpsRequester();
+        this.getRequester = new HttpRequester();
         getRequester.addHTTPSGetProperty("Content-Type", "application/json");
         initializeAuthorization();
     }

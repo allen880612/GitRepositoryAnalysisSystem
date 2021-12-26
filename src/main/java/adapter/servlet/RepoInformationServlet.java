@@ -4,7 +4,7 @@ import adapter.gitrepository.GitRepositoryRepositoryImpl;
 import domain.GitRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.HttpsRequester;
+import adapter.HttpsRequester;
 import usecase.gitrepository.GitRepositoryRepository;
 
 import javax.servlet.ServletException;
