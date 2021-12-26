@@ -19,6 +19,28 @@ public class SonarAccessorTest {
     }
 
     @Test
+    public void GetSonarInfoTest() {
+        String sonnarToken = "token";
+        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
+        Assert.assertTrue(sonarQubeInfoDto.isSuccessful());
+        Assert.assertEquals(16, sonarQubeInfoDto.getBugs());
+    }
+
+    @Test
+    public void GetSonarBugListTest() {
+        String sonnarToken = "token";
+        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
+        Assert.assertTrue(sonarQubeInfoDto.isSuccessful());
+        Assert.assertEquals(16, sonarQubeInfoDto.getBugs());
+    }
+
+    @Test
     public void MappingDtoByGsonTest() {
         Gson gson = new Gson();
         SonarInfoGsonAdapter sonarMeasures = gson.fromJson("{\n" +
