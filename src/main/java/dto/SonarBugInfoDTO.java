@@ -2,7 +2,28 @@ package dto;
 
 public class SonarBugInfoDTO {
     private String title;
+    private String component;
     private String severity;
-    private String redirt_url;
+    private String redirectUrl;
     private String effort;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
+
+    public void setEffort(String effort) {
+        this.effort = effort;
+    }
 }

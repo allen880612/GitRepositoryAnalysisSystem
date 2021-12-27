@@ -1,5 +1,7 @@
 package adapter.gson;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class SonarInfoGsonAdapter {
@@ -7,7 +9,8 @@ public class SonarInfoGsonAdapter {
 
     class SonarInfo {
 //        private  boolean isSuccessful = true;
-        protected String metric;
+        @SerializedName("metric")
+        protected String key;
         protected double value;
     }
 }

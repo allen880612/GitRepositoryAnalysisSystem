@@ -4,6 +4,7 @@ import adapter.SonarQubeAccessorImpl;
 import adapter.gson.SonarBugListGsonAdapter;
 import com.google.gson.Gson;
 import domain.SonarProject;
+import dto.SonarBugListDTO;
 import dto.SonarQubeInfoDTO;
 import adapter.gson.SonarInfoGsonAdapter;
 import org.junit.Assert;
@@ -13,37 +14,75 @@ import org.junit.Test;
 
 public class SonarAccessorTest {
 
+    private String token;
+    private String hostUrl;
+    private String projectKey;
+
     @Before
     public void setUp(){
-
+        token = "tojen";
+        hostUrl = "IP";
+        projectKey = "GSAS";
     }
 
     @Test
     public void GetSonarInfoTest() {
-        String sonnarToken = "token";
-        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
+        SonarProject sonarProject = new SonarProject(hostUrl, projectKey, token);
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
 
         SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
+
         Assert.assertTrue(sonarQubeInfoDto.isSuccessful());
         Assert.assertEquals(16, sonarQubeInfoDto.getBugs());
     }
 
     @Test
-    public void GetSonarBugListTest() {
-        String sonnarToken = "token";
-        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
+    public void GetBugListTest() {
+        SonarProject sonarProject = new SonarProject(hostUrl, projectKey, token);
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
 
-        SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
-        Assert.assertTrue(sonarQubeInfoDto.isSuccessful());
-        Assert.assertEquals(16, sonarQubeInfoDto.getBugs());
+        SonarBugListDTO sonarBugListDto = sonarQubeAccessor.getSonarBugs();
+
+        Assert.assertTrue(sonarBugListDto.isSuccessful());
+    }
+
+    @Test
+    public void ValidTokenShouldBeValidTest() {
+        SonarProject sonarProject = new SonarProject(hostUrl, projectKey, token);
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        Assert.assertTrue(sonarQubeAccessor.isSonarProjectValid());
+    }
+
+    @Test
+    public void InvalidHostShouldBeInvalidTest() {
+        SonarProject sonarProject = new SonarProject("invalidUrl", projectKey, token);
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        Assert.assertFalse(sonarQubeAccessor.isSonarProjectValid());
+    }
+
+    @Test
+    public void InvalidProjectKeyShouldBeInvalidTest() {
+        SonarProject sonarProject = new SonarProject(hostUrl, "notExist", token);
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        Assert.assertFalse(sonarQubeAccessor.isSonarProjectValid());
+    }
+
+    @Test
+    public void InvalidTokenShouldBeInvalidTest() {
+        SonarProject sonarProject = new SonarProject(hostUrl, projectKey, "invalidToken");
+        SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
+
+        Assert.assertFalse(sonarQubeAccessor.isSonarProjectValid());
     }
 
     @Test
     public void MappingDtoByGsonTest() {
         Gson gson = new Gson();
-        SonarInfoGsonAdapter sonarMeasures = gson.fromJson("{\n" +
+        SonarInfoGsonAdapter sonarInfoAdapter;
+        String content = "{\n" +
                 "    \"measures\": [\n" +
                 "        {\n" +
                 "            \"metric\": \"bugs\",\n" +
@@ -70,8 +109,9 @@ public class SonarAccessorTest {
                 "            \"bestValue\": false\n" +
                 "        }\n" +
                 "    ]\n" +
-                "}", SonarInfoGsonAdapter.class);
-        System.out.println(new Gson().toJson(sonarMeasures));
+                "}";
+        sonarInfoAdapter = gson.fromJson(content, SonarInfoGsonAdapter.class);
+//        System.out.println(gson.toJson(sonarInfoAdapter));
     }
 
     @Test
@@ -156,7 +196,7 @@ public class SonarAccessorTest {
 
         Gson gson = new Gson();
         SonarBugListGsonAdapter adapter = gson.fromJson(content,SonarBugListGsonAdapter.class);
-        System.out.println(gson.toJson(adapter));
+//        System.out.println(gson.toJson(adapter));
     }
 
 
