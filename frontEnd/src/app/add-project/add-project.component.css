@@ -1,1 +1,24 @@
+td {
+  width: 25%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align:top;
+  text-align: left;
+}
 
+.GitHubLogo {
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+.SonarLogo {
+  margin-bottom: 10px;
+}
+
+td.SonarList input {
+  width: 100%;
+}
+
+tr.InputTable td {
+  padding: 20px;
+}
