@@ -78,7 +78,7 @@ export class BuglistComponent implements OnInit {
       efforts:"effort3",
     };
 
-    this.titles.push("bug1");
+    this.titles.push("abcdefghijklmnopqrstuvwxyz");
     this.titles.push("bug2");
     this.titles.push("bug3");
 
