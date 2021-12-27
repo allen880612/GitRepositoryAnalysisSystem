@@ -1,12 +1,12 @@
 package usecase;
 
+import dto.SonarBugInfoDTO;
+import java.util.List;
+import dto.SonarBugListDTO;
 import dto.SonarQubeInfoDTO;
 
-import java.util.List;
-
 public interface SonarQubeAccessor {
-
+    boolean isSonarProjectValid();
     SonarQubeInfoDTO getSonarInfo();
-    List<SonarQubeInfoDTO> getSonarBugs();
-
+    SonarBugListDTO getSonarBugs();
 }
