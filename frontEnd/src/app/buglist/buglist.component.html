@@ -2,7 +2,7 @@
 <div>
   <mat-accordion class="example-headers-align">
     <ng-container *ngFor="let title of titles ; let i = index">
-      <mat-expansion-panel class="mainPanel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel class="mainPanel" hideToggle>
 
         <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
           <mat-panel-title>
@@ -15,13 +15,15 @@
 
           <mat-panel-description>
             <tr style="width: 50vw">
-              <p>{{severities[i]}}</p>
                 <td>
                   <mat-basic-chip>{{efforts[i]}}</mat-basic-chip>
                 </td>
             </tr>
           </mat-panel-description>
         </mat-expansion-panel-header>
+
+        <br>
+        <p>Severity: {{severities[i]}}</p>
 
       </mat-expansion-panel>
 
