@@ -16,6 +16,6 @@ export class SonarqubeService {
       headers
     };
 
-    return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getUserSonarQube', body, options);
+    return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getSonarInfo', body, options);
   }
 }

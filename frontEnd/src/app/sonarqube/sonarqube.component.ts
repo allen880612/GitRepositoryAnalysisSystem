@@ -25,7 +25,7 @@ export class SonarqubeComponent implements OnInit {
   ngOnInit(): void {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
     this.getProjectID();
-    this.datas=this.obj;
+    // this.datas=this.obj;
   }
 
   getCommitTrend() {
@@ -44,12 +44,13 @@ export class SonarqubeComponent implements OnInit {
       projectId: undefined,
     };
     UserProjectID.projectId  = this.ProjectID;
-    // const data = JSON.stringify(UserProjectID);
-    // this.SonarqubeService.getUserSonarQube(data).subscribe(
-    //   request => {
-    //     this.datas = request;
-    //     console.log(this.datas);
-    //   }
-    // );
+
+    const data = JSON.stringify(UserProjectID);
+    this.SonarqubeService.getUserSonarQube(data).subscribe(
+      request => {
+        this.datas = request;
+        console.log(this.datas);
+      }
+    );
   }
 }
