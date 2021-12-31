@@ -37,17 +37,17 @@
                     <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
                         <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-5"><br>Create Project</h4>
                         <form action="" class="addProject" method="post">
-<!--                          git專案新增版面-->
-                            <div class="rgba" style="text-align:left; width:auto; display:inline-block">
-                              <h4 class="display-4">Git Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
-                              <h4 class="display-4 ">Project Description(optional):<br>
-                                <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription" id="ProjectDescriptionInputText" name="ProjectDescriptionInputTextArea" rows="10" cols="50" size="50%" maxlength="80" placeholder="長度限制:80字" type="text"
-                                      onkeyup=""></textarea></h4>
-                            </div>
-<!--                          git專案新增版面-->
-                            <div style="margin: 20px auto 0 auto; text-align: center; width: 60%">
+                            <div style="margin: 20px auto 0 auto; text-align: center;">
                               <table style="margin: auto;">
                                 <tr class="InputTable">
+                                  <td>
+                                    <div class="rgba" style="text-align:left; width:auto; display:inline-block">
+                                      <h4 class="display-4">Git Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
+                                      <h4 class="display-4 ">Project Description(optional):<br>
+                                        <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription" id="ProjectDescriptionInputText" name="ProjectDescriptionInputTextArea" rows="10" cols="50" size="50%" maxlength="80" placeholder="長度限制:80字" type="text"
+                                                  onkeyup=""></textarea></h4>
+                                    </div>
+                                  </td>
                                   <td>
                                     <img src="./assets/images/GitHub-logo.png" class="GitHubLogo" alt="GitHub">
                                     <h4 class="display-4">Add Github Repo Link : <br>
