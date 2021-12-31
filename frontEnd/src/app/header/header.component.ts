@@ -29,7 +29,14 @@ export class HeaderComponent implements OnInit {
 
   NavitoProjectOverview(){
     this.redirectTo("choose-project");
+    // window.location.reload();
   }
+
+  NavitoProjectAnalysis(){
+    this.redirectTo("project-analysis");
+    // window.location.reload();
+  }
+
   NavitoLogout(){
     this.redirectTo("LoginPage");
     window.sessionStorage.clear();
