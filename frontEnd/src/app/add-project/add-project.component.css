@@ -1,1 +1,37 @@
+td {
+  width: 25%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
+.GitHubLogo {
+  width: 60%;
+  display: block;
+  margin: auto auto 10px auto;
+}
+
+.SonarLogo {
+  margin-bottom: 0;
+}
+
+td.SonarList input {
+  width: 100%;
+}
+
+tr.InputTable td {
+  padding: 20px;
+}
+
+tr.ImgTr td {
+  text-overflow: initial;
+  vertical-align: bottom;
+  text-align: center;
+  padding-bottom: 0;
+  /*border: #7abaff solid;*/
+}
+
+tr.InputTr td {
+  vertical-align:top;
+  text-align: left;
+  padding-top: 0;
+}
