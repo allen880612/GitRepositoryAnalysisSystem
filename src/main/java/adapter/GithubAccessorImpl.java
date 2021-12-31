@@ -1,13 +1,9 @@
 package adapter;
 
-import adapter.account.CreateAccountInputImpl;
 import dto.GithubUserDTO;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import usecase.GithubAccessor;
-import usecase.HttpsRequester;
 import usecase.PostJSONWithHttpURLConnection;
-import usecase.account.CreateAccountInput;
 
 import java.io.IOException;
 

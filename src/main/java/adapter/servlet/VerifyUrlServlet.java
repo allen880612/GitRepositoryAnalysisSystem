@@ -1,7 +1,7 @@
 package adapter.servlet;
 
 import org.json.JSONObject;
-import usecase.HttpsRequester;
+import adapter.HttpsRequester;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.HttpsRequester;
+import adapter.HttpsRequester;
 
 import java.io.IOException;
 

@@ -1,5 +1,6 @@
 package usecase;
 
+import adapter.HttpsRequester;
 import adapter.gitrepository.GitRepositoryRepositoryImpl;
 import domain.GitRepository;
 import org.json.JSONArray;
