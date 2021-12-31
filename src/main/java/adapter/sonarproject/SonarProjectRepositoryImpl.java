@@ -45,7 +45,13 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
     }
 
     @Override
-    public void createSonarProject(SonarProject sonarProject) {
+    public SonarProject getSonarProjectByProjectId(String projectId) {
+        return null;
+    }
+
+    // TODO: get SonarProject by projectId
+    @Override
+    public void createSonarProject(SonarProject sonarProject, String projectId) {
         sonarProjects.add(sonarProject);
         final String insert = " INSERT INTO sonarproject(sonar_project_id, host_url, token, project_key, project_id) VALUES(?,?,?,?,?) ";
 //        final String queryProjectIdBySonarProject = "SELECT project_id FROM project WHERE sonar_project_id=?";

@@ -5,6 +5,7 @@ import domain.SonarProject;
 
 public interface SonarProjectRepository {
     SonarProject getSonarProjectById(String id);
-    void createSonarProject(SonarProject sonarProject);
+    SonarProject getSonarProjectByProjectId(String projectId);
+    void createSonarProject(SonarProject sonarProject, String projectId);
     void deleteSonarProject(String id);
 }
