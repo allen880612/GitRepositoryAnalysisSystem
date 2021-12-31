@@ -75,11 +75,15 @@ export class ChooseProjectComponent implements OnInit {
           sessionStorage.setItem('repoName', this.repoNames[0]);
           sessionStorage.setItem('owner', this.owner[0]);
         }
+        this.router.navigate(['project-analysis']);
+        // this.router.navigate(['issue-track']);
+
       }
     );
 
     // this.router.navigate(['choose-repository']);
-    this.router.navigate(['sonarqube']);
+    // this.router.navigate(['sonarqube']);
+
   }
 
 

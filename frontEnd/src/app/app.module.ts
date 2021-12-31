@@ -37,6 +37,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { AuthorizeComponent } from './authorize/authorize.component';
 import { SonarqubeComponent } from './sonarqube/sonarqube.component';
 import { GitanalysisComponent } from './gitanalysis/gitanalysis.component';
+import { ProjectAnalysisComponent } from './project-analysis/project-analysis.component';
+import { BuglistComponent } from './buglist/buglist.component';
+// import { ContributorComponent } from './contributor/contributor.component';
 
 
 
@@ -68,6 +71,9 @@ import { GitanalysisComponent } from './gitanalysis/gitanalysis.component';
     AuthorizeComponent,
     SonarqubeComponent,
     GitanalysisComponent,
+    ProjectAnalysisComponent,
+    BuglistComponent,
+    // ContributorComponent,
 
 
   ],

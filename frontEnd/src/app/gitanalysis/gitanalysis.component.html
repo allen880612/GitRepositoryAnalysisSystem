@@ -1,53 +1,62 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="gitanalysis.component.css">
-  <title>
-  </title>
-</head>
-
-<body>
-<div style="padding:10px 100px 10px 100px;">
+<div style="padding:10px 10px 10px 10px;">
   <div class="myButton">
-    <button>Issue</button>
-    <button>Contributor</button>
-    <button>Code Base</button>
-    <button (click)="getCommitTrend()">Commit</button>
-    <button>Bug List</button>
+      <button (click)="getIssueTrack()">Issue</button>
+      <button (click)="getContributor()">Contributor</button>
+      <button (click)="getCodeBase()">Code Base</button>
+      <button (click)="getCommitTrend()">Commit</button>
+      <button (click)="getBugList()">Bug List</button>
   </div>
 
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-  </canvas>
-  <td>
-    <caption style="text-align:center; color:blue" *ngFor="let barChar of leftTatolbarCharlist">{{barChar[5]}}
-      <canvas baseChart width="500%"
-              [datasets]="barChar[4]"
-              [labels]="barChar[3]"
-              [options]="barChar[0]"
-              [legend]="barChar[2]"
-              [chartType]="barChar[1]">
-      </canvas>
-    </caption>
-  </td>
-  <td>
-    <caption style="text-align:center; color:blue" *ngFor="let barChar of rightTatolbarCharlist">{{barChar[5]}}
-      <canvas baseChart  width="500%"
-              [datasets]="barChar[4]"
-              [labels]="barChar[3]"
-              [options]="barChar[0]"
-              [legend]="barChar[2]"
-              [chartType]="barChar[1]">
-      </canvas>
-    </caption>
-  </td>
+  <div id="total_canvas" style="display:none; margin-top: 30px">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+
+  <div id="codebase_canvas" style="display:none; margin-top: 30px">
+    <canvas baseChart
+            [datasets]="barCodeBaseChartData"
+            [labels]="barCodeBaseChartLabels"
+            [options]="barCodeBaseChartOptions"
+            [legend]="barCodeBaseChartLegend"
+            [chartType]="barCodeBaseChartType">
+    </canvas>
+  </div>
+
+  <div id="contributor_canvas" style="display:none; margin-top: 30px">
+    <td>
+      <caption style="text-align:center; color:blue" *ngFor="let barChar of leftTatolbarCharlist">{{barChar[5]}}
+        <canvas baseChart width="500%"
+                [datasets]="barChar[4]"
+                [labels]="barChar[3]"
+                [options]="barChar[0]"
+                [legend]="barChar[2]"
+                [chartType]="barChar[1]">
+        </canvas>
+      </caption>
+    </td>
+    <td>
+      <caption style="text-align:center; color:blue" *ngFor="let barChar of rightTatolbarCharlist">{{barChar[5]}}
+        <canvas baseChart  width="500%"
+                [datasets]="barChar[4]"
+                [labels]="barChar[3]"
+                [options]="barChar[0]"
+                [legend]="barChar[2]"
+                [chartType]="barChar[1]">
+        </canvas>
+      </caption>
+    </td>
+  </div>
+
+  <div id="issue_track" style="display:none; margin-top: 30px">
+    <app-issue-track></app-issue-track>
+  </div>
+
+  <div id="bug_list" style="display:none; margin-top: 30px">
+    <app-buglist></app-buglist>
+  </div>
 </div>
-</body>
-
-</html>
-
-<app-footer></app-footer>
