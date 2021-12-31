@@ -35,12 +35,12 @@
             <div class="row justify-content-center">
                 <div class="title col-md-12 col-lg-10">
                     <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
-                        <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-5"><br>Create Project</h4>
+                        <h4 class="mbr-section-subtitle align-center mbr-fonts-style display-5" style="font-family: Impact; margin-top: 30px;"><br>Create Project</h4>
                         <form action="" class="addProject" method="post">
-                            <div style="margin: 20px auto 0 auto; text-align: center;">
+                            <div style="margin: 0 auto 0 auto; text-align: center;">
                               <table style="margin: auto;">
                                 <tr class="InputTable">
-                                  <td>
+                                  <td style="vertical-align:top;">
                                     <div class="rgba" style="text-align:left; width:auto; display:inline-block">
                                       <h4 class="display-4">Git Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
                                       <h4 class="display-4 ">Project Description(optional):<br>
@@ -48,36 +48,69 @@
                                                   onkeyup=""></textarea></h4>
                                     </div>
                                   </td>
-                                  <td>
-                                    <img src="./assets/images/GitHub-logo.png" class="GitHubLogo" alt="GitHub">
-                                    <h4 class="display-4">Add Github Repo Link : <br>
-                                      <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" ><span class="  text-black display-4" href="#"></span>
-<!--                                      <button type="submit" (click)="CheckGitRepoUrlVaild()">Add</button>-->
-                                    </h4>
-                                    <h3  style="color:red;">{{badGitImportMsg}}</h3>
-<!--                                    <section *ngFor="let item of InputGitRepoUrlList">-->
-<!--                                      <h4><div style="text-align:left;">{{item}}[導入成功] <br></div></h4>-->
-<!--                                    </section>-->
+                                  <td style="vertical-align:top;">
+                                  <table style="margin: auto;">
+                                    <tr class="ImgTr">
+                                      <td>
+                                        <img src="./assets/images/GitHub-logo.png" class="GitHubLogo" alt="GitHub">
+                                      </td>
+                                      <td>
+                                        <img src="./assets/images/sonar.png" class="SonarLogo" alt="SonarQube">
+                                      </td>
+                                    </tr>
+                                    <tr class="InputTr">
+                                      <td>
+                                        <h4 class="display-4">Add Github Repo Link : <br>
+                                          <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" ><span class="  text-black display-4" href="#"></span>
+                                          <!--                                      <button type="submit" (click)="CheckGitRepoUrlVaild()">Add</button>-->
+                                        </h4>
+                                      </td>
+                                      <td>
+                                        <h4 class="display-4">Add Sonar Host : <br>
+                                          <input type="text" name="SonarHost" placeholder="Sonar Host:" [(ngModel)]="InputSonarHost" ><span class="  text-black display-4" href="#"></span>
+                                        </h4>
+                                        <h4 class="display-4">Add Sonar Project Key : <br>
+                                          <input type="text" name="SonarProjectKey" placeholder="Sonar Project Key:" [(ngModel)]="InputSonarProjectKey" ><span class="  text-black display-4" href="#"></span>
+                                        </h4>
+                                        <h4 class="display-4">Add Sonar Token : <br>
+                                          <input type="text" name="SonarToken" placeholder="Sonar Token:" [(ngModel)]="InputSonarToken" ><span class="  text-black display-4" href="#"></span>
+                                        </h4>
+                                      </td>
+                                    </tr>
+                                  </table>
                                   </td>
-                                  <td class="SonarList">
-                                    <img src="./assets/images/sonar.png" class="SonarLogo" alt="SonarQube">
-                                    <h4 class="display-4">Add Sonar Host : <br>
-                                      <input type="text" name="SonarHost" placeholder="Sonar Host:" [(ngModel)]="InputSonarHost" ><span class="  text-black display-4" href="#"></span>
-                                    </h4>
-                                    <h4 class="display-4">Add Sonar Project Key : <br>
-                                      <input type="text" name="SonarProjectKey" placeholder="Sonar Project Key:" [(ngModel)]="InputSonarProjectKey" ><span class="  text-black display-4" href="#"></span>
-                                    </h4>
-                                    <h4 class="display-4">Add Sonar Token : <br>
-                                      <input type="text" name="SonarToken" placeholder="Sonar Token:" [(ngModel)]="InputSonarToken" ><span class="  text-black display-4" href="#"></span>
-                                    </h4>
-                                    <h3  style="color:red; " >{{badSonarImportMsg}}</h3>
-                                  </td>
+<!--                                  <td>-->
+<!--                                    <img src="./assets/images/GitHub-logo.png" class="GitHubLogo" alt="GitHub">-->
+<!--                                    <h4 class="display-4">Add Github Repo Link : <br>-->
+<!--                                      <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" ><span class="  text-black display-4" href="#"></span>-->
+<!--&lt;!&ndash;                                      <button type="submit" (click)="CheckGitRepoUrlVaild()">Add</button>&ndash;&gt;-->
+<!--                                    </h4>-->
+<!--                                    <h3  style="color:red;">{{badGitImportMsg}}</h3>-->
+<!--&lt;!&ndash;                                    <section *ngFor="let item of InputGitRepoUrlList">&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <h4><div style="text-align:left;">{{item}}[導入成功] <br></div></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </section>&ndash;&gt;-->
+<!--                                  </td>-->
+<!--                                  <td class="SonarList">-->
+<!--                                    <img src="./assets/images/sonar.png" class="SonarLogo" alt="SonarQube">-->
+<!--                                    <h4 class="display-4">Add Sonar Host : <br>-->
+<!--                                      <input type="text" name="SonarHost" placeholder="Sonar Host:" [(ngModel)]="InputSonarHost" ><span class="  text-black display-4" href="#"></span>-->
+<!--                                    </h4>-->
+<!--                                    <h4 class="display-4">Add Sonar Project Key : <br>-->
+<!--                                      <input type="text" name="SonarProjectKey" placeholder="Sonar Project Key:" [(ngModel)]="InputSonarProjectKey" ><span class="  text-black display-4" href="#"></span>-->
+<!--                                    </h4>-->
+<!--                                    <h4 class="display-4">Add Sonar Token : <br>-->
+<!--                                      <input type="text" name="SonarToken" placeholder="Sonar Token:" [(ngModel)]="InputSonarToken" ><span class="  text-black display-4" href="#"></span>-->
+<!--                                    </h4>-->
+<!--                                    <h3  style="color:red; " >{{badSonarImportMsg}}</h3>-->
+<!--                                  </td>-->
                                 </tr>
                               </table>
                             </div>
 
                             <div style="text-align:center; margin-top: 20px" class="display-4">
-                                <button type="submit" class = "ProjectCreation" (click)="CreatProject()" >Create Project</button>
+                              <button type="submit" class = "ProjectCreation" (click)="CreatProject()" style="border-radius: 8px">Create Project</button>
+                              <h5  style="color:red; margin-top: 15px;">{{badGitImportMsg}}</h5>
+                              <h5  style="color:red; margin-top: 15px;" >{{badSonarImportMsg}}</h5>
                             </div>
                         </form>
 

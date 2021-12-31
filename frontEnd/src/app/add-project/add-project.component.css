@@ -2,17 +2,16 @@ td {
   width: 25%;
   text-overflow: ellipsis;
   white-space: nowrap;
-  vertical-align:top;
-  text-align: left;
 }
 
 .GitHubLogo {
-  margin-bottom: 20px;
-  width: 70%;
+  width: 60%;
+  display: block;
+  margin: auto auto 10px auto;
 }
 
 .SonarLogo {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 td.SonarList input {
@@ -21,4 +20,18 @@ td.SonarList input {
 
 tr.InputTable td {
   padding: 20px;
+}
+
+tr.ImgTr td {
+  text-overflow: initial;
+  vertical-align: bottom;
+  text-align: center;
+  padding-bottom: 0;
+  /*border: #7abaff solid;*/
+}
+
+tr.InputTr td {
+  vertical-align:top;
+  text-align: left;
+  padding-top: 0;
 }
