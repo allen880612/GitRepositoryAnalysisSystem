@@ -16,7 +16,8 @@ export class BuglistComponent implements OnInit {
   titles = [];
   severities = [];
   efforts = [];
-  owner: any;
+  components = [];
+  ProjectID: string;
   repo: any;
   obj1: JSONObject;
   obj2: JSONObject;
@@ -26,12 +27,8 @@ export class BuglistComponent implements OnInit {
   constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.repo = window.sessionStorage.getItem('repoName');
-    this.owner = window.sessionStorage.getItem('owner');
-
-    console.log(this.repo);
-    console.log(this.owner);
-
+    this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
+    console.log(this.ProjectID);
     this.getBugList();
   }
 
@@ -52,55 +49,55 @@ export class BuglistComponent implements OnInit {
 
   getBugList() {
     const bugListData = {
-      owner: undefined,
-      repo: undefined
-    };
-    bugListData.owner = this.owner;
-    bugListData.repo = this.repo;
-
-    this.obj1 = new JSONObject();
-    this.obj1 = {
-      titles:"bug1",
-      severities:"serverties1",
-      efforts:"effort1",
+      projectId: this.ProjectID,
     };
 
-    this.obj2 = new JSONObject();
-    this.obj2 = {
-      titles:"bug2",
-      severities:"serverties2",
-      efforts:"effort2",
-    };
-    this.obj3 = new JSONObject();
-    this.obj3 = {
-      titles:"bug3",
-      severities:"serverties3",
-      efforts:"effort3",
-    };
 
-    this.titles.push("abcdefghijklmnopqrstuvwxyz");
-    this.titles.push("bug2");
-    this.titles.push("bug3");
+    // this.obj1 = new JSONObject();
+    // this.obj1 = {
+    //   titles:"bug1",
+    //   severities:"serverties1",
+    //   efforts:"effort1",
+    // };
+    //
+    // this.obj2 = new JSONObject();
+    // this.obj2 = {
+    //   titles:"bug2",
+    //   severities:"serverties2",
+    //   efforts:"effort2",
+    // };
+    // this.obj3 = new JSONObject();
+    // this.obj3 = {
+    //   titles:"bug3",
+    //   severities:"serverties3",
+    //   efforts:"effort3",
+    // };
+    //
+    // this.titles.push("abcdefghijklmnopqrstuvwxyz");
+    // this.titles.push("bug2");
+    // this.titles.push("bug3");
+    //
+    // this.severities.push("serverties1");
+    // this.severities.push("serverties2");
+    // this.severities.push("serverties3");
+    //
+    // this.efforts.push("effort1");
+    // this.efforts.push("effort2");
+    // this.efforts.push("effort3");
 
-    this.severities.push("serverties1");
-    this.severities.push("serverties2");
-    this.severities.push("serverties3");
-
-    this.efforts.push("effort1");
-    this.efforts.push("effort2");
-    this.efforts.push("effort3");
-
-    // const data = JSON.stringify(bugListData);
-    // this.BuglistService.getBugListService(data).subscribe(
-    //   request => {
-    //     this.datas = request;
-    //     for (const temp of this.datas){
-    //       this.titles.push(temp.title);
-    //       this.seveseverities.push(temp.body);
-    //       this.efforts.push(temp.state);
-    //     }
-    //   }
-    // );
+    const data = JSON.stringify(bugListData);
+    this.BuglistService.getBugListService(data).subscribe(
+      request => {
+        this.datas = request;
+        console.log(this.datas)
+        const bugs = request.bugs;
+        for (const temp of bugs){
+          this.titles.push(temp.title);
+          this.severities.push(temp.severity);
+          this.efforts.push(temp.effort);
+        }
+      }
+    );
   }
 
 }
