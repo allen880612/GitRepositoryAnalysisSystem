@@ -41,6 +41,22 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
         return null;
     }
 
+    public void createGitRepository(GitRepository gitRepository,String projectId) {
+        gitRepositories.add(gitRepository);
+        final String insert = " INSERT INTO gitrepository(id, reponame, ownername, project_id) VALUES(?,?,?,?) ";
+        try {
+            assert conn != null;
+            PreparedStatement preparedStatement = conn.prepareStatement(insert);
+            preparedStatement.setString (1,gitRepository.getId());
+            preparedStatement.setString (2, gitRepository.getRepoName());
+            preparedStatement.setString (3, gitRepository.getOwnerName());
+            preparedStatement.setString (4, projectId);
+            preparedStatement.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void createGitRepository(GitRepository gitRepository) {
         gitRepositories.add(gitRepository);
         final String insert = " INSERT INTO gitrepository(id, reponame, ownername) VALUES(?,?,?) ";
@@ -57,12 +73,12 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
     }
 
     @Override
-    public void deleteGitRepository(String id) {
+    public void deleteGitRepository(String gitRepoId) {
         final String delete = "DELETE FROM gitrepository WHERE id=?";
         try{
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
-            preparedStatement.setString(1, id);
+            preparedStatement.setString(1, gitRepoId);
             preparedStatement.executeUpdate();
         }catch (Exception e){e.printStackTrace();}
     }
