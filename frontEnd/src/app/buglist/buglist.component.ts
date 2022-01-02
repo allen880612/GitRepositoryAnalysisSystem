@@ -52,7 +52,6 @@ export class BuglistComponent implements OnInit {
       projectId: this.ProjectID,
     };
 
-
     // this.obj1 = new JSONObject();
     // this.obj1 = {
     //   titles:"bug1",
