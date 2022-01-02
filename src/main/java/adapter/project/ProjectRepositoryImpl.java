@@ -22,17 +22,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     public void createProject(Project project){
         String id = "";
-        project.addGitRepository(id);
-        updateProject(project);
-        project.removeGitRepository(id);
-    }
 
-    public void updateProject(Project project){
         if(!projects.contains(project)) projects.add(project);
         Project projectInDB = getProjectById(project.getId());
         projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
 
-        final String insert = " INSERT INTO project(id, name, description, repoid) VALUES(?,?,?,?) ";
+        final String insert = " INSERT INTO project(project_id, name, description, repoid,sonar_project_id) VALUES(?,?,?,?,?) ";
         for(String url : project.getGitRepositories()){
             if(projectInDB.getGitRepositories().contains(url)) continue;
             try{
@@ -42,6 +37,36 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 preparedStatement.setString (2, project.getName());
                 preparedStatement.setString (3, project.getDescription());
                 preparedStatement.setString (4, url);
+                preparedStatement.setString (5, project.getSonarProjectID());
+                preparedStatement.execute();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+//    public void createProject(Project project){
+//        String id = "";
+//        project.addGitRepository(id);
+//        updateProject(project);
+//        project.removeGitRepository(id);
+//    }
+    public void updateProject(Project project){
+        if(!projects.contains(project)) projects.add(project);
+        Project projectInDB = getProjectById(project.getId());
+        projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
+
+        final String update = "UPDATE project SET project_id = ?, name=?, description=?, repoid=?,sonar_project_id=? where project_id = ?";
+        for(String url : project.getGitRepositories()){
+            if(projectInDB.getGitRepositories().contains(url)) continue;
+            try{
+                assert conn != null;
+                PreparedStatement preparedStatement = conn.prepareStatement(update);
+                preparedStatement.setString (1, project.getId());
+                preparedStatement.setString (2, project.getName());
+                preparedStatement.setString (3, project.getDescription());
+                preparedStatement.setString (4, url);
+                preparedStatement.setString (5, project.getSonarProjectID());
+                preparedStatement.setString (6, project.getId());
                 preparedStatement.execute();
             }catch (Exception e){
                 e.printStackTrace();
@@ -49,9 +74,31 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
+//    public void updateProject(Project project){
+//        if(!projects.contains(project)) projects.add(project);
+//        Project projectInDB = getProjectById(project.getId());
+//        projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
+//
+//        final String insert = " INSERT INTO project(id, name, description, repoid) VALUES(?,?,?,?) ";
+//        for(String url : project.getGitRepositories()){
+//            if(projectInDB.getGitRepositories().contains(url)) continue;
+//            try{
+//                assert conn != null;
+//                PreparedStatement preparedStatement = conn.prepareStatement(insert);
+//                preparedStatement.setString (1, project.getId());
+//                preparedStatement.setString (2, project.getName());
+//                preparedStatement.setString (3, project.getDescription());
+//                preparedStatement.setString (4, url);
+//                preparedStatement.execute();
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
     @Override
     public boolean deleteProject(String id) {
-        final String delete = "DELETE FROM project WHERE id=?";
+        final String delete = "DELETE FROM project WHERE project_id=?";
         try{
             assert conn!= null;
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
@@ -63,7 +110,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     public Project getProjectById(String id) {
-        final String query = "SELECT name, repoid, description, starttime FROM project WHERE id=?";
+        final String query = "SELECT name, repoid,sonar_project_id, description, starttime FROM project WHERE projject_id=?";
         Project project;
         List<String> gitRepositories = new ArrayList<>();
         try{
