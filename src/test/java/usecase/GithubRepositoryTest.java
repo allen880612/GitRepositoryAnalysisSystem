@@ -1,14 +1,13 @@
 package usecase;
 
+import adapter.HttpsRequester;
 import adapter.gitrepository.GitRepositoryRepositoryImpl;
-import com.mysql.cj.xdevapi.JsonArray;
 import domain.GitRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.GithubRepositoryAccessor;
 import usecase.gitrepository.GitRepositoryRepository;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ public class GithubRepositoryTest {
     @Test
     public void AccessPersonalPublicRepositoryTest() throws IOException {
         String apiUrl = "https://api.github.com/users/octocat/repos";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONArray jsonArray = accessor.httpsGet(apiUrl);
         List<String> personalPublicRepository = new ArrayList<>();
         for (Object object : jsonArray) {
@@ -52,7 +51,7 @@ public class GithubRepositoryTest {
     public void GithubQueryIssueCountTest() throws IOException {
         String apiUrl = " https://api.github.com/search/issues?q=repo:octokit/octopoller.rb%20is:issue%20is:closed";
         String totalCount = "";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONArray jsonArray = accessor.httpsGet(apiUrl);
         for(Object object : jsonArray){
             JSONObject jsonObject = (JSONObject) object;
@@ -65,7 +64,7 @@ public class GithubRepositoryTest {
     public void GithubQueryCommitCountTest() throws IOException {
         String apiUrl = "https://api.github.com/search/commits?q=repo:KEEEER/gphotos-python-download-REST+merge:false";
         String totalCount = "";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         accessor.addHTTPSGetProperty("Accept", "application/vnd.github.cloak-preview+json");
         JSONArray jsonArray = accessor.httpsGet(apiUrl);
         for(Object object : jsonArray){
@@ -78,7 +77,7 @@ public class GithubRepositoryTest {
     @Test
     public void GithubQueryCommitUrlTest() throws IOException {
         String apiUrl = "https://api.github.com/search/commits?q=repo:KEEEER/gphotos-python-download-REST+merge:false";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         accessor.addHTTPSGetProperty("Accept", "application/vnd.github.cloak-preview+json");
         JSONObject jsonObject = (JSONObject) accessor.httpsGet(apiUrl).get(0);
         JSONArray commitItemsJsonArray = jsonObject.getJSONArray("items");
@@ -98,7 +97,7 @@ public class GithubRepositoryTest {
     @Test
     public void GithubQueryCommitMessageTest() throws IOException {
         String apiUrl = "https://api.github.com/search/commits?q=repo:KEEEER/gphotos-python-download-REST+merge:false";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         accessor.addHTTPSGetProperty("Accept", "application/vnd.github.cloak-preview+json");
         JSONObject jsonObject = (JSONObject) accessor.httpsGet(apiUrl).get(0);
         JSONArray commitItemsJsonArray = jsonObject.getJSONArray("items");
@@ -118,7 +117,7 @@ public class GithubRepositoryTest {
     @Test
     public void GithubQueryCommitChangesCountTest() throws IOException {
         String apiUrl = "https://api.github.com/repos/KEEEER/gphotos-python-download-REST/commits/a461ce6e25c15fa9acec47e57bde87baaa0d4f6e";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONObject jsonObject = (JSONObject) accessor.httpsGet(apiUrl).get(0);
         JSONObject commitStatsJsonObject = jsonObject.getJSONObject("stats");
         int totalChanges = commitStatsJsonObject.getInt("total");
@@ -133,7 +132,7 @@ public class GithubRepositoryTest {
     public void RepoInformationTest() throws IOException {
         JSONObject returnJson = new JSONObject();
 
-        String requestRepo = "6b376ef6-76ee-4ca6-89ff-1ec7b1c2bfb5";
+        String requestRepo = "6d69f9d7-b611-4f42-9c17-9550f7814be9";
         GitRepositoryRepository gitRepositoryRepository = new GitRepositoryRepositoryImpl();
         GitRepository gitRepository = gitRepositoryRepository.getGitRepositoryById(requestRepo);
         gitRepository.getOwnerName();
@@ -142,7 +141,7 @@ public class GithubRepositoryTest {
                         gitRepository.getOwnerName() + "/" +
                         gitRepository.getRepoName();
         String contributorsUrl = repoInfoUrl + "/contributors";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
 
         JSONObject repoJson = (JSONObject) accessor.httpsGet(repoInfoUrl).get(0);
         JSONArray contributorsJson  = accessor.httpsGet(contributorsUrl);

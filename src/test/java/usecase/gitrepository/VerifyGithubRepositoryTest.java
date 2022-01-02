@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.GithubRepositoryAccessor;
+import adapter.HttpsRequester;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class VerifyGithubRepositoryTest {
     }
 
     private boolean findKeyWord(String[] metadatas, String keyWord){
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONObject verifyJson = null;
         try {
             for (int i = 0; i < metadatas.length; i++) {

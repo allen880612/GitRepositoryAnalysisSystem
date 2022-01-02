@@ -18,20 +18,17 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public void createAccount(Account account) {
+    public void createAccount(Account account) throws SQLException {
         accounts.add(account);
-        final String insert = " INSERT INTO user(id, name, account, password) VALUES(?,?,?,?) ";
-        try {
-            assert conn != null;
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString (1, account.getId());
-            preparedStatement.setString (2, account.getName());
-            preparedStatement.setString (3, account.getAccount());
-            preparedStatement.setString (4, account.getPassword());
-            preparedStatement.execute();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        final String insert = " INSERT INTO user(id, name, account, password, token) VALUES(?,?,?,?,?) ";
+        assert conn != null;
+        PreparedStatement preparedStatement = conn.prepareStatement(insert);
+        preparedStatement.setString (1, account.getId());
+        preparedStatement.setString (2, account.getName());
+        preparedStatement.setString (3, account.getAccount());
+        preparedStatement.setString (4, account.getPassword());
+        preparedStatement.setString (5, account.getGithubToken());
+        preparedStatement.execute();
     }
 
     @Override
@@ -134,6 +131,61 @@ public class AccountRepositoryImpl implements AccountRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean verifyAccountWithToken(Account account) {
+        final String query = " SELECT id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ? ";
+        Account queryAccount = null;
+        try {
+            PreparedStatement ps = null;
+            ResultSet resultSet;
+            assert conn != null;
+            ps = conn.prepareStatement(query);
+
+            ps.setString(1,account.getName());
+            ps.setString(2,account.getAccount());
+            ps.setString(3,account.getGithubToken());
+            resultSet = ps.executeQuery();
+            resultSet.last();
+            if(resultSet.getRow() == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Account getAccountWithToken(Account account) {
+        final String query = " SELECT id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ?";
+        Account queryAccount = null;
+        try {
+            PreparedStatement ps = null;
+            ResultSet resultSet;
+            this.conn = Database.getConnection();
+            assert conn != null;
+            ps = conn.prepareStatement(query);
+
+            ps.setString(1,account.getName());
+            ps.setString(2,account.getAccount());
+            ps.setString(3,account.getGithubToken());
+            resultSet = ps.executeQuery();
+            if(!resultSet.first()) return null;
+            queryAccount = new Account(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("account"),
+                    ""
+            );
+            queryAccount.setGithubToken(resultSet.getString("token"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryAccount;
     }
 
     @Override

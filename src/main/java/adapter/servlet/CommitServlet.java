@@ -2,7 +2,7 @@ package adapter.servlet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
+import adapter.HttpsRequester;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class CommitServlet extends HttpServlet {
     private JSONArray getPersonalStatsJsonArray(String owner, String repo) throws IOException {
         String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/stats/contributors";
-        GithubRepositoryAccessor accessor = new GithubRepositoryAccessor();
+        HttpsRequester accessor = new HttpsRequester();
         JSONArray jsonArray = accessor.httpsGet(apiUrl);
         JSONArray personalStatsJsonArrayResult = new JSONArray();
         for(Object statsObject : jsonArray) {

@@ -1,7 +1,18 @@
 package adapter.servlet;
+import adapter.GithubAccessorImpl;
+import adapter.account.AccountRepositoryImpl;
+import adapter.account.AuthorizeGithubInputImpl;
+import adapter.account.AuthorizeGithubOutputImpl;
+import com.google.gson.Gson;
+import domain.Account;
+import dto.GithubUserDTO;
 import org.json.JSONObject;
-import usecase.GithubRepositoryAccessor;
+import usecase.GithubAccessor;
 import usecase.PostJSONWithHttpURLConnection;
+import usecase.account.AccountRepository;
+import usecase.account.AuthorizeGithubInput;
+import usecase.account.AuthorizeGithubOutput;
+import usecase.account.AuthorizeGithubUseCase;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,28 +33,24 @@ public class AuthorizeGithubServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = new JSONObject(request.getReader().readLine());
         String code = String.valueOf(requestBody.get("code"));
-        System.out.println("code: " + code);
-        JSONObject jsonObject = new JSONObject();
 
-        String post_url = "https://github.com/login/oauth/access_token";
-        String client_id = System.getenv("Github_Client_Id");
-        String client_secret = System.getenv("Github_Client_Secret");
+        GithubAccessor githubAccessor = new GithubAccessorImpl();
+        String token = githubAccessor.getGitHubToken(code);
+        GithubUserDTO githubUserDto = githubAccessor.getUserInfo(token);
 
-        JSONObject body = new JSONObject();
-        body.put("client_id", client_id);
-        body.put("client_secret", client_secret);
-        body.put("code", code);
+        AuthorizeGithubOutput authOutput = new AuthorizeGithubOutputImpl();
+        if (githubUserDto.isSuccessful()) {
+            AuthorizeGithubInput authInput = new AuthorizeGithubInputImpl
+                    (githubUserDto.getAccount(), "", githubUserDto.getName(), githubUserDto.getId());
 
-        PostJSONWithHttpURLConnection jp = new PostJSONWithHttpURLConnection();
-        try {
-            jsonObject = jp.makeHttpRequest(post_url, body.toString());
-            System.out.println(jsonObject.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+            AuthorizeGithubUseCase authorizeGithubUseCase = new AuthorizeGithubUseCase(new AccountRepositoryImpl());
+            authorizeGithubUseCase.execute(authInput, authOutput);
+        } else {
+            authOutput.setIsSuccessful(false);
         }
 
         PrintWriter out = response.getWriter();
-        out.println(jsonObject) ;
+        out.println(new Gson().toJson(authOutput));
         out.close();
     }
 }
