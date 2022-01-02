@@ -1,6 +1,6 @@
 package dto;
 
-public class SonarBugInfoDTO {
+public class SonarIssueInfoDTO {
     private String type;
     private String title;
     private String component;

@@ -2,12 +2,12 @@ package adapter.gson;
 
 import java.util.List;
 
-public class SonarBugListGsonAdapter {
+public class SonarIssueListGsonAdapter {
     protected int total;
     protected int effortTotal;
-    protected List<BugInfo> issues;
+    protected List<IssueInfo> issues;
 
-    public class BugInfo {
+    public class IssueInfo {
         protected String type;
         protected String key;
         protected String severity;
@@ -33,7 +33,7 @@ public class SonarBugListGsonAdapter {
         return effortTotal;
     }
 
-    public List<BugInfo> getIssues() {
+    public List<IssueInfo> getIssues() {
         return issues;
     }
 }

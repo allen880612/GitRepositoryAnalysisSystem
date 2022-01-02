@@ -6,7 +6,7 @@ import adapter.sonarproject.SonarProjectRepositoryImpl;
 import com.google.gson.Gson;
 import domain.Project;
 import domain.SonarProject;
-import dto.SonarBugListDTO;
+import dto.SonarIssueListDTO;
 import org.json.JSONObject;
 import usecase.SonarQubeAccessor;
 import usecase.project.ProjectRepository;
@@ -43,11 +43,11 @@ public class GetSonarBugListServlet extends HttpServlet {
         SonarProject sonarProject = new SonarProject("ip", "GSAS", sonnarToken);
 
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
-        SonarBugListDTO sonarBugListDTO = sonarQubeAccessor.getSonarIssues();
+        SonarIssueListDTO sonarIssueListDTO = sonarQubeAccessor.getSonarIssueList();
 
         response.setContentType("text/json");
         PrintWriter out = response.getWriter();
-        out.println(new Gson().toJson(sonarBugListDTO));
+        out.println(new Gson().toJson(sonarIssueListDTO));
         out.close();
     }
 
