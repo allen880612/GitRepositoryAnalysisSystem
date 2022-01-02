@@ -39,6 +39,7 @@ import { SonarqubeComponent } from './sonarqube/sonarqube.component';
 import { GitanalysisComponent } from './gitanalysis/gitanalysis.component';
 import { ProjectAnalysisComponent } from './project-analysis/project-analysis.component';
 import { BuglistComponent } from './buglist/buglist.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 // import { ContributorComponent } from './contributor/contributor.component';
 
 
@@ -77,25 +78,26 @@ import { BuglistComponent } from './buglist/buglist.component';
 
 
   ],
-  imports: [ // 宣告要匯入此模組的外部模組
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ChartsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatSelectModule
+    imports: [ // 宣告要匯入此模組的外部模組
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ChartsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatChipsModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatSelectModule,
+        MatCheckboxModule
 
 
-  ],
+    ],
   providers: [], // 宣告要註冊的服務元件
   bootstrap: [AppComponent]
 })

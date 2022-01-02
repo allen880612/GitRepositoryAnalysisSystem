@@ -1,4 +1,35 @@
 <meta charset="UTF-8" />
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [checked]="allComplete"
+                  [color]="task.color"
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{task.name}}
+    </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul style="list-style-type: none;">
+      <li *ngFor="let subtask of task.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{subtask.name}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+</section>
+
+<section [formGroup]="sonarGroup">
+  <h4>Select Type:</h4>
+  <mat-checkbox formControlName="BUG">Bug</mat-checkbox>
+  <mat-checkbox formControlName="CODE_SMELL">Code Smell</mat-checkbox>
+  <mat-checkbox formControlName="VULNERABILITY">Vulnerability</mat-checkbox>
+</section>
+
 <div>
   <mat-accordion class="example-headers-align">
     <ng-container *ngFor="let title of titles ; let i = index">
@@ -21,6 +52,8 @@
 
         <br>
         <p>Severity: {{severities[i]}}</p>
+        <p>RedirectUrls: {{redirectUrls[i]}}</p>
+        <p>Components: {{components[i]}}</p>
 
       </mat-expansion-panel>
 

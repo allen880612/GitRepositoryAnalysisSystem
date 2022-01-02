@@ -95,3 +95,7 @@
 .mainPanel {
   width: 70vw;
 }
+
+mat-checkbox {
+  margin-right: 10px;
+}
