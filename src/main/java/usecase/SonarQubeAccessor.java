@@ -8,5 +8,5 @@ import dto.SonarQubeInfoDTO;
 public interface SonarQubeAccessor {
     boolean isSonarProjectValid();
     SonarQubeInfoDTO getSonarInfo();
-    SonarBugListDTO getSonarBugs();
+    SonarBugListDTO getSonarIssues();
 }

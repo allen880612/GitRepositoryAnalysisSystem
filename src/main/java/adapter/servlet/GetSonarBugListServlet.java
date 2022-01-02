@@ -43,7 +43,7 @@ public class GetSonarBugListServlet extends HttpServlet {
         SonarProject sonarProject = new SonarProject("ip", "GSAS", sonnarToken);
 
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
-        SonarBugListDTO sonarBugListDTO = sonarQubeAccessor.getSonarBugs();
+        SonarBugListDTO sonarBugListDTO = sonarQubeAccessor.getSonarIssues();
 
         response.setContentType("text/json");
         PrintWriter out = response.getWriter();

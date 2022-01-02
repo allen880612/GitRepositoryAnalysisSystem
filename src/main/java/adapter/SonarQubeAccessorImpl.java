@@ -77,8 +77,8 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
     }
 
     @Override
-    public SonarBugListDTO getSonarBugs() {
-        String api = "http://%s/api/issues/search?projectKeys=%s&types=BUG&ps=10";
+    public SonarBugListDTO getSonarIssues() {
+        String api = "http://%s/api/issues/search?projectKeys=%s&ps=100";
         String apiFormatted = String.format(api, hostUrl, projectKey);
         SonarBugListDTO sonarBugListDto = new SonarBugListDTO();
 
@@ -99,12 +99,13 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
         sonarBugListDto.setEffortTotal(adapter.getEffortTotal());
         for ( SonarBugListGsonAdapter.BugInfo bugInfo: adapter.getIssues()) {
             SonarBugInfoDTO bugInfoDto = new SonarBugInfoDTO();
+            bugInfoDto.setType(bugInfo.getType());
             bugInfoDto.setTitle(bugInfo.getMessage());
             bugInfoDto.setEffort(bugInfo.getEffort());
             bugInfoDto.setComponent(bugInfo.getComponent());
             bugInfoDto.setSeverity(bugInfo.getSeverity());
-            String url = "http://%s/project/issues?id=%s&open=%s&resolved=false&types=BUG";
-            String redirectUrl = String.format(url, hostUrl, projectKey, bugInfo.getKey());
+            String url = "http://%s/project/issues?id=%s&open=%s&resolved=false&types=%s";
+            String redirectUrl = String.format(url, hostUrl, projectKey, bugInfo.getKey(), bugInfo.getType());
             bugInfoDto.setRedirectUrl(redirectUrl);
 
             sonarBugListDto.addBugs(bugInfoDto);

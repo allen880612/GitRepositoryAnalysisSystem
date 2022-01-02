@@ -8,7 +8,7 @@ public class SonarBugListGsonAdapter {
     protected List<BugInfo> issues;
 
     public class BugInfo {
-//        private  boolean isSuccessful = true;
+        protected String type;
         protected String key;
         protected String severity;
         protected String component;
@@ -16,29 +16,13 @@ public class SonarBugListGsonAdapter {
         protected String effort;
         protected String updateDate;
 
-        public String getKey() {
-            return key;
-        }
-
-        public String getSeverity() {
-            return severity;
-        }
-
-        public String getComponent() {
-            return component;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getEffort() {
-            return effort;
-        }
-
-        public String getUpdateDate() {
-            return updateDate;
-        }
+        public String getType() { return type; }
+        public String getKey() { return key; }
+        public String getSeverity() { return severity; }
+        public String getComponent() { return component; }
+        public String getMessage() { return message; }
+        public String getEffort() { return effort; }
+        public String getUpdateDate() { return updateDate; }
     }
 
     public int getTotal() {
