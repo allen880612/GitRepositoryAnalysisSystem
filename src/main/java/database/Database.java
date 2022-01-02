@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    public static final String DB = "gras";
+    public static final String DB = "gras_test";
     public static final String REMOTE_IP = "140.124.181.17:3306/";
     public static Connection getConnection() {
         try {
