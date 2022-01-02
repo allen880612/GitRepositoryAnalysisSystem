@@ -9,7 +9,7 @@ public class Project {
     private String name;
     private String description;
     private String startTime;
-    private List<String> gitRepositories;
+    private List<String> gitRepositories;//感覺這行可以刪掉?
     private String sonarProjectID;
     private String gitRepositoryID;
 
@@ -43,8 +43,8 @@ public class Project {
         this.gitRepositories = new ArrayList<>();
     }
 
-    public Project(String id, String name, String description, String startTime, String gitRepoID,String sonarProjectID){
-        this.id = id;
+    public Project(String name, String description, String startTime, String gitRepoID,String sonarProjectID){
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.startTime = startTime;

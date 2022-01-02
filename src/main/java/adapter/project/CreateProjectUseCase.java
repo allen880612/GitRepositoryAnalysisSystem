@@ -27,10 +27,11 @@ public class CreateProjectUseCase {
 
     public void execute(CreateProjectInput input, CreateProjectOutput output){//還沒完成，先下班晚點繼續
         Project project = new Project(input.getName(), input.getDescription(),
-                this.gitRepositoryRepository.getGitRepositoryById().getId(),
-                this.sonarProjectRepository.getSonarProjectByProjectId().getId());
+                "start time",
+                input.getGitRepositoryID(),
+                input.getSonarProjectID());
         projectRepository.createProject(project);
-
+        
         output.setId(project.getId());
         output.setName(project.getName());
         output.setGitRepositories(project.getGitRepositories());

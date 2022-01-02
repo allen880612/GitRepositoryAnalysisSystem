@@ -66,6 +66,8 @@ public class CreateProjectServlet extends HttpServlet {
         CreateProjectOutput output = new CreateProjectOutputImpl();
         input.setName(projectName);
         input.setDescription(projectDescription);
+        input.setGitRepositoryID("GitRepoID");
+        input.setSonarProjectID("SonarProjectID");
 
 //        CreateProjectUseCase createProjectUseCase = new CreateProjectUseCase(projectRepository);
         CreateProjectUseCase createProjectUseCase = new CreateProjectUseCase(projectRepository,gitRepositoryRepository,sonarProjectRepository);
