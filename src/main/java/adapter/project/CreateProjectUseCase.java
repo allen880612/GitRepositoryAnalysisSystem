@@ -21,8 +21,6 @@ public class CreateProjectUseCase {
         this.projectRepository = projectRepository;
         this.gitRepositoryRepository = gitRepositoryRepository;
         this.sonarProjectRepository = sonarProjectRepository;
-        //GitDAO
-        //SonarDAO
     }
 
     public void execute(CreateProjectInput input, CreateProjectOutput output){//還沒完成，先下班晚點繼續
@@ -31,16 +29,10 @@ public class CreateProjectUseCase {
                 input.getGitRepositoryID(),
                 input.getSonarProjectID());
         projectRepository.createProject(project);
-        
+        // TODO create git repo
+        // TODO create sonar project
         output.setId(project.getId());
         output.setName(project.getName());
         output.setGitRepositories(project.getGitRepositories());
     }
-//    public void execute(CreateProjectInput input, CreateProjectOutput output){
-//        Project project = new Project(input.getName(), input.getDescription());
-//        projectRepository.createProject(project);
-//        output.setId(project.getId());
-//        output.setName(project.getName());
-//        output.setGitRepositories(project.getGitRepositories());
-//    }
 }

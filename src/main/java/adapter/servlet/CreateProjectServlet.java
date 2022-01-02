@@ -60,7 +60,8 @@ public class CreateProjectServlet extends HttpServlet {
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
         GitRepositoryRepository gitRepositoryRepository = new GitRepositoryRepositoryImpl();
         SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
-
+        // TODO flow should be create project gitRepo sonarProject (3 usecase)?
+        // TODO or flow should be create project (1 usecase)?
         AccountRepository accountRepository = new AccountRepositoryImpl();
         CreateProjectInput input = new CreateProjectInputImpl();
         CreateProjectOutput output = new CreateProjectOutputImpl();

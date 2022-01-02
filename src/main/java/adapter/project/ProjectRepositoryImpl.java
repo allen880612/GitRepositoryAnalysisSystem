@@ -4,7 +4,6 @@ import database.Database;
 import domain.Project;
 import usecase.project.ProjectRepository;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +22,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public void createProject(Project project) {
         String id = "";
 
+        // TODO: check if this necessary
         if (!projects.contains(project)) projects.add(project);
         Project projectInDB = getProjectById(project.getId());
         projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
 
-        final String insert = " INSERT INTO project(project_id, name, description, repoid,sonar_project_id) VALUES(?,?,?,?,?) ";
+        final String insert = " INSERT INTO project(project_id, name, description, repoid, sonar_project_id) VALUES(?,?,?,?,?) ";
 
 
         try {
@@ -45,36 +45,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     }
 
-    //    public void createProject(Project project){
-//        String id = "";
-//
-//        if(!projects.contains(project)) projects.add(project);
-//        Project projectInDB = getProjectById(project.getId());
-//        projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
-//
-//        final String insert = " INSERT INTO project(project_id, name, description, repoid,sonar_project_id) VALUES(?,?,?,?,?) ";
-//        for(String url : project.getGitRepositories()){//如果
-//            if(projectInDB.getGitRepositories().contains(url)) continue;
-//            try{
-//                assert conn != null;
-//                PreparedStatement preparedStatement = conn.prepareStatement(insert);
-//                preparedStatement.setString (1, project.getId());
-//                preparedStatement.setString (2, project.getName());
-//                preparedStatement.setString (3, project.getDescription());
-//                preparedStatement.setString (4, url);
-//                preparedStatement.setString (5, project.getSonarProjectID());
-//                preparedStatement.execute();
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//    public void createProject(Project project){
-//        String id = "";
-//        project.addGitRepository(id);
-//        updateProject(project);
-//        project.removeGitRepository(id);
-//    }
     public void updateProject(Project project) {
         if (!projects.contains(project)) projects.add(project);
         Project projectInDB = getProjectById(project.getId());
@@ -99,28 +69,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
-//    public void updateProject(Project project){
-//        if(!projects.contains(project)) projects.add(project);
-//        Project projectInDB = getProjectById(project.getId());
-//        projectInDB = projectInDB == null ? new Project("empty", "empty") : projectInDB;
-//
-//        final String insert = " INSERT INTO project(id, name, description, repoid) VALUES(?,?,?,?) ";
-//        for(String url : project.getGitRepositories()){
-//            if(projectInDB.getGitRepositories().contains(url)) continue;
-//            try{
-//                assert conn != null;
-//                PreparedStatement preparedStatement = conn.prepareStatement(insert);
-//                preparedStatement.setString (1, project.getId());
-//                preparedStatement.setString (2, project.getName());
-//                preparedStatement.setString (3, project.getDescription());
-//                preparedStatement.setString (4, url);
-//                preparedStatement.execute();
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     @Override
     public boolean deleteProject(String id) {
         final String delete = "DELETE FROM project WHERE project_id=?";
@@ -136,6 +84,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         return false;
     }
 
+    // TODO get project with sonar_id & repo_id
     public Project getProjectById(String id) {
         final String query = "SELECT name, repoid,sonar_project_id, description, starttime FROM project WHERE projject_id=?";
         Project project;
