@@ -43,7 +43,7 @@ public class AddGitRepositoryServlet extends HttpServlet {
             String projectId = requestBody.getString("projectId");
 
             ProjectRepository projectRepository = new ProjectRepositoryImpl();
-            Project project = projectRepository.getProjectById(projectId);
+//            Project project = projectRepository.getProjectById(projectId);
 
             do{
                 requestBody = new JSONObject(line);
@@ -52,10 +52,10 @@ public class AddGitRepositoryServlet extends HttpServlet {
                         getRepoOwnerName(githubUrl, "github.com"),
                         getRepoName(githubUrl, "github.com")
                 );
-                project.addGitRepository(gitRepositoryId);
+//                project.addGitRepository(gitRepositoryId);
 
             }while((line = requestReader.readLine()) != null);
-            projectRepository.updateProject(project);
+//            projectRepository.updateProject(project);
             jsonObject.put("isSuccess", "true");
 
         }catch (Exception e){

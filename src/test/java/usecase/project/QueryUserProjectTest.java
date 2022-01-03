@@ -24,18 +24,18 @@ public class QueryUserProjectTest {
         AccountRepository accountRepository = new AccountRepositoryImpl();
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
 
-        String userId = "4d0f5ebc-a68f-4581-9527-406176dc581e";
+        String userId = "cd826248-154b-47d4-8d34-0cd22aa816dc";
         Account account = accountRepository.getAccountById(userId);
         JSONArray jsonArray = new JSONArray();
 
         for(String projectId : account.getProjects()){
-            Project project = projectRepository.getProjectById(projectId);
+            Project project = projectRepository.getProjectWithoutRepositoryById(projectId);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("projectId", project.getId());
             jsonObject.put("projectName", project.getName());
             jsonObject.put("projectDescription", project.getDescription());
             jsonObject.put("projectStartTime", project.getStartTime());
-            jsonObject.put("gitRepoCount", project.getGitRepositories().size());
+            jsonObject.put("gitRepoCount", 1);
             jsonArray.put(jsonObject);
         }
         Assert.assertEquals(2, jsonArray.length());

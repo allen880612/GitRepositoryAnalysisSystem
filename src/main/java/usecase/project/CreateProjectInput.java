@@ -6,13 +6,4 @@ public interface CreateProjectInput {
 
     void setDescription(String description);
     String getDescription();
-
-    void setSonarProjectID(String sonarProjectID);
-
-    String getSonarProjectID();
-
-    String getGitRepositoryID();
-
-    void setGitRepositoryID(String gitRepositoryID);
-
 }
