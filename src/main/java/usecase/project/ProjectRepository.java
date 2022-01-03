@@ -3,8 +3,8 @@ package usecase.project;
 import domain.Project;
 
 public interface ProjectRepository {
-    Project getProjectById(String id);
+    Project getProjectWithRepositoryById(String id);
+    Project getProjectWithoutRepositoryById(String id);
     void createProject(Project project);
-    void updateProject(Project project);
     boolean deleteProject(String id);
 }

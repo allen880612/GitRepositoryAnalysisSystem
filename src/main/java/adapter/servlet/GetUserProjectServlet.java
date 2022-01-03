@@ -41,13 +41,13 @@ public class GetUserProjectServlet extends HttpServlet {
         JSONArray jsonArray = new JSONArray();
 
         for(String projectId : account.getProjects()){
-            Project project = projectRepository.getProjectById(projectId);
+            Project project = projectRepository.getProjectWithoutRepositoryById(projectId);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("projectId", project.getId());
             jsonObject.put("projectName", project.getName());
             jsonObject.put("projectDescription", project.getDescription());
             jsonObject.put("projectStartTime", project.getStartTime());
-            int gitRepoCount = repoCountAfterFilterEmptyRepoId(project);
+            int gitRepoCount = 1;
             jsonObject.put("gitRepoCount", gitRepoCount);
             jsonArray.put(jsonObject);
         }
@@ -55,14 +55,5 @@ public class GetUserProjectServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(jsonArray) ;
         out.close();
-    }
-
-    private int repoCountAfterFilterEmptyRepoId(Project project){
-        int result = 0;
-        for (String repoId : project.getGitRepositories()){
-            if(!repoId.equals("")) result++;
-        }
-
-        return result;
     }
 }

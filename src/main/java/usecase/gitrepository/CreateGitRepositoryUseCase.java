@@ -12,7 +12,7 @@ public class CreateGitRepositoryUseCase {
 
     public void execute(CreateGitRepositoryInput input, CreateGitRepositoryOutput output) {
         GitRepository newGitRepository = new GitRepository(input.getRepoName(), input.getOwnerName());
-        gitRepositoryRepository.createGitRepository(newGitRepository);
+        gitRepositoryRepository.createGitRepository(newGitRepository, input.getProjectID());
         output.setResult(newGitRepository);
     }
 }

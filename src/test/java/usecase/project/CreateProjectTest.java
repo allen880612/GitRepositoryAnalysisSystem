@@ -5,7 +5,6 @@ import adapter.account.CreateAccountInputImpl;
 import adapter.account.CreateAccountOutputImpl;
 import adapter.project.CreateProjectInputImpl;
 import adapter.project.CreateProjectOutputImpl;
-import adapter.project.CreateProjectUseCase;
 import adapter.project.ProjectRepositoryImpl;
 import domain.Account;
 import domain.Project;
@@ -47,8 +46,8 @@ public class CreateProjectTest {
         CreateProjectUseCase createProjectUseCase = new CreateProjectUseCase(projectRepository);
         createProjectUseCase.execute(input, output);
 
-        String id = output.getId();
-        Project project = projectRepository.getProjectById(id);
+        String projectId = output.getId();
+        Project project = projectRepository.getProjectWithoutRepositoryById(projectId);
         Assert.assertEquals(output.getName(), project.getName());
         Assert.assertEquals("abc", project.getDescription());
 //        Assert.assertNotNull(project.getStartTime());
