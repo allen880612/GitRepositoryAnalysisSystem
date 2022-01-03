@@ -23,12 +23,12 @@
   </span>
 </section>
 
-<section [formGroup]="sonarGroup">
-  <h4>Select Type:</h4>
-  <mat-checkbox formControlName="BUG">Bug</mat-checkbox>
-  <mat-checkbox formControlName="CODE_SMELL">Code Smell</mat-checkbox>
-  <mat-checkbox formControlName="VULNERABILITY">Vulnerability</mat-checkbox>
-</section>
+<!--<section [formGroup]="sonarGroup">-->
+<!--  <h4>Select Type:</h4>-->
+<!--  <mat-checkbox formControlName="BUG">Bug</mat-checkbox>-->
+<!--  <mat-checkbox formControlName="CODE_SMELL">Code Smell</mat-checkbox>-->
+<!--  <mat-checkbox formControlName="VULNERABILITY">Vulnerability</mat-checkbox>-->
+<!--</section>-->
 
 <div>
   <mat-accordion class="example-headers-align">
@@ -54,7 +54,8 @@
         <p>Severity: {{severities[i]}}</p>
         <p>RedirectUrls: {{redirectUrls[i]}}</p>
         <p>Components: {{components[i]}}</p>
-
+        <a href={{redirectUrls[i]}} target="_blank">sonarUrl</a>
+        
       </mat-expansion-panel>
 
     </ng-container>
