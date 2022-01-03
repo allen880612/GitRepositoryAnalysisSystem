@@ -38,7 +38,7 @@ export class BuglistComponent implements OnInit {
   sonarGroup: FormGroup;
 
   task: Task = {
-    name: 'Select Type',
+    name: 'Select ALL',
     completed: false,
     color: 'primary',
     subtasks: [

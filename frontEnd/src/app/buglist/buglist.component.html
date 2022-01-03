@@ -1,25 +1,21 @@
 <meta charset="UTF-8" />
 
-<section class="example-section">
-  <span class="example-list-section">
-    <mat-checkbox class="example-margin"
-                  [checked]="allComplete"
+<section style="margin-bottom: 20px;">
+  <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Type Filter</div>
+  <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
+    <mat-checkbox [checked]="allComplete"
                   [color]="task.color"
                   [indeterminate]="someComplete()"
                   (change)="setAll($event.checked)">
       {{task.name}}
     </mat-checkbox>
-  </span>
-  <span class="example-list-section">
-    <ul style="list-style-type: none;">
-      <li *ngFor="let subtask of task.subtasks">
-        <mat-checkbox [(ngModel)]="subtask.completed"
-                      [color]="subtask.color"
-                      (ngModelChange)="updateAllComplete()">
+    <ng-container *ngFor="let subtask of task.subtasks">
+      <mat-checkbox [(ngModel)]="subtask.completed"
+                    [color]="subtask.color"
+                    (ngModelChange)="updateAllComplete()">
           {{subtask.name}}
-        </mat-checkbox>
-      </li>
-    </ul>
+      </mat-checkbox>
+    </ng-container>
   </span>
 </section>
 
@@ -31,33 +27,67 @@
 <!--</section>-->
 
 <div>
-  <mat-accordion class="example-headers-align">
+  <table class="mainTable">
+    <tr style="visibility: hidden; display: none;">
+      <td style=" width: 77%;"></td>
+      <td style=" width: 10%;"></td>
+      <td style=" width: 8%;"></td>
+      <td style=" width: 5%;"></td>
+    </tr>
     <ng-container *ngFor="let title of titles ; let i = index">
-      <mat-expansion-panel class="mainPanel" hideToggle>
-
-        <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
-          <mat-panel-title>
-<!--            <div>-->
-<!--              <img [src]="avatars[i]" height="45" class="personal-avatar">-->
-<!--              {{posters[i]}}-->
-<!--            </div>-->
-            {{title}}
-          </mat-panel-title>
-
-          <mat-panel-description>
-            <p>{{severities[i]}}</p>
-            <p class="status">{{efforts[i]}}</p>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <br>
-        <p>Severity: {{severities[i]}}</p>
-        <p>RedirectUrls: {{redirectUrls[i]}}</p>
-        <p>Components: {{components[i]}}</p>
-        <a href={{redirectUrls[i]}} target="_blank">sonarUrl</a>
-        
-      </mat-expansion-panel>
-
+      <tr style="border-top: #DCDCDC solid;">
+        <td style="color: #005cbf">
+          {{title}}
+        </td>
+        <td rowspan="2">
+          {{severities[i]}}
+        </td>
+        <td rowspan="2" style="color: #800000">
+          {{efforts[i]}}
+        </td>
+        <td rowspan="2">
+          <a href={{redirectUrls[i]}} target="_blank">
+            <img src="./assets/images/file.png" width="40px" alt="file">
+          </a>
+        </td>
+      </tr>
+      <tr style="border-bottom: #DCDCDC solid;">
+        <td style="font-size: 18px; color: #696969">
+          {{components[i]}}
+        </td>
+      </tr>
     </ng-container>
-  </mat-accordion>
+  </table>
 </div>
+
+<!--<div>-->
+<!--  <mat-accordion class="example-headers-align">-->
+<!--    <ng-container *ngFor="let title of titles ; let i = index">-->
+<!--      <mat-expansion-panel class="mainPanel" hideToggle>-->
+
+<!--        <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">-->
+<!--          <mat-panel-title>-->
+<!--&lt;!&ndash;            <div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <img [src]="avatars[i]" height="45" class="personal-avatar">&ndash;&gt;-->
+<!--&lt;!&ndash;              {{posters[i]}}&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            {{title}}-->
+<!--          </mat-panel-title>-->
+
+<!--          <mat-panel-description>-->
+<!--            <p>{{severities[i]}}</p>-->
+<!--            <p class="status">{{efforts[i]}}</p>-->
+<!--          </mat-panel-description>-->
+<!--        </mat-expansion-panel-header>-->
+
+<!--        <br>-->
+<!--        <p>Severity: {{severities[i]}}</p>-->
+<!--        <p>RedirectUrls: {{redirectUrls[i]}}</p>-->
+<!--        <p>Components: {{components[i]}}</p>-->
+<!--        <a href={{redirectUrls[i]}} target="_blank">sonarUrl</a>-->
+
+<!--      </mat-expansion-panel>-->
+
+<!--    </ng-container>-->
+<!--  </mat-accordion>-->
+<!--</div>-->
