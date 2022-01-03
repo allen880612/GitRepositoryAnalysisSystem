@@ -16,23 +16,23 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
     private Connection conn;
 
     public SonarProjectRepositoryImpl() {
-        this.sonarProjects = new ArrayList<>();
+        this.sonarProjects = new ArrayList<>();//這個好像沒用到?
         conn = Database.getConnection();
     }
 
     @Override
-    public SonarProject getSonarProjectById(String id) {
+    public SonarProject getSonarProjectBySonarProjectId(String sonarProjectId) {
         final String query = "SELECT sonar_project_id,host_url,token,project_key,project_id FROM sonarproject WHERE sonar_project_id=?";
         SonarProject sonarProject;
         try{
             assert conn!= null;
             ResultSet resultSet;
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setString(1, id);
+            preparedStatement.setString(1, sonarProjectId);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
             sonarProject = new SonarProject(
-                    id,
+                    sonarProjectId,
                     resultSet.getString("host_url"),
                     resultSet.getString("project_key"),
                     resultSet.getString("token")
@@ -46,7 +46,27 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
 
     @Override
     public SonarProject getSonarProjectByProjectId(String projectId) {
+        final String query = "SELECT sonar_project_id,host_url,token,project_key FROM sonarproject WHERE project_id=?";
+        SonarProject sonarProject;
+        try{
+            assert conn!= null;
+            ResultSet resultSet;
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, projectId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            sonarProject = new SonarProject(
+                    resultSet.getString("sonar_project_id"),
+                    resultSet.getString("host_url"),
+                    resultSet.getString("project_key"),
+                    resultSet.getString("token")
+            );
+            return sonarProject;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return null;
+
     }
 
     // TODO: get SonarProject by projectId
@@ -54,8 +74,7 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
     public void createSonarProject(SonarProject sonarProject, String projectId) {
         sonarProjects.add(sonarProject);
         final String insert = " INSERT INTO sonarproject(sonar_project_id, host_url, token, project_key, project_id) VALUES(?,?,?,?,?) ";
-//        final String queryProjectIdBySonarProject = "SELECT project_id FROM project WHERE sonar_project_id=?";
-        //現在project TABLE尚未有sonar_project_id這個欄位，可能要再討論看怎麼用甚麼方式，來得到sonarProject的project_id
+
         try {
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
@@ -63,7 +82,7 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
             preparedStatement.setString (2, sonarProject.getHostUrl());
             preparedStatement.setString (3, sonarProject.getToken());
             preparedStatement.setString (4, sonarProject.getProjectKey());
-//            preparedStatement.setString (5, );
+            preparedStatement.setString (5, projectId);
             preparedStatement.execute();
         }catch (Exception e){
             e.printStackTrace();
@@ -73,22 +92,15 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
 
 
     @Override
-    public void deleteSonarProject(String id) {
+    public void deleteSonarProject(String sonarProjectId) {
         final String deleteFromSonarprojectTable = "DELETE FROM sonarproject WHERE sonar_project_id=?";
-//        final String deleteFromProjectTable = "DELETE FROM project WHERE sonar_project_id=?";
 
         try{
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(deleteFromSonarprojectTable);
-            preparedStatement.setString(1, id);
+            preparedStatement.setString(1, sonarProjectId);
             preparedStatement.executeUpdate();
         }catch (Exception e){e.printStackTrace();}
 
-//        try{
-//            assert conn != null;
-//            PreparedStatement preparedStatement = conn.prepareStatement(deleteFromProjectTable);
-//            preparedStatement.setString(1, id);
-//            preparedStatement.executeUpdate();
-//        }catch (Exception e){e.printStackTrace();}
     }
 }

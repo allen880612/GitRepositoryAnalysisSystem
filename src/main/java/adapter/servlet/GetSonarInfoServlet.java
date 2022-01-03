@@ -35,10 +35,10 @@ public class GetSonarInfoServlet extends HttpServlet {
 
         SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
         // TODO: get sonarId
-//        SonarProject sonarProject = sonarProjectRepository.getSonarProjectByProjectId(projectId);
+        SonarProject sonarProject = sonarProjectRepository.getSonarProjectByProjectId(projectId);
 
-        String sonnarToken = "token";
-        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
+//        String sonnarToken = "token";
+//        SonarProject sonarProject = new SonarProject("ip:port", "GSAS", sonnarToken);
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
         SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
 
