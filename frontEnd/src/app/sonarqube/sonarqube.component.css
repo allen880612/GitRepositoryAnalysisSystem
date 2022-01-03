@@ -1,13 +1,20 @@
-.sonarTable {
-  align-content: center;
-  border-style: dashed;
-  border-color: #0a0800;
-}
+/*.sonarTable {*/
+/*  align-content: center;*/
+/*  border-style: dashed;*/
+/*  border-color: #0a0800;*/
+/*}*/
 
 img {
   vertical-align: middle;
 }
 
+.sonar_index{
+  margin-left:10px;
+}
+.sonar_name{
+  margin-left:10px;
+}
+
 .bug{
-  transform:translateX(-5px);
+  transform:translateX(-3px);
 }

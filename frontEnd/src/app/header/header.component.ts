@@ -7,7 +7,8 @@ import {Router,ActivatedRoute } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  homepageurl = "homepage";
+  // homepageurl = "homepage";
+  homepageurl="choose-project";
   ProjectCreatwpageurl = "createproject";
   ProjectOverviewpageurl = "choose-project";
   Logoutpageurl = "LoginPage";
@@ -28,16 +29,20 @@ export class HeaderComponent implements OnInit {
 
   NavitoProjectOverview(){
     this.redirectTo("choose-project");
+    // window.location.reload();
   }
+
+  NavitoProjectAnalysis(){
+    this.redirectTo("project-analysis");
+    // window.location.reload();
+  }
+
   NavitoLogout(){
     this.redirectTo("LoginPage");
     window.sessionStorage.clear();
 
   }
 
-  Navitogitanalysis(){
-    this.redirectTo("gitanalysis");
-  }
 
 
 

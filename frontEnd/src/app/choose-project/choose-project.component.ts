@@ -30,6 +30,7 @@ export class ChooseProjectComponent implements OnInit {
   constructor(private router: Router, private getrepoinfoofchosenproject: GetRepoInfoOfChosenProjectService, private getProjectInfoService: GetProjectInfoService, private delProjectService: DeleteProjectService, private activerouter:ActivatedRoute ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.UserID = window.sessionStorage.getItem('UserID');
     this.getTotalProjectInfo();
   }
