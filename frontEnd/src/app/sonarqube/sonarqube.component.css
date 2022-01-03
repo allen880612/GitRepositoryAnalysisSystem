@@ -8,6 +8,14 @@ img {
   vertical-align: middle;
 }
 
+.sonar_index{
+  margin-left:10px;
+}
+.sonar_name{
+  margin-left:10px;
+}
+
+
 .bug{
-  transform:translateX(-5px);
+  transform:translateX(-3px);
 }
