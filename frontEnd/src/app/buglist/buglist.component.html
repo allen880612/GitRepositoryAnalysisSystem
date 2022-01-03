@@ -35,7 +35,14 @@
       <td style=" width: 5%;"></td>
     </tr>
     <ng-container *ngFor="let title of titles ; let i = index">
-      <tr style="border-top: #DCDCDC solid;">
+      <tr style="border-top: #DCDCDC solid; font-size: 16px; color: #6B8E23;">
+        <td colspan="4" style="padding-bottom: 5px; padding-top: 10px">
+          <span style="border-bottom: rgba(107, 142, 35, 0.2) solid 2px">
+            Type： BUG
+          </span>
+        </td>
+      </tr>
+      <tr>
         <td style="color: #005cbf">
           {{title}}
         </td>

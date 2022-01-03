@@ -63,13 +63,13 @@
 
 .mainTable {
   /*border: #5cbf2a solid;*/
-  width: 90%;
+  width: 92%;
   font-family: 'Comic Sans MS', serif;
   font-size: 24px;
 }
 
 .mainTable td {
-  padding: 10px;
+  padding: 0 10px 10px 10px;
 }
 
 mat-checkbox {
