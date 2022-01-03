@@ -18,6 +18,31 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
         conn = Database.getConnection();
     }
 
+    @Override
+    public GitRepository getGitRepositoryByProjectId(String projectId) {
+        final String query = "SELECT repo_id,reponame, ownername FROM gitrepository WHERE project_id=?";
+        GitRepository gitRepository;
+        try {
+
+            assert conn != null;
+            ResultSet resultSet;
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, projectId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            gitRepository = new GitRepository(
+                    resultSet.getString("repo_id"),
+                    resultSet.getString("reponame"),
+                    resultSet.getString("ownername")
+            );
+            return gitRepository;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public GitRepository getGitRepositoryById(String id) {
         final String query = "SELECT reponame, ownername FROM gitrepository WHERE repo_id=?";
         GitRepository gitRepository;
@@ -41,6 +66,7 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
         return null;
     }
 
+    @Override
     public void createGitRepository(GitRepository gitRepository, String projectId) {
         final String insert = " INSERT INTO gitrepository(repo_id, reponame, ownername, project_id) VALUES(?,?,?,?) ";
         try {
