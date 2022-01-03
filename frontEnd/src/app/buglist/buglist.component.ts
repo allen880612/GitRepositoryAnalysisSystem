@@ -27,6 +27,9 @@ export class BuglistComponent implements OnInit {
   efforts = [];
   components = [];
   redirectUrls = [];
+  types = [];
+  issue_count: string;
+  effort_total: string;
 
   ProjectID: string;
   repo: any;
@@ -139,8 +142,12 @@ export class BuglistComponent implements OnInit {
       request => {
         this.datas = request;
         console.log(this.datas)
+
+        this.issue_count = request.count;
+        this.effort_total = request.effortTotal;
         const bugs = request.bugs;
         for (const temp of bugs){
+          this.types.push(temp.type);
           this.titles.push(temp.title);
           this.severities.push(temp.severity);
           this.efforts.push(temp.effort);
