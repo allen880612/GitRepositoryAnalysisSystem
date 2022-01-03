@@ -1,10 +1,10 @@
 package adapter;
 
-import adapter.gson.SonarBugListGsonAdapter;
+import adapter.gson.SonarIssueListGsonAdapter;
 import com.google.gson.Gson;
 import domain.SonarProject;
-import dto.SonarBugInfoDTO;
-import dto.SonarBugListDTO;
+import dto.SonarIssueInfoDTO;
+import dto.SonarIssueListDTO;
 import dto.SonarQubeInfoDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,39 +77,40 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
     }
 
     @Override
-    public SonarBugListDTO getSonarBugs() {
-        String api = "http://%s/api/issues/search?projectKeys=%s&types=BUG&ps=10";
+    public SonarIssueListDTO getSonarIssueList() {
+        String api = "http://%s/api/issues/search?projectKeys=%s&ps=100";
         String apiFormatted = String.format(api, hostUrl, projectKey);
-        SonarBugListDTO sonarBugListDto = new SonarBugListDTO();
+        SonarIssueListDTO sonarIssueListDto = new SonarIssueListDTO();
 
         try {
             JSONObject response = getRequester.httpsGet(apiFormatted).getJSONObject(0);
-            sonarBugListDto = parseBugList(response);
+            sonarIssueListDto = parseBugList(response);
         } catch (IOException e) {
-            sonarBugListDto.setSuccessful(false);
+            sonarIssueListDto.setSuccessful(false);
         }
-        return sonarBugListDto;
+        return sonarIssueListDto;
     }
 
-    private SonarBugListDTO parseBugList(JSONObject response) {
-        SonarBugListGsonAdapter adapter = new Gson().fromJson(response.toString() , SonarBugListGsonAdapter.class);
-        SonarBugListDTO sonarBugListDto = new SonarBugListDTO();
+    private SonarIssueListDTO parseBugList(JSONObject response) {
+        SonarIssueListGsonAdapter adapter = new Gson().fromJson(response.toString() , SonarIssueListGsonAdapter.class);
+        SonarIssueListDTO sonarIssueListDto = new SonarIssueListDTO();
 
-        sonarBugListDto.setCount(adapter.getTotal());
-        sonarBugListDto.setEffortTotal(adapter.getEffortTotal());
-        for ( SonarBugListGsonAdapter.BugInfo bugInfo: adapter.getIssues()) {
-            SonarBugInfoDTO bugInfoDto = new SonarBugInfoDTO();
-            bugInfoDto.setTitle(bugInfo.getMessage());
-            bugInfoDto.setEffort(bugInfo.getEffort());
-            bugInfoDto.setComponent(bugInfo.getComponent());
-            bugInfoDto.setSeverity(bugInfo.getSeverity());
-            String url = "http://%s/project/issues?id=%s&open=%s&resolved=false&types=BUG";
-            String redirectUrl = String.format(url, hostUrl, projectKey, bugInfo.getKey());
+        sonarIssueListDto.setCount(adapter.getTotal());
+        sonarIssueListDto.setEffortTotal(adapter.getEffortTotal());
+        for ( SonarIssueListGsonAdapter.IssueInfo issueInfo : adapter.getIssues()) {
+            SonarIssueInfoDTO bugInfoDto = new SonarIssueInfoDTO();
+            bugInfoDto.setType(issueInfo.getType());
+            bugInfoDto.setTitle(issueInfo.getMessage());
+            bugInfoDto.setEffort(issueInfo.getEffort());
+            bugInfoDto.setComponent(issueInfo.getComponent());
+            bugInfoDto.setSeverity(issueInfo.getSeverity());
+            String url = "http://%s/project/issues?id=%s&open=%s&resolved=false&types=%s";
+            String redirectUrl = String.format(url, hostUrl, projectKey, issueInfo.getKey(), issueInfo.getType());
             bugInfoDto.setRedirectUrl(redirectUrl);
 
-            sonarBugListDto.addBugs(bugInfoDto);
+            sonarIssueListDto.addBugs(bugInfoDto);
         }
-        return sonarBugListDto;
+        return sonarIssueListDto;
     }
 
     private SonarQubeInfoDTO parseMeasures(JSONArray measures) {
