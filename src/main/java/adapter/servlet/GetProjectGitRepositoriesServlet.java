@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = "/getProjectGitRepositories", name = "GetProjectGitRepositoriesServlet")
-public class GetProjectGitRepositoriesServlet extends HttpServlet{
+public class GetProjectGitRepositoriesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -31,21 +31,18 @@ public class GetProjectGitRepositoriesServlet extends HttpServlet{
         JSONObject requestBody = new JSONObject(request.getReader().readLine());
         String projectId = String.valueOf(requestBody.get("projectId"));
 
-        ProjectRepository projectRepository = new ProjectRepositoryImpl();
         GitRepositoryRepository gitRepositoryRepository = new GitRepositoryRepositoryImpl();
 
-        Project project = projectRepository.getProjectById(projectId);
         JSONArray jsonArray = new JSONArray();
-        for(String repoId : project.getGitRepositories()){
-            if(repoId.equals("")) continue;
-            GitRepository gitRepository = gitRepositoryRepository.getGitRepositoryById(repoId);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("ownerName", gitRepository.getOwnerName());
-            jsonObject.put("repoName", gitRepository.getRepoName());
-            jsonArray.put(jsonObject);
-        }
+
+        GitRepository gitRepository = gitRepositoryRepository.getGitRepositoryByProjectId(projectId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ownerName", gitRepository.getOwnerName());
+        jsonObject.put("repoName", gitRepository.getRepoName());
+        jsonArray.put(jsonObject);
+
         PrintWriter out = response.getWriter();
-        out.println(jsonArray) ;
+        out.println(jsonArray);
         out.close();
     }
 }

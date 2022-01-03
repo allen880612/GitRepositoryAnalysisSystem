@@ -33,7 +33,7 @@ public class DeleteProjectServlet extends HttpServlet {
 
         accountRepository.deleteProjectRelations(userId, projectId);
         projectRepository.deleteProject(projectId);
-        if (projectRepository.getProjectById(projectId) == null
+        if (projectRepository.getProjectWithoutRepositoryById(projectId) == null
             && !accountRepository.getAccountById(userId).getProjects().contains(projectId))
             jsonObject.put("isSuccess", "true");
         else
