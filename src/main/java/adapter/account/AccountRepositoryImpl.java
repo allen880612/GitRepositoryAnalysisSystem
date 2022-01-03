@@ -12,7 +12,7 @@ import java.util.List;
 public class AccountRepositoryImpl implements AccountRepository {
     private List<Account> accounts;
     private Connection conn;
-    public AccountRepositoryImpl(){
+    public  AccountRepositoryImpl(){
         accounts = new ArrayList<>();
         conn = Database.getConnection();
     }
@@ -20,7 +20,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void createAccount(Account account) throws SQLException {
         accounts.add(account);
-        final String insert = " INSERT INTO user(id, name, account, password, token) VALUES(?,?,?,?,?) ";
+        final String insert = " INSERT INTO user(user_id, name, account, password, token) VALUES(?,?,?,?,?) ";
         assert conn != null;
         PreparedStatement preparedStatement = conn.prepareStatement(insert);
         preparedStatement.setString (1, account.getId());
@@ -33,7 +33,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account getAccountById(String id) {
-        final String query = " SELECT name, account, password FROM user WHERE id=?";
+        final String query = " SELECT name, account, password FROM user WHERE user_id=?";
         Account account;
         try{
             assert conn!= null;
@@ -60,7 +60,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account getAccountByAccountAndPassword(Account account) {
-        final String query = " SELECT id, name, account, password FROM user WHERE account = ? AND password = ? ";
+        final String query = " SELECT user_id, name, account, password FROM user WHERE account = ? AND password = ? ";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -74,7 +74,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             resultSet = ps.executeQuery();
             if(!resultSet.first()) return null;
             queryAccount = new Account(
-                    resultSet.getString("id"),
+                    resultSet.getString("user_id"),
                     resultSet.getString("name"),
                     resultSet.getString("account"),
                     resultSet.getString("password")
@@ -92,7 +92,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         Account accountInDB = getAccountById(account.getId());
         accountInDB = accountInDB == null ? new Account("", "") : accountInDB;
 
-        final String insert = " INSERT INTO user_project(userid, projectid) VALUES(?,?) ";
+        final String insert = " INSERT INTO user_project(user_id, project_id) VALUES(?,?) ";
 
         for(String projectId : account.getProjects()){
             if(accountInDB.getProjects().contains(projectId)) continue;
@@ -111,7 +111,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public boolean verifyAccount(Account account) {
-        final String query = " SELECT id,account, password FROM user WHERE account = ? AND password = ? ";
+        final String query = " SELECT user_id,account, password FROM user WHERE account = ? AND password = ? ";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -135,7 +135,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public boolean verifyAccountWithToken(Account account) {
-        final String query = " SELECT id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ? ";
+        final String query = " SELECT user_id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ? ";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -160,7 +160,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account getAccountWithToken(Account account) {
-        final String query = " SELECT id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ?";
+        final String query = " SELECT user_id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ?";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -175,7 +175,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             resultSet = ps.executeQuery();
             if(!resultSet.first()) return null;
             queryAccount = new Account(
-                    resultSet.getString("id"),
+                    resultSet.getString("user_id"),
                     resultSet.getString("name"),
                     resultSet.getString("account"),
                     ""
@@ -190,7 +190,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public void deleteAccount(String id) {
-        final String delete = "DELETE FROM user WHERE id=?";
+        final String delete = "DELETE FROM user WHERE user_id=?";
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, id);
@@ -200,7 +200,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public void deleteAccountRelations(String id) {
-        final String delete = "DELETE FROM user_project WHERE userid=?";
+        final String delete = "DELETE FROM user_project WHERE user_id=?";
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, id);
@@ -208,7 +208,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         }catch (Exception e){e.printStackTrace();}
     }
     public boolean deleteProjectRelations(String userId, String projectId) {
-        final String delete = "DELETE FROM user_project WHERE userid=? AND projectId=?";
+        final String delete = "DELETE FROM user_project WHERE user_id=? AND project_Id=?";
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, userId);
@@ -220,7 +220,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     private List<String> getAccountProjects(String id){
-        final String query = " SELECT projectid FROM user_project WHERE userid=? ";
+        final String query = " SELECT project_id FROM user_project WHERE user_id=? ";
         List<String> projects = new ArrayList<>();
         Account queryAccount = null;
         try{
@@ -230,7 +230,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             resultSet = preparedStatement.executeQuery();
             if(!resultSet.first()) return projects;
             do{
-                projects.add(resultSet.getString("projectid"));
+                projects.add(resultSet.getString("project_id"));
             }
             while(resultSet.next());
         } catch (SQLException e) {
