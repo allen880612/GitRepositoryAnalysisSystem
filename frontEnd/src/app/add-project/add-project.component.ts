@@ -33,6 +33,7 @@ export class AddProjectComponent implements OnInit {
    }
   ngOnInit(): void {
     this.UserID = window.sessionStorage.getItem('UserID');
+    window.scrollTo(0, 0);
   }
 
   CheckSonarUrlValid(){
