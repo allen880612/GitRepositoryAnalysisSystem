@@ -5,7 +5,6 @@ import adapter.account.CreateAccountInputImpl;
 import adapter.account.CreateAccountOutputImpl;
 import adapter.project.CreateProjectInputImpl;
 import adapter.project.CreateProjectOutputImpl;
-import adapter.project.CreateProjectUseCase;
 import adapter.project.ProjectRepositoryImpl;
 import domain.Account;
 import domain.Project;

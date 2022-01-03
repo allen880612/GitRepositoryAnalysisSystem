@@ -1,11 +1,12 @@
-package usecase.sonarreposotiry;
+package usecase.sonarproject;
 
+import adapter.sonarproject.CreateSonarProjectInputImpl;
 import adapter.sonarproject.SonarProjectRepositoryImpl;
 import domain.SonarProject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.sonarproject.SonarProjectRepository;
+import usecase.gitrepository.CreateGitRepositoryUseCase;
 
 public class CreateSonarProjectRepositoryTest {
     private SonarProjectRepository sonarProjectRepository;
@@ -37,5 +38,33 @@ public class CreateSonarProjectRepositoryTest {
         this.sonarProjectRepository.deleteSonarProject(sonarProject.getId());
     }
 
+    @Test
+    public void CreateSonarRepositoryUseCaseTest(){
+        final String hostUrl = "url123";
+        final String projectKey = "projectkey123";
+        final String token = "token123";
+        final String projectID = "projectID";
+
+        CreateSonarProjectUseCase createSonarProjectUseCase = new CreateSonarProjectUseCase(this.sonarProjectRepository);
+        CreateSonarProjectInput input = new CreateSonarProjectInputImpl();
+        CreateSonarProjectOutput output = new CreateSonarProjectOutputImpl();
+
+        input.setHostUrl(hostUrl);
+        input.setProjectKey(projectKey);
+        input.setToken(token);
+        input.setProjectId(projectID);
+
+        createSonarProjectUseCase.execute(input, output);
+
+        String sonarProjectId = output.getSonarProjectId();
+
+        SonarProject sonarProject = this.sonarProjectRepository.getSonarProjectBySonarProjectId(sonarProjectId);
+        Assert.assertEquals(sonarProjectId, sonarProject.getId());
+        Assert.assertEquals(projectKey, sonarProject.getProjectKey());
+        Assert.assertEquals(hostUrl, sonarProject.getHostUrl());
+        Assert.assertEquals(token, sonarProject.getToken());
+
+        this.sonarProjectRepository.deleteSonarProject(sonarProject.getId());
+    }
 
 }

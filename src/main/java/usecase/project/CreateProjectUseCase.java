@@ -1,4 +1,4 @@
-package adapter.project;
+package usecase.project;
 
 import domain.Project;
 import usecase.gitrepository.GitRepositoryRepository;
