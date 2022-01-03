@@ -22,6 +22,7 @@ public class CreateGitRepositoryTest {
         CreateGitRepositoryInput input = new CreateGitRepositoryInputImpl();
         input.setRepoName("MakeBigMoney");
         input.setOwnerName("ku");
+        input.setProjectID("projectID");
 
         CreateGitRepositoryOutput output = new CreateGitRepositoryOutputImpl();
 
@@ -30,6 +31,8 @@ public class CreateGitRepositoryTest {
 
         GitRepository gitRepository = gitRepositoryRepository.getGitRepositoryById(output.getResult().getId());
         Assert.assertEquals(gitRepository.getRepoName(), output.getResult().getRepoName());
+        Assert.assertEquals(gitRepository.getOwnerName(), output.getResult().getOwnerName());
+
         gitRepositoryRepository.deleteGitRepository(gitRepository.getId());
     }
 }

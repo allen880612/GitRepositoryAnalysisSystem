@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
-    private List<GitRepository> gitRepositories;
+
     private Connection conn;
 
-    public GitRepositoryRepositoryImpl(){
-        gitRepositories = new ArrayList<>();
+    public GitRepositoryRepositoryImpl() {
         conn = Database.getConnection();
     }
-    public GitRepository getGitRepositoryById(String id){
-        final String query = "SELECT reponame, ownername FROM gitrepository WHERE id=?";
-        GitRepository gitRepository;
-        try{
 
-            assert conn!= null;
+    public GitRepository getGitRepositoryById(String id) {
+        final String query = "SELECT reponame, ownername FROM gitrepository WHERE repo_id=?";
+        GitRepository gitRepository;
+        try {
+
+            assert conn != null;
             ResultSet resultSet;
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, id);
@@ -35,53 +35,38 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
                     resultSet.getString("ownername")
             );
             return gitRepository;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void createGitRepository(GitRepository gitRepository,String projectId) {
-        gitRepositories.add(gitRepository);
-        final String insert = " INSERT INTO gitrepository(id, reponame, ownername, project_id) VALUES(?,?,?,?) ";
+    public void createGitRepository(GitRepository gitRepository, String projectId) {
+        final String insert = " INSERT INTO gitrepository(repo_id, reponame, ownername, project_id) VALUES(?,?,?,?) ";
         try {
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString (1,gitRepository.getId());
-            preparedStatement.setString (2, gitRepository.getRepoName());
-            preparedStatement.setString (3, gitRepository.getOwnerName());
-            preparedStatement.setString (4, projectId);
+            preparedStatement.setString(1, gitRepository.getId());
+            preparedStatement.setString(2, gitRepository.getRepoName());
+            preparedStatement.setString(3, gitRepository.getOwnerName());
+            preparedStatement.setString(4, projectId);
             preparedStatement.execute();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void createGitRepository(GitRepository gitRepository) {
-        gitRepositories.add(gitRepository);
-        final String insert = " INSERT INTO gitrepository(id, reponame, ownername) VALUES(?,?,?) ";
-        try {
-            assert conn != null;
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString (1,gitRepository.getId());
-            preparedStatement.setString (2, gitRepository.getRepoName());
-            preparedStatement.setString (3, gitRepository.getOwnerName());
-            preparedStatement.execute();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void deleteGitRepository(String gitRepoId) {
-        final String delete = "DELETE FROM gitrepository WHERE id=?";
-        try{
+        final String delete = "DELETE FROM gitrepository WHERE repo_id=?";
+        try {
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, gitRepoId);
             preparedStatement.executeUpdate();
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 
 }
