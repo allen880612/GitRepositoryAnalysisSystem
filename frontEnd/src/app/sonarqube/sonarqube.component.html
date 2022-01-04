@@ -9,6 +9,7 @@
 
 <!--<body>-->
 <!--上左下右-->
+
 <div style="padding:10px 80px 10px 80px; width: 100%">
       <table class="sonarTable">
         <tr>
@@ -24,8 +25,8 @@
         <tr>
           <td>
             <img src="./assets/images/CodeCoverage.png" width="40" height="40" alt="Code Coverage">
-            <font class="sonar_name" size="4"><b>Code Coverage</b></font>
-            <font class ="sonar_index"><b>{{datas.coverage}}</b></font>
+            <span class="sonar_name" size="4"><b>Code Coverage</b></span>
+            <span class ="sonar_index"><b>{{datas.coverage}} %</b></span>
 <!--            <br>-->
 <!--            <div class="sonar_index">{{datas.coverage}}</div>-->
           </td>
@@ -34,9 +35,19 @@
         <tr>
           <td>
             <br>
+            <img src="./assets/images/duplicate.png" width="40" height="40" alt="Duplication">
+            <span class="sonar_name" size="4"><b>Duplication</b></span>
+            <span class ="sonar_index"><b>{{datas.duplication}} %</b></span>
+            <!--            <br>-->
+            <!--            <div class="sonar_index">{{datas.duplication}}</div>-->
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <br>
             <img class="bug" src="./assets/images/bug_new.png" width="42" height="42" alt="Bugs">
-            <font class="sonar_name" size="4"><b>Bugs</b></font>
-            <font class ="sonar_index"><b>{{datas.bugs}}</b></font>
+            <span class="sonar_name" size="4"><b>Bugs</b></span>
+            <span class ="sonar_index"><b>{{datas.bugs}}</b></span>
 
 <!--            <div class="sonar_index">{{datas.bugs}}</div>-->
           </td>
@@ -45,20 +56,10 @@
           <td>
             <br>
             <img src="./assets/images/CodeSmell.png" width="40" height="40" alt="Code Smells">
-            <font class="sonar_name" size="4"><b>Code Smells</b></font>
-            <font class ="sonar_index"><b>{{datas.codeSmell}}</b></font>
+            <span class="sonar_name" size="4"><b>Code Smells</b></span>
+            <span class ="sonar_index"><b>{{datas.codeSmell}}</b></span>
 <!--            <br>-->
 <!--            <div class="sonar_index">{{datas.codeSmell}}</div>-->
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <br>
-            <img src="./assets/images/duplicate.png" width="40" height="40" alt="Duplication">
-            <font class="sonar_name" size="4"><b>Duplication</b></font>
-            <font class ="sonar_index"><b>{{datas.duplication}}</b></font>
-<!--            <br>-->
-<!--            <div class="sonar_index">{{datas.duplication}}</div>-->
           </td>
         </tr>
       </table>
