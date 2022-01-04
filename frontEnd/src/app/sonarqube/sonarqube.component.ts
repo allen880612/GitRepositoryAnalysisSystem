@@ -20,9 +20,18 @@ export class SonarqubeComponent implements OnInit {
   ProjectID: any;
   obj: JSONObject;
 
+  owner: any;
+  repo: any;
+  githubUrl: string;
+
   constructor(private router: Router, private SonarqubeService: SonarqubeService) {}
 
   ngOnInit(): void {
+    this.repo = window.sessionStorage.getItem('repoName');
+    this.owner = window.sessionStorage.getItem('owner');
+    this.githubUrl = "http://github.com/" + this.owner + "/" + this.repo
+    console.log(this.githubUrl);
+
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
     this.getProjectID();
     // this.datas=this.obj;
