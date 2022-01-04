@@ -42,12 +42,12 @@ export class BuglistComponent implements OnInit {
 
   task: Task = {
     name: 'Select ALL',
-    completed: false,
+    completed: true,
     color: 'primary',
     subtasks: [
-      {name: 'BUG', completed: false, color: 'primary'},
-      {name: 'CODE_SMELL', completed: false, color: 'accent'},
-      {name: 'VULNERABILITY', completed: false, color: 'warn'},
+      {name: 'BUG', completed: true, color: 'primary'},
+      {name: 'CODE_SMELL', completed: true, color: 'accent'},
+      {name: 'VULNERABILITY', completed: true, color: 'warn'},
     ],
   };
   allComplete: boolean = false;

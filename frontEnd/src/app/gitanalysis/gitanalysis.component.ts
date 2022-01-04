@@ -73,7 +73,6 @@ export class GitanalysisComponent implements OnInit {
     this.contributor_commit_canvas=false;
     console.log(this.repo)
     console.log(this.owner)
-
     // this.getCommitTrend();
   }
 

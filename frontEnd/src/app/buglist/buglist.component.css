@@ -3,6 +3,8 @@
   width: 95%;
   font-family: 'Comic Sans MS', serif;
   font-size: 24px;
+  word-wrap: break-word;
+  table-layout: fixed;
 }
 
 .mainTable td {
