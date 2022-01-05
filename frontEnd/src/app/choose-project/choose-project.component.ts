@@ -49,11 +49,13 @@ export class ChooseProjectComponent implements OnInit {
       );
   }
 
-  choose_repo(event) {
-    console.log(event);
-    const chosenId: string = event.target.id.toString();
-    sessionStorage.setItem('ChosenProjectID', chosenId);
-    console.log("chosenid:",chosenId)
+  choose_repo(projectid, projectName, projectDescription) {
+    console.log(projectid);
+    // const chosenId: string = event.target.id.toString();
+    sessionStorage.setItem('ChosenProjectID', projectid);
+    sessionStorage.setItem('projectName', projectName);
+    sessionStorage.setItem('projectIntroduction', projectDescription);
+    console.log("chosenid:",projectid)
 
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
 
@@ -75,8 +77,6 @@ export class ChooseProjectComponent implements OnInit {
 
           sessionStorage.setItem('repoName', this.repoNames[0]);
           sessionStorage.setItem('owner', this.owner[0]);
-          sessionStorage.setItem('projectName', this.projectNames[0]);
-          sessionStorage.setItem('projectIntroduction', this.projectIntroduction[0]);
         }
         this.router.navigate(['project-analysis']);
         // this.router.navigate(['issue-track']);
