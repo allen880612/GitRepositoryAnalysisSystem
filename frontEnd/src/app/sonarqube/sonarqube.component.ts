@@ -24,6 +24,8 @@ export class SonarqubeComponent implements OnInit {
   repo: any;
   githubUrl: string;
 
+  githubShotUrl: string;
+
   constructor(private router: Router, private SonarqubeService: SonarqubeService) {}
 
   ngOnInit(): void {
@@ -35,6 +37,8 @@ export class SonarqubeComponent implements OnInit {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
     this.getProjectID();
     // this.datas=this.obj;
+
+    this.githubShotUrl = window.sessionStorage.getItem('avatarUrl');;
   }
 
   getCommitTrend() {
