@@ -39,6 +39,8 @@ public class AuthorizeGithubServlet extends HttpServlet{
         GithubUserDTO githubUserDto = githubAccessor.getUserInfo(token);
 
         AuthorizeGithubOutput authOutput = new AuthorizeGithubOutputImpl();
+        authOutput.setAvatarUrl(githubUserDto.getAvatarUrl());
+
         if (githubUserDto.isSuccessful()) {
             AuthorizeGithubInput authInput = new AuthorizeGithubInputImpl
                     (githubUserDto.getAccount(), "", githubUserDto.getName(), githubUserDto.getId());

@@ -6,6 +6,7 @@ public class AuthorizeGithubOutputImpl implements AuthorizeGithubOutput {
     private boolean isSuccessful;
     private String id;
     private String name;
+    private String avatarUrl;
 
     public AuthorizeGithubOutputImpl() { isSuccessful=true; }
 
@@ -38,4 +39,10 @@ public class AuthorizeGithubOutputImpl implements AuthorizeGithubOutput {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+
+    @Override
+    public String getAvatarUrl() { return avatarUrl; }
 }

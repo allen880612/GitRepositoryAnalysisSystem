@@ -23,11 +23,9 @@ public class AuthorizeGithubUseCase {
         boolean isRegistered = accountRepository.verifyAccountWithToken(authAccount);
         if (isRegistered) {
             Account existAccount = accountRepository.getAccountWithToken(authAccount);
-//            System.out.println(existAccount.getId());
             output.setId(existAccount.getId());
             output.setName(existAccount.getName());
         } else {
-//            System.out.println("new Account");
             output.setId(authAccount.getId());
             output.setName(authAccount.getName());
             try {
