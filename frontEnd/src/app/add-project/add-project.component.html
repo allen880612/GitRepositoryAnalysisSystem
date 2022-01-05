@@ -42,7 +42,7 @@
                                 <tr class="InputTable">
                                   <td style="vertical-align:top;">
                                     <div class="rgba" style="text-align:left; width:auto; display:inline-block">
-                                      <h4 class="display-4">Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" ></h4>
+                                      <h4 class="display-4">Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" autocomplete="off"></h4>
                                       <h4 class="display-4 ">Project Description(optional):<br>
                                         <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription" id="ProjectDescriptionInputText" name="ProjectDescriptionInputTextArea" rows="10" cols="50" size="50%" maxlength="80" placeholder="長度限制:80字" type="text"
                                                   onkeyup=""></textarea></h4>
@@ -61,19 +61,19 @@
                                     <tr class="InputTr">
                                       <td>
                                         <h4 class="display-4">Add Github Repo Link : <br>
-                                          <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" ><span class="  text-black display-4" href="#"></span>
+                                          <input type="text" name="FullNameofUser" placeholder="Input Repo url:" [(ngModel)]="InputGitRepoUrl" autocomplete="off"><span class="  text-black display-4" href="#"></span>
                                           <!--                                      <button type="submit" (click)="CheckGitRepoUrlVaild()">Add</button>-->
                                         </h4>
                                       </td>
                                       <td>
                                         <h4 class="display-4">Add Sonar Host : <br>
-                                          <input type="text" name="SonarHost" placeholder="Sonar Host:" [(ngModel)]="InputSonarHost" ><span class="  text-black display-4" href="#"></span>
+                                          <input type="text" name="SonarHost" placeholder="Sonar Host:" [(ngModel)]="InputSonarHost" autocomplete="off"><span class="  text-black display-4" href="#"></span>
                                         </h4>
                                         <h4 class="display-4">Add Sonar Project Key : <br>
-                                          <input type="text" name="SonarProjectKey" placeholder="Sonar Project Key:" [(ngModel)]="InputSonarProjectKey" ><span class="  text-black display-4" href="#"></span>
+                                          <input type="text" name="SonarProjectKey" placeholder="Sonar Project Key:" [(ngModel)]="InputSonarProjectKey" autocomplete="off"><span class="  text-black display-4" href="#"></span>
                                         </h4>
                                         <h4 class="display-4">Add Sonar Token : <br>
-                                          <input type="text" name="SonarToken" placeholder="Sonar Token:" [(ngModel)]="InputSonarToken" ><span class="  text-black display-4" href="#"></span>
+                                          <input type="text" name="SonarToken" placeholder="Sonar Token:" [(ngModel)]="InputSonarToken" autocomplete="off"><span class="  text-black display-4" href="#"></span>
                                         </h4>
                                       </td>
                                     </tr>

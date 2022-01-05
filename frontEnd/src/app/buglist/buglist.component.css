@@ -1,75 +1,15 @@
-.example-headers-align .mat-expansion-panel-header-description.mat-toolbar,
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0  ;
-  justify-content: space-between;
-}
-
-.example-headers-align .mat-expansion-panel{
-  padding: 14px;
-}
-
-.example-headers-align .mat-expansion-panel-header{
-  font-size: 16px;
-}
-
-.example-headers-align .mat-expansion-panel-header-title{
-  align-items: center;
-  font-style: oblique;
-  color: green;
-  font-size: 24px;
-}
-
-.status{
-  align-items: center;
-  color: red;
-  border-radius: 10px;
-}
-
-.example-headers-align .mat-expansion-panel-header-description {
-  font-size: 28px;
-  color: #005cbf;
-}
-
-.mat-basic-chip{
-  padding: 5px 0px;
-  border-radius: 10px;
-  flex-basis: 0;
-  font-size: 16px;
-  color: black;
-}
-
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.example-full-width {
-  width: 100%;
-}
-
-.personal-avatar{
-  border-radius: 50%;
-}
-
-.mat-expansion-panel {
-  width: 100%;
-}
-
-.mainPanel {
-  width: 70vw;
-}
-
 .mainTable {
   /*border: #5cbf2a solid;*/
-  width: 92%;
+  width: 95%;
   font-family: 'Comic Sans MS', serif;
   font-size: 24px;
+  word-wrap: break-word;
+  table-layout: fixed;
 }
 
 .mainTable td {
   padding: 0 10px 10px 10px;
+  text-align: left;
 }
 
 mat-checkbox {
