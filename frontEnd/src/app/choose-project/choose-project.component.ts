@@ -75,6 +75,8 @@ export class ChooseProjectComponent implements OnInit {
 
           sessionStorage.setItem('repoName', this.repoNames[0]);
           sessionStorage.setItem('owner', this.owner[0]);
+          sessionStorage.setItem('projectName', this.projectNames[0]);
+          sessionStorage.setItem('projectIntroduction', this.projectIntroduction[0]);
         }
         this.router.navigate(['project-analysis']);
         // this.router.navigate(['issue-track']);

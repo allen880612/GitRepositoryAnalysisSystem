@@ -22,3 +22,29 @@ div.myButton > button:hover {
 div.myButton > button:last-child {
   margin-right: 0;
 }
+
+.RepoInfoTable {
+  text-align: left;
+  vertical-align: top;
+}
+
+.RepoInfoTable td {
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: 20px;
+  border: #DCDCDC solid;
+  padding: 20px;
+  color: #454d55;
+}
+
+.RepoInfoTable tr>td:last-child {
+  color: #F08080;
+}
+
+.RepoUrl {
+  text-decoration: none;
+  color: #F08080;
+}
+
+a.RepoUrl:hover {
+  color: #818182;
+}
