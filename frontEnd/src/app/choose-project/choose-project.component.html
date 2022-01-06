@@ -1,43 +1,39 @@
 
 <app-header></app-header>
-<div class="row" style="padding:10px 100px 10px 100px;">
-  <div class="col-4">
-    <br>
-    <app-personal-imformation></app-personal-imformation>
-  </div>
+<table class="row" style="padding:10px 100px 10px 100px;">
+<!--  <app-personal-imformation></app-personal-imformation>-->
+  <br>
 
+<div class="col-8">
+  <br>
+  <table class="total_body" align="right"  > <!--這邊要讓他靠右才會置中 就是那麼神奇-->
+    <section *ngFor="let item of datas">
+      <tr>
+        <td>
+          <button class="delete_button" style=" text-align:right;border-radius:10px;" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="50px" ></button>
+        </td>
+        <td>
+          <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="50px" ></button>
+        </td>
+      <td class="box" style="padding:10px 100px 10px 100px;">
+        <p class="ellipsis1">專案名稱:{{item.projectName}}<br/></p>
+        <p class="ellipsis2">專案敘述:{{item.projectDescription}}<br/></p>
+        <!--                  <p class="ellipsis3">GitUrl:{{githubUrl}}<br/></p>-->
+        <p class="ellipsis4">開始時間:{{item.projectStartTime}}</p>
+      </td>
 
-  <div class="col-8">
-    <br>
-    <div>
-      <table>
-        <section *ngFor="let item of datas">
-          <tr>
-            <div>
-<!--              <button class="delete_button" style=" text-align:right;border-radius:10px;" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="50px" ></button>-->
-              <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/trash.png"  width="50px" ></button>
-                <div class="box">
-                  <p class="ellipsis1">專案名稱:{{item.projectName}}<br/></p>
-                  <p class="ellipsis2">專案敘述:{{item.projectDescription}}<br/></p>
-<!--                  <p class="ellipsis3">GitUrl:{{githubUrl}}<br/></p>-->
-                  <p class="ellipsis4">開始時間:{{item.projectStartTime}}</p>
-                </div>
+      </tr>
 
-<!--              上面binding的變數可以透過"[]"來傳入函數!!!!  -->
-            </div>
-          </tr>
-
-        </section>
-      </table>
-
-    </div >
-          <div><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
-
-
+    </section>
+  </table>
+  <div style="padding:10px 0px 10px 0px;"><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
 
   </div>
+</table>
+<div>
+
 </div>
-<app-footer></app-footer>
+    <app-footer></app-footer>
 
 
 

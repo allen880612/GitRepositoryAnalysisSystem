@@ -1,25 +1,8 @@
 
 
-
 .myButton {
-  width: 500px;
-  padding: 5px;
-  background-color: #ffffff;
-  border-radius:28px;
-  border:1px solid #312a2a;
-  display:inline-block;
-  cursor:pointer;
-  /*字color*/
-  color: #000000;
-  font-size: 20px;
-  text-align:left;
-  font-family:Arial;
-  padding:20px 200px;
-  text-decoration:none;
-  /*text-shadow:0px 1px 0px #2f6627;*/
-  word-wrap: break-word;
-
-
+  border-radius:14px;
+transform:translate(80px,-100px)
 }
 .myButton:hover {
   background-color:#5cbf2a;
@@ -31,6 +14,7 @@
 
 
 .add_button {
+  transform: translate(425px,20px);
   background-color: #ffffff;
   border-radius:28px;
   border:1px solid #312a2a;
@@ -54,13 +38,39 @@
 }
 
 .delete_button{
-  transform:translateY(60px);
+  transform:translate(146px,-20px)
+
 }
+.delete_button:hover {
+  background-color:#5cbf2a;
+}
+
+.total_body{
+
+  /*vertical-align: middle;*/
+  /*border:1px solid #312a2a;*/
+  /*display:inline-block;*/
+}
+
+
 /*這邊開始省略字數的控制*/
 .box {
-  width: 450px;
-  padding: 10px;
-  transform:translateX(-180px);
+  width: 500px;
+  padding: 0px;
+  background-color: #ffffff;
+  border-radius:28px;
+  border:1px solid #312a2a;
+  display:inline-block;
+  /*字color*/
+  color: #000000;
+  font-size: 20px;
+  text-align:left;
+  font-family:Arial;
+  padding:20px 120px;
+  text-decoration:none;
+  /*text-shadow:0px 1px 0px #2f6627;*/
+  word-wrap: break-word;
+  /*transform:translateX(-2px);*/
   /*border: #4caf50 2px solid;*/
 }
 
