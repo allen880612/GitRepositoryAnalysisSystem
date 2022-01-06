@@ -1,9 +1,3 @@
-/*.sonarTable {*/
-/*  align-content: center;*/
-/*  border-style: dashed;*/
-/*  border-color: #0a0800;*/
-/*}*/
-
 img {
   vertical-align: middle;
 }
@@ -17,4 +11,12 @@ img {
 
 .bug{
   transform:translateX(-3px);
+}
+
+table.sonarTable td {
+  padding: 0 10px 10px 10px;
+}
+
+.GitHubUser {
+  text-decoration: none;
 }

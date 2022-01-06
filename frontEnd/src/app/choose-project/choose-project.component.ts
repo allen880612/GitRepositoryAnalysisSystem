@@ -49,11 +49,13 @@ export class ChooseProjectComponent implements OnInit {
       );
   }
 
-  choose_repo(event) {
-    console.log(event);
-    const chosenId: string = event.target.id.toString();
-    sessionStorage.setItem('ChosenProjectID', chosenId);
-    console.log("chosenid:",chosenId)
+  choose_repo(projectid, projectName, projectDescription) {
+    console.log(projectid);
+    // const chosenId: string = event.target.id.toString();
+    sessionStorage.setItem('ChosenProjectID', projectid);
+    sessionStorage.setItem('projectName', projectName);
+    sessionStorage.setItem('projectIntroduction', projectDescription);
+    console.log("chosenid:",projectid)
 
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
 
