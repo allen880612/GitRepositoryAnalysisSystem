@@ -46,6 +46,7 @@ export class AddProjectComponent implements OnInit {
       userId:undefined,
       projectName:undefined,
       projectDescription:undefined,
+      // githubUrl:undefined,
       // sonarHost:undefined,
       // sonarProjectKey:undefined,
       // sonarToken:undefined
@@ -53,6 +54,7 @@ export class AddProjectComponent implements OnInit {
     CreateUserProjectData.userId  =  this.UserID.toString();
     CreateUserProjectData.projectName  =  this.NameofProject.toString();
     CreateUserProjectData.projectDescription = this.DesciptionOfProject.toString();
+    // CreateUserProjectData.githubUrl  =  this.InputGitRepoUrlList[0].toString();
     // CreateUserProjectData.sonarHost  = this.InputSonarHost.toString();
     // CreateUserProjectData.sonarProjectKey  = this.InputSonarProjectKey.toString();
     // CreateUserProjectData.sonarToken  = this.InputSonarToken.toString();
@@ -141,7 +143,6 @@ export class AddProjectComponent implements OnInit {
         this.datas = request;
         console.log(this.datas);
         if (this.datas.isUrlVaild == "true"){
-
           //this.projectImportMsg += '\n' + " [導入成功] "+this.InputGitRepoUrl + '\n';
           this.InputGitRepoUrlList.push(this.InputGitRepoUrl);
           this.InputGitRepoUrl = null;
