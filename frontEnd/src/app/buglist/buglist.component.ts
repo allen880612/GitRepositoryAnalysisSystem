@@ -33,9 +33,6 @@ export class BuglistComponent implements OnInit {
 
   ProjectID: string;
   repo: any;
-  obj1: JSONObject;
-  obj2: JSONObject;
-  obj3: JSONObject;
   step = 0;
 
   sonarGroup: FormGroup;
@@ -101,42 +98,36 @@ export class BuglistComponent implements OnInit {
   }
 
   getBugList() {
-    const bugListData = {
-      projectId: this.ProjectID,
-    };
-
-    // this.obj1 = new JSONObject();
-    // this.obj1 = {
-    //   titles:"bug1",
-    //   severities:"serverties1",
-    //   efforts:"effort1",
-    // };
-    //
-    // this.obj2 = new JSONObject();
-    // this.obj2 = {
-    //   titles:"bug2",
-    //   severities:"serverties2",
-    //   efforts:"effort2",
-    // };
-    // this.obj3 = new JSONObject();
-    // this.obj3 = {
-    //   titles:"bug3",
-    //   severities:"serverties3",
-    //   efforts:"effort3",
-    // };
+    // this.types.push("BUG");
+    // this.types.push("CODE_SMELL");
+    // this.types.push("VULNERABILITY");
     //
     // this.titles.push("abcdefghijklmnopqrstuvwxyz");
     // this.titles.push("bug2");
     // this.titles.push("bug3");
     //
-    // this.severities.push("serverties1");
-    // this.severities.push("serverties2");
-    // this.severities.push("serverties3");
+    // this.severities.push("AAA");
+    // this.severities.push("BBB");
+    // this.severities.push("CCC");
     //
-    // this.efforts.push("effort1");
-    // this.efforts.push("effort2");
-    // this.efforts.push("effort3");
+    // this.efforts.push("10min");
+    // this.efforts.push("20min");
+    // this.efforts.push("30min");
+    //
+    // this.components.push("component1");
+    // this.components.push("component2");
+    // this.components.push("component3");
+    //
+    // this.redirectUrls.push("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    // this.redirectUrls.push("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    // this.redirectUrls.push("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    //
+    // this.issue_count = "6789";
+    // this.effort_total = "297";
 
+    const bugListData = {
+      projectId: this.ProjectID,
+    };
     const data = JSON.stringify(bugListData);
     this.BuglistService.getBugListService(data).subscribe(
       request => {

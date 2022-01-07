@@ -41,13 +41,14 @@ export class SonarqubeComponent implements OnInit {
   }
 
   getProjectID() {
-    this.obj = new JSONObject();
-    this.obj = {
-      coverage:0.87,
-      bugs:20,
-      codeSmell:30,
-      duplication:0.56
-    };
+    // this.datas = new JSONObject();
+    // this.datas = {
+    //   coverage: "87.9",
+    //   bugs: "20",
+    //   codeSmell: "30",
+    //   duplication: "56.7",
+    // };
+
     const UserProjectID = {
       projectId: undefined,
     };
