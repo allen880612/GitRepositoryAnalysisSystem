@@ -42,6 +42,7 @@ public class CreateProjectServlet extends HttpServlet {
     class CreateProjectException extends Exception{
 
     }
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -65,13 +66,10 @@ public class CreateProjectServlet extends HttpServlet {
         boolean isSuccessful;
         try {
             projectId = createProjectAndReturnId(userId, projectName, projectDescription, githubUrl, sonarHost, sonarToken, sonarProjectKey);
-
-            addProjectOnUserID(userId, projectId);
             isSuccessful = true;
         }catch (CreateProjectException e){
             projectId="";
             isSuccessful= false;
-
         }
         jsonObject.put("projectId", projectId);
         jsonObject.put("isSuccessful",isSuccessful);
