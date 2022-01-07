@@ -26,6 +26,9 @@ div.myButton > button:last-child {
 .RepoInfoTable {
   text-align: left;
   vertical-align: top;
+  table-layout: fixed;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .RepoInfoTable td {
