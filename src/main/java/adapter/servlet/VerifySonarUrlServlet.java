@@ -24,9 +24,9 @@ public class VerifySonarUrlServlet extends HttpServlet {
         System.out.println(getClass().getName());
 
         JSONObject requestBody = new JSONObject(request.getReader().readLine());
-        String host = requestBody.getString("host");
-        String projectKey = requestBody.getString("projectKey");
-        String token = requestBody.getString("token");
+        String host = requestBody.getString("sonarHost");
+        String projectKey = requestBody.getString("sonarProjectKey");
+        String token = requestBody.getString("sonarToken");
 
         SonarQubeAccessor sonarAccessor = new SonarQubeAccessorImpl(host, projectKey, token);
         boolean isUrlValid = sonarAccessor.isSonarProjectValid();

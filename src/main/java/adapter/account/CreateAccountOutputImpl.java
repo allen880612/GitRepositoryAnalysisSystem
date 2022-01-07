@@ -5,6 +5,7 @@ import usecase.account.CreateAccountOutput;
 
 public class CreateAccountOutputImpl implements CreateAccountOutput {
     private String id;
+    private boolean isSuccessful;
     @Override
     public void setAccount(Account admin) {
 
@@ -23,5 +24,14 @@ public class CreateAccountOutputImpl implements CreateAccountOutput {
     @Override
     public String getId() {
         return this.id;
+    }
+
+    @Override
+    public boolean getIsSuccessful() {
+        return isSuccessful;
+    }
+    @Override
+    public void setIsSuccessful(boolean successful) {
+        isSuccessful = successful;
     }
 }

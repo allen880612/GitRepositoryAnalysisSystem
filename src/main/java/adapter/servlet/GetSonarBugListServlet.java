@@ -33,14 +33,9 @@ public class GetSonarBugListServlet extends HttpServlet {
         JSONObject requestBody = new JSONObject(request.getReader().readLine());
         String projectId = requestBody.getString("projectId");
 
-        ProjectRepository projectRepository = new ProjectRepositoryImpl();
-        Project project = projectRepository.getProjectById(projectId);
+
         SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
-        // TODO: get sonarId from project
-        // List<SonarProject> sonarProjectIds = project.getSonarProjects()
-//        SonarProject sonarProject = sonarProjectRepository.getSonarProjectById("");
-        String sonnarToken = "token";
-        SonarProject sonarProject = new SonarProject("ip", "GSAS", sonnarToken);
+        SonarProject sonarProject = sonarProjectRepository.getSonarProjectByProjectId(projectId);
 
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
         SonarIssueListDTO sonarIssueListDTO = sonarQubeAccessor.getSonarIssueList();
