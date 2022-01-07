@@ -6,6 +6,8 @@ import usecase.gitrepository.CreateGitRepositoryInput;
 import usecase.gitrepository.CreateGitRepositoryOutput;
 import usecase.gitrepository.GitRepositoryRepository;
 
+import java.sql.SQLException;
+
 public class CreateSonarProjectUseCase {
     private SonarProjectRepository sonarProjectRepository;
 
@@ -15,9 +17,15 @@ public class CreateSonarProjectUseCase {
 
     public void execute(CreateSonarProjectInput input, CreateSonarProjectOutput output) {
         SonarProject newSonarProject = new SonarProject(input.getHostUrl(),input.getProjectKey(),input.getToken());
-        sonarProjectRepository.createSonarProject(newSonarProject,input.getProjectId());
 
-        output.setIsSuccessful(true);//TODO 之後要改成以try catch來判斷是否為真
+        try {
+            sonarProjectRepository.createSonarProject(newSonarProject,input.getProjectId());
+            output.setIsSuccessful(true);
+        } catch (SQLException e) {
+            output.setIsSuccessful(false);
+            e.printStackTrace();
+        }
+
         output.setSonarProjectId(newSonarProject.getId());
     }
 }

@@ -8,4 +8,6 @@ public interface CreateAccountOutput {
     Account getAccount();
     void setId(String id);
     String getId();
+    boolean getIsSuccessful();
+    void setIsSuccessful(boolean successful);
 }

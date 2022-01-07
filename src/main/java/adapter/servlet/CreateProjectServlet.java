@@ -2,11 +2,16 @@ package adapter.servlet;
 
 
 import adapter.account.AccountRepositoryImpl;
+import adapter.account.CreateAccountInputImpl;
 import adapter.gitrepository.CreateGitRepositoryInputImpl;
 import adapter.gitrepository.CreateGitRepositoryOutputImpl;
 import adapter.gitrepository.GitRepositoryRepositoryImpl;
 import adapter.project.CreateProjectInputImpl;
 import adapter.project.CreateProjectOutputImpl;
+import adapter.sonarproject.CreateSonarProjectInputImpl;
+import domain.Project;
+import usecase.account.CreateAccountInput;
+import usecase.account.CreateAccountUseCase;
 import usecase.project.CreateProjectUseCase;
 import adapter.project.ProjectRepositoryImpl;
 import adapter.sonarproject.SonarProjectRepositoryImpl;
@@ -21,7 +26,7 @@ import usecase.gitrepository.GitRepositoryRepository;
 import usecase.project.CreateProjectInput;
 import usecase.project.CreateProjectOutput;
 import usecase.project.ProjectRepository;
-import usecase.sonarproject.SonarProjectRepository;
+import usecase.sonarproject.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,9 +35,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/createProject", name = "CreateProjectServlet")
 public class CreateProjectServlet extends HttpServlet {
+    class CreateProjectException extends Exception{
+
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -46,56 +55,117 @@ public class CreateProjectServlet extends HttpServlet {
         String userId = String.valueOf(requestBody.get("userId"));
         String projectName = String.valueOf(requestBody.get("projectName"));
         String projectDescription = String.valueOf(requestBody.get("projectDescription"));
-        String id = createProjectAndReturnId(userId, projectName, projectDescription);
 
-        jsonObject.put("projectId", id);
+        String githubUrl = String.valueOf(requestBody.get("githubUrl"));
+        String sonarHost = requestBody.getString("sonarHost");
+        String sonarToken = requestBody.getString("token");
+        String sonarProjectKey = requestBody.getString("sonarProjectKey");
 
+        String projectId;
+        boolean isSuccessful;
+        try {
+            projectId = createProjectAndReturnId(userId, projectName, projectDescription, githubUrl, sonarHost, sonarToken, sonarProjectKey);
+
+            addProjectOnUserID(userId, projectId);
+            isSuccessful = true;
+        }catch (CreateProjectException e){
+            projectId="";
+            isSuccessful= false;
+
+        }
+        jsonObject.put("projectId", projectId);
+        jsonObject.put("isSuccessful",isSuccessful);
         PrintWriter out = response.getWriter();
-        out.println(jsonObject) ;
+        out.println(jsonObject);
         out.close();
     }
+    private String createProjectAndReturnId(String userId, String projectName, String projectDescription, String githubUrl, String sonarHost, String sonarToken, String sonarProjectKey) throws CreateProjectException {
+        String projectId = useProjectUseCaseAndReturnProjectID(projectName, projectDescription);
+        addProjectOnUserID(userId, projectId);
+        useGitRepositoryUseCase(githubUrl,projectId);
+        useSonarProjectUseCase(sonarHost,sonarToken,sonarProjectKey,projectId);
+        return projectId;
+    }
 
-    private String createProjectAndReturnId(String userId, String projectName, String projectDescription){
-        ProjectRepository projectRepository = new ProjectRepositoryImpl();
+    private void useGitRepositoryUseCase(String githubUrl,String projectId)throws CreateProjectException  {
         GitRepositoryRepository gitRepositoryRepository = new GitRepositoryRepositoryImpl();
-        SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
-        // TODO flow should be create project gitRepo sonarProject (3 usecase)?
-        // TODO or flow should be create project (1 usecase)?
-        AccountRepository accountRepository = new AccountRepositoryImpl();
+        CreateGitRepositoryInput input = new CreateGitRepositoryInputImpl();
+        CreateGitRepositoryOutput output = new CreateGitRepositoryOutputImpl();
+        CreateGitRepositoryUseCase createGitRepositoryUseCase = new CreateGitRepositoryUseCase(gitRepositoryRepository);
+        input.setProjectID(projectId);
+        input.setOwnerName(getRepoName(githubUrl, "github.com"));
+        input.setRepoName(getRepoOwnerName(githubUrl, "github.com"));
+        createGitRepositoryUseCase.execute(input, output);
+        if(!output.getIsSuccessful())throw new CreateProjectException();
+
+    }
+    private String getRepoOwnerName(String validUrl, String keyWord){
+        String[] metadatas = validUrl.split("/");
+        for (int i = 0; i < metadatas.length; i++) {
+            if (metadatas[i].equals(keyWord)) {
+                return metadatas[i+2];
+            }
+        }
+        return null;
+    }
+
+    private String getRepoName(String validUrl, String keyWord){
+        String[] metadatas = validUrl.split("/");
+        for (int i = 0; i < metadatas.length; i++) {
+            if (metadatas[i].equals(keyWord)) {
+                return metadatas[i+1];
+            }
+        }
+        return null;
+    }
+
+    private String useProjectUseCaseAndReturnProjectID(String projectName, String projectDescription)throws CreateProjectException {
+
+        ProjectRepository projectRepository = new ProjectRepositoryImpl();
+
         CreateProjectInput input = new CreateProjectInputImpl();
         CreateProjectOutput output = new CreateProjectOutputImpl();
+
         input.setName(projectName);
         input.setDescription(projectDescription);
 
-
         CreateProjectUseCase createProjectUseCase = new CreateProjectUseCase(projectRepository);
-
         createProjectUseCase.execute(input, output);
-        String id = output.getId();
 
-        CreateGitRepositoryUseCase createGitRepositoryUseCase = new CreateGitRepositoryUseCase(gitRepositoryRepository);
-        CreateGitRepositoryInput createGitRepositoryInput = new CreateGitRepositoryInputImpl();
-        CreateGitRepositoryOutput createGitRepositoryOutput = new CreateGitRepositoryOutputImpl();
+        if(!output.getIsSuccessful())throw new CreateProjectException();
+        String projectId = output.getId();
 
-        createGitRepositoryInput.setOwnerName("Peter Parker");
-        createGitRepositoryInput.setRepoName("Spider man");
-        createGitRepositoryUseCase.execute(createGitRepositoryInput,createGitRepositoryOutput);
-
-
-
-        sonarProjectRepository.createSonarProject(new SonarProject("url123","projectkey123","token123"),id);
-
-
-
-
-
-
-
-        Account account = accountRepository.getAccountById(userId);
-        account.addProject(id);
-
-        accountRepository.updateAccountOwnProject(account);
-        return output.getId();
+        return projectId;
     }
 
+
+    private void useSonarProjectUseCase(String sonarHost, String sonarToken, String sonarProjectKey,String projectId) throws CreateProjectException {
+
+        SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
+
+        CreateSonarProjectInput input = new CreateSonarProjectInputImpl();
+        CreateSonarProjectOutput output = new CreateSonarProjectOutputImpl();
+
+        input.setHostUrl(sonarHost);
+        input.setToken(sonarToken);
+        input.setProjectKey(sonarProjectKey);
+        input.setProjectId(projectId);
+
+        CreateSonarProjectUseCase createSonarProjectUseCase = new CreateSonarProjectUseCase(sonarProjectRepository);
+        createSonarProjectUseCase.execute(input,output);
+        if(!output.getIsSuccessful())throw new CreateProjectException();
+    }
+
+    private void addProjectOnUserID(String userId,String projectId) throws CreateProjectException{
+        AccountRepository accountRepository = new AccountRepositoryImpl();
+        Account account = accountRepository.getAccountById(userId);
+        account.addProject(projectId);
+
+        try {
+            accountRepository.updateAccountOwnProject(account);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new CreateProjectException();
+        }
+    }
 }

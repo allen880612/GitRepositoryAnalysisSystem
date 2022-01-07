@@ -8,15 +8,15 @@ import usecase.sonarproject.SonarProjectRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SonarProjectRepositoryImpl implements SonarProjectRepository {
-    private List<SonarProject> sonarProjects;
+
     private Connection conn;
 
     public SonarProjectRepositoryImpl() {
-        this.sonarProjects = new ArrayList<>();//這個好像沒用到?
         conn = Database.getConnection();
     }
 
@@ -69,13 +69,10 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
 
     }
 
-    // TODO: get SonarProject by projectId
-    @Override
-    public void createSonarProject(SonarProject sonarProject, String projectId) {
-        sonarProjects.add(sonarProject);
-        final String insert = " INSERT INTO sonarproject(sonar_project_id, host_url, token, project_key, project_id) VALUES(?,?,?,?,?) ";
 
-        try {
+    @Override
+    public void createSonarProject(SonarProject sonarProject, String projectId) throws SQLException {
+        final String insert = " INSERT INTO sonarproject(sonar_project_id, host_url, token, project_key, project_id) VALUES(?,?,?,?,?) ";
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
             preparedStatement.setString (1,sonarProject.getId());
@@ -84,10 +81,6 @@ public class SonarProjectRepositoryImpl implements SonarProjectRepository {
             preparedStatement.setString (4, sonarProject.getProjectKey());
             preparedStatement.setString (5, projectId);
             preparedStatement.execute();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
     }
 
 

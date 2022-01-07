@@ -16,6 +16,8 @@ import usecase.account.CreateAccountInput;
 import usecase.account.CreateAccountOutput;
 import usecase.account.CreateAccountUseCase;
 
+import java.sql.SQLException;
+
 public class CreateProjectTest {
     private AccountRepository accountRepository = new AccountRepositoryImpl();
     private ProjectRepository projectRepository = new ProjectRepositoryImpl();
@@ -32,6 +34,18 @@ public class CreateProjectTest {
         createAccountUseCase.execute(input, output);
         account = accountRepository.getAccountById(output.getId());
         Assert.assertEquals("bigMoney", account.getAccount());
+    }
+
+    @Test
+    public void createProjectAndReturnProjectID(){
+        String userId = "IAmUserID";
+        String projectName = "IAmProjectName";
+        String projectDescription = "IAmprojectDescription";
+
+        String githubUrl = "";
+        String sonarHost = "asdf";
+        String sonarToken = "dfdsfsdf";
+        String sonarProjectKey = "sdfsdfef";
     }
 
     @Test
@@ -53,7 +67,12 @@ public class CreateProjectTest {
 //        Assert.assertNotNull(project.getStartTime());
 
         account.addProject(project.getId());
-        accountRepository.updateAccountOwnProject(account);
+
+        try {
+            accountRepository.updateAccountOwnProject(account);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         Account accountInDB = accountRepository.getAccountById(account.getId());
         Assert.assertEquals(1, accountInDB.getProjects().size());
