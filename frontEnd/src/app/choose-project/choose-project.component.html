@@ -1,39 +1,37 @@
-
 <app-header></app-header>
 <table class="row" style="padding:10px 100px 10px 100px;">
 <!--  <app-personal-imformation></app-personal-imformation>-->
   <br>
+  <div style="width: 100%; text-align: center">
+    <br>
+    <table class="total_body">
+      <col style="width: 10%">
+      <col style="width: 90%">
 
-<div class="col-8">
-  <br>
-  <table class="total_body" align="right"  > <!--這邊要讓他靠右才會置中 就是那麼神奇-->
-    <section *ngFor="let item of datas">
-      <tr>
-        <td>
-          <button class="delete_button" style=" text-align:right;border-radius:10px;" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="50px" ></button>
-        </td>
-        <td>
-          <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="50px" ></button>
-        </td>
-      <td class="box" style="padding:10px 100px 10px 100px;">
-        <p class="ellipsis1">專案名稱:{{item.projectName}}<br/></p>
-        <p class="ellipsis2">專案敘述:{{item.projectDescription}}<br/></p>
-        <!--                  <p class="ellipsis3">GitUrl:{{githubUrl}}<br/></p>-->
-        <p class="ellipsis4">開始時間:{{item.projectStartTime}}</p>
-      </td>
-
-      </tr>
-
-    </section>
-  </table>
-  <div style="padding:10px 0px 10px 0px;"><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
-
+      <ng-container *ngFor="let item of datas">
+        <tr style="border-top: rgba(200, 200, 200, 0.5) solid;">
+          <td style="vertical-align: bottom; padding-bottom: 7px; text-align: right; padding-right: 10px; padding-left: 0">
+            <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="40px" ></button>
+          </td>
+          <td rowspan="2" class="ProjectList">
+            <div>專案名稱: <span class="spanClass">{{item.projectName}}</span></div>
+            <div>專案敘述: <span class="spanClass">{{item.projectDescription}}</span></div>
+            <!--                  <p class="ellipsis3">GitUrl:{{githubUrl}}<br/></p>-->
+            <div>開始時間: <span class="spanClass">{{item.projectStartTime}}</span></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; padding-top: 7px; text-align: right; padding-right: 10px; padding-left: 0">
+            <button class="delete_button" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="40px" ></button>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+    <div style="padding:10px 0px 10px 0px;"><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
   </div>
 </table>
-<div>
 
-</div>
-    <app-footer></app-footer>
+<app-footer></app-footer>
 
 
 
