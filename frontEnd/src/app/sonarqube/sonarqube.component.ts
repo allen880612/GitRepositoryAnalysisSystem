@@ -11,6 +11,7 @@ class JSONObject {
   templateUrl: './sonarqube.component.html',
   styleUrls: ['./sonarqube.component.css']
 })
+
 export class SonarqubeComponent implements OnInit {
   coverage: any;
   bugs: any;
@@ -19,9 +20,7 @@ export class SonarqubeComponent implements OnInit {
   datas: any;
   ProjectID: any;
   obj: JSONObject;
-
   githubAvatarUrl: string;
-
   UserName:any;
 
   constructor(private router: Router, private SonarqubeService: SonarqubeService) {}
@@ -29,15 +28,9 @@ export class SonarqubeComponent implements OnInit {
   ngOnInit(): void {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
     this.getProjectID();
-    // this.datas=this.obj;
 
     this.githubAvatarUrl = window.sessionStorage.getItem('avatarUrl');
-
     this.UserName = window.sessionStorage.getItem('Username');
-  }
-
-  getCommitTrend() {
-    this.router.navigate(['gitanalysis']);
   }
 
   getProjectID() {

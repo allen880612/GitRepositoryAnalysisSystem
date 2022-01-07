@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
   NavitoLogout(){
     this.redirectTo("LoginPage");
     window.sessionStorage.clear();
-
   }
 
 

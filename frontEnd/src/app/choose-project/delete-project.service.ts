@@ -9,12 +9,12 @@ export class DeleteProjectService {
   constructor(private httpClient: HttpClient) { }
 
   public deleteChosenProject(body) {
-        const headers = new HttpHeaders({
-          'Content-Type': 'text/json'
-        });
-        const options = {
-          headers
-        };
-        return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/deleteProject', body, options);
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/json'
+    });
+    const options = {
+      headers
+    };
+    return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/deleteProject', body, options);
   }
 }

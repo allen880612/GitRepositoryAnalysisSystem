@@ -1,93 +1,72 @@
-<!--<html lang="en">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <link rel="stylesheet" href="sonarqube.component.css">-->
-<!--  <title>-->
-<!--    SonarQube-->
-<!--  </title>-->
-<!--</head>-->
-
-<!--<body>-->
-<!--上左下右-->
-
 <div style="width: 100%; text-align: center">
-      <table class="githubTable" style="margin: auto;">
-        <tr>
-          <td style="text-align: center">
-            <img src={{githubAvatarUrl}} width="180" height="180" alt="photo">
-          </td>
-        </tr>
-        <tr>
-          <td class="UserName">
-            <b>{{UserName | uppercase}}</b>
-          </td>
-        </tr>
-      </table>
+  <table class="githubTable" style="margin: auto;">
+    <tr>
+      <td style="text-align: center">
+        <img src={{githubAvatarUrl}} width="180" height="180" alt="photo">
+      </td>
+    </tr>
+    <tr>
+      <td class="UserName">
+        <b>{{UserName | uppercase}}</b>
+      </td>
+    </tr>
+  </table>
 
-      <table class="sonarTable" style="margin: 15px auto auto auto;">
-<!--        <tr>-->
-<!--          <td colspan="2" style="padding-bottom: 0; font-size: 26px">-->
-<!--            SonarQube-->
-<!--          </td>-->
-<!--        </tr>-->
+  <table class="sonarTable" style="margin: 15px auto auto auto;">
+    <tr class="sonarqubetr">
+      <td rowspan="2" style="text-align: left; vertical-align: top">
+        <img src="./assets/images/CodeCoverage.png" width="30" height="30" alt="Code Coverage">
+      </td>
+      <td class="sonar_name">
+        <span><b>Code Coverage</b></span>
+      </td>
+    </tr>
+    <tr>
+      <td class ="sonar_index">
+        <span><b>{{datas.coverage}} %</b></span>
+      </td>
+    </tr>
 
-        <tr class="sonarqubetr">
-          <td rowspan="2" style="text-align: left; vertical-align: top">
-            <img src="./assets/images/CodeCoverage.png" width="30" height="30" alt="Code Coverage">
-          </td>
-          <td class="sonar_name">
-            <span><b>Code Coverage</b></span>
-          </td>
-        </tr>
-        <tr>
-          <td class ="sonar_index">
-            <span><b>{{datas.coverage}} %</b></span>
-          </td>
-        </tr>
+    <tr class="sonarqubetr">
+      <td rowspan="2" style="text-align: left; vertical-align: top">
+        <img src="./assets/images/duplicate.png" width="30" height="30" alt="Duplication">
+      </td>
+      <td class="sonar_name">
+        <span><b>Duplication</b></span>
+      </td>
+    </tr>
+    <tr>
+      <td class ="sonar_index">
+        <span><b>{{datas.duplication}} %</b></span>
+      </td>
+    </tr>
 
-        <tr class="sonarqubetr">
-          <td rowspan="2" style="text-align: left; vertical-align: top">
-            <img src="./assets/images/duplicate.png" width="30" height="30" alt="Duplication">
-          </td>
-          <td class="sonar_name">
-            <span><b>Duplication</b></span>
-          </td>
-        </tr>
-        <tr>
-          <td class ="sonar_index">
-            <span><b>{{datas.duplication}} %</b></span>
-          </td>
-        </tr>
+    <tr class="sonarqubetr">
+      <td rowspan="2" style="text-align: left; vertical-align: top">
+        <img class="bug" src="./assets/images/bug_new.png" width="30" height="30" alt="Bugs">
+      </td>
+      <td class="sonar_name">
+        <span><b>Bugs</b></span>
+      </td>
+    </tr>
+    <tr>
+      <td class ="sonar_index">
+        <span><b>{{datas.bugs}}</b></span>
+      </td>
+    </tr>
 
-        <tr class="sonarqubetr">
-          <td rowspan="2" style="text-align: left; vertical-align: top">
-            <img class="bug" src="./assets/images/bug_new.png" width="30" height="30" alt="Bugs">
-          </td>
-          <td class="sonar_name">
-            <span><b>Bugs</b></span>
-          </td>
-        </tr>
-        <tr>
-          <td class ="sonar_index">
-            <span><b>{{datas.bugs}}</b></span>
-          </td>
-        </tr>
-
-        <tr class="sonarqubetr">
-          <td rowspan="2" style="text-align: left; vertical-align: top">
-            <img src="./assets/images/CodeSmell.png" width="30" height="30" alt="Code Smells">
-          </td>
-          <td class="sonar_name">
-            <span><b>Code Smells</b></span>
-          </td>
-        </tr>
-        <tr style="border-bottom: rgba(220, 220, 220, 0.6) solid">
-          <td class ="sonar_index">
-            <span><b>{{datas.codeSmell}}</b></span>
-          </td>
-        </tr>
-      </table>
+    <tr class="sonarqubetr">
+      <td rowspan="2" style="text-align: left; vertical-align: top">
+        <img src="./assets/images/CodeSmell.png" width="30" height="30" alt="Code Smells">
+      </td>
+      <td class="sonar_name">
+        <span><b>Code Smells</b></span>
+      </td>
+    </tr>
+    <tr style="border-bottom: rgba(220, 220, 220, 0.6) solid">
+      <td class ="sonar_index">
+        <span><b>{{datas.codeSmell}}</b></span>
+      </td>
+    </tr>
+  </table>
 </div>
-<!--</body>-->
-
-<!--</html>-->

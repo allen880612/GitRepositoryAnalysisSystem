@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
-  // tslint:disable-next-line:typedef
+
   public verifyUserLoginData(body) {
     const headers = new HttpHeaders({
       'Content-Type': 'text/json'

@@ -20,6 +20,7 @@ export  interface Task {
   templateUrl: './buglist.component.html',
   styleUrls: ['./buglist.component.css']
 })
+
 export class BuglistComponent implements OnInit {
   datas: any;
   titles = [];
@@ -30,12 +31,11 @@ export class BuglistComponent implements OnInit {
   types = [];
   issue_count: string;
   effort_total: string;
-
   ProjectID: string;
   repo: any;
   step = 0;
-
   sonarGroup: FormGroup;
+  allComplete: boolean = false;
 
   task: Task = {
     name: 'Select ALL',
@@ -47,7 +47,6 @@ export class BuglistComponent implements OnInit {
       {name: 'VULNERABILITY', completed: true, color: 'warn'},
     ],
   };
-  allComplete: boolean = false;
 
   constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute, fb: FormBuilder) {
     this.sonarGroup = fb.group({
@@ -82,17 +81,12 @@ export class BuglistComponent implements OnInit {
     this.task.subtasks.forEach(t => (t.completed = completed));
   }
 
-  // tslint:disable-next-line:typedef
   setStep(index: number) {
     this.step = index;
   }
-
-  // tslint:disable-next-line:typedef
   nextStep() {
     this.step++;
   }
-
-  // tslint:disable-next-line:typedef
   prevStep() {
     this.step--;
   }
@@ -132,7 +126,7 @@ export class BuglistComponent implements OnInit {
     this.BuglistService.getBugListService(data).subscribe(
       request => {
         this.datas = request;
-        console.log(this.datas)
+        console.log(this.datas);
 
         this.issue_count = request.count;
         this.effort_total = request.effortTotal;
