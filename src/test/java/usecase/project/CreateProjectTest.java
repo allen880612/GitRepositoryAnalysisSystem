@@ -11,6 +11,7 @@ import domain.Project;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import usecase.account.AccountRepository;
 import usecase.account.CreateAccountInput;
 import usecase.account.CreateAccountOutput;
@@ -34,18 +35,6 @@ public class CreateProjectTest {
         createAccountUseCase.execute(input, output);
         account = accountRepository.getAccountById(output.getId());
         Assert.assertEquals("bigMoney", account.getAccount());
-    }
-
-    @Test
-    public void createProjectAndReturnProjectID(){
-        String userId = "IAmUserID";
-        String projectName = "IAmProjectName";
-        String projectDescription = "IAmprojectDescription";
-
-        String githubUrl = "";
-        String sonarHost = "asdf";
-        String sonarToken = "dfdsfsdf";
-        String sonarProjectKey = "sdfsdfef";
     }
 
     @Test

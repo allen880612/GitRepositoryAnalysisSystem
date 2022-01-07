@@ -62,7 +62,7 @@ public class CreateProjectServlet extends HttpServlet {
             projectId = createProjectAndReturnId(requestDto.getProjectName(), requestDto.getProjectDescription());
             addProjectOnUserID(requestDto.getUserId(), projectId);
             createGitRepository(requestDto.getGithubUrl(), projectId);
-            useSonarProjectUseCase(requestDto.getSonarHost(), requestDto.getSonarToken(), requestDto.getSonarProjectKey(), projectId);
+            createSonarProject(requestDto.getSonarHost(), requestDto.getSonarToken(), requestDto.getSonarProjectKey(), projectId);
             isSuccessful = true;
         } catch (CreateProjectException e) {
             projectId="";
@@ -70,7 +70,7 @@ public class CreateProjectServlet extends HttpServlet {
         }
 
         responseJson.put("projectId", projectId);
-        responseJson.put("isSuccessful",isSuccessful);
+        responseJson.put("isSuccessful", isSuccessful);
         PrintWriter out = response.getWriter();
         out.println(responseJson);
         out.close();
@@ -128,7 +128,7 @@ public class CreateProjectServlet extends HttpServlet {
     }
 
 
-    private void useSonarProjectUseCase(String sonarHost, String sonarToken, String sonarProjectKey,String projectId) throws CreateProjectException {
+    private void createSonarProject(String sonarHost, String sonarToken, String sonarProjectKey, String projectId) throws CreateProjectException {
 
         SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
 
