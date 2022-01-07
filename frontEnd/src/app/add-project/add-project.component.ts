@@ -80,11 +80,12 @@ export class AddProjectComponent implements OnInit {
     SonarUrlData.sonarToken  = this.InputSonarToken;
 
     const data = JSON.stringify(SonarUrlData);
-    this.verifysonarprojectservice.verifySonarUrlVaild(data).subscribe(
+    console.log(data);
+    this.verifysonarprojectservice.verifySonarUrlValid(data).subscribe(
       request => {
         this.datas = request;
         console.log(this.datas);
-        if (this.datas.isUrlVaild == true){
+        if (this.datas.isUrlValid == true){
           this.isSonarUrlValid = true;
 
           if (this.isGitUrlValid) {

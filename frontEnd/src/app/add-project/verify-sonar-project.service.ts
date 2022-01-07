@@ -8,7 +8,7 @@ export class VerifySonarProjectService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public verifySonarUrlVaild(body) {
+  public verifySonarUrlValid(body) {
     const headers = new HttpHeaders({
       'Content-Type': 'text/json'
     });
