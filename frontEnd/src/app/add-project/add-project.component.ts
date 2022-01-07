@@ -12,7 +12,7 @@ import {VerifySonarProjectService} from "./verify-sonar-project.service";
 })
 export class AddProjectComponent implements OnInit {
   projectImportMsg = '';
-  InputGitRepoUrl: '';
+  InputGitRepoUrl: string = "";
   badGitImportMsg = '';
   badSonarImportMsg = '';
   datas: any;
@@ -59,21 +59,23 @@ export class AddProjectComponent implements OnInit {
     // CreateUserProjectData.sonarProjectKey  = this.InputSonarProjectKey.toString();
     // CreateUserProjectData.sonarToken  = this.InputSonarToken.toString();
 
-    const data = JSON.stringify(CreateUserProjectData);
-    this.createprojectservice.createProject(data).subscribe(
-      request => {
-        this.datas = request;
-        console.log(this.datas);
-        if (this.datas.projectId != ""){
-          this.IDofProject = this.datas.projectId;
-          console.log("CreateProjectSuccess",this.IDofProject);
-          for(var index in this.InputGitRepoUrlList){
-            this.AppendRepo(index);
+    if (this.isGitUrlValid) {
+      const data = JSON.stringify(CreateUserProjectData);
+      this.createprojectservice.createProject(data).subscribe(
+        request => {
+          this.datas = request;
+          console.log(this.datas);
+          if (this.datas.projectId != ""){
+            this.IDofProject = this.datas.projectId;
+            console.log("CreateProjectSuccess",this.IDofProject);
+            for(var index in this.InputGitRepoUrlList){
+              this.AppendRepo(index);
+            }
+            this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
           }
-          this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
         }
-      }
-    );
+      );
+    }
 
     // const SonarUrlData = {
     //   sonarHost:undefined,
