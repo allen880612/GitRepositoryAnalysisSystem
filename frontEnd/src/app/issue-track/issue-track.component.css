@@ -28,7 +28,6 @@
 
 .status{
   align-items: center;
-  color: red;
   border-radius: 10px;
 }
 
@@ -69,4 +68,23 @@
 
 .mainPanel {
   width: 70vw;
+}
+
+.ToggleFont {
+  display: inline;
+  font-family: 'Comic Sans MS', serif;
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+.SlideToggle {
+  display: inline;
+}
+
+mat-slide-toggle {
+  font-size: 18px;
+}
+
+mat-panel-title {
+  max-width: 250px !important;
 }

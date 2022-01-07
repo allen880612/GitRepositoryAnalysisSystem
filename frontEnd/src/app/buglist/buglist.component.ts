@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {IssueTrackService} from "../issue-track/issue-track.service";
 import {BuglistService} from "./buglist.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
 
 class JSONObject {
@@ -33,8 +31,7 @@ export class BuglistComponent implements OnInit {
   effort_total: string;
   ProjectID: string;
   repo: any;
-  step = 0;
-  sonarGroup: FormGroup;
+
   allComplete: boolean = false;
 
   task: Task = {
@@ -48,13 +45,7 @@ export class BuglistComponent implements OnInit {
     ],
   };
 
-  constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute, fb: FormBuilder) {
-    this.sonarGroup = fb.group({
-      BUG: true,
-      CODE_SMELL: false,
-      VULNERABILITY: false,
-    });
-  }
+  constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
@@ -79,16 +70,6 @@ export class BuglistComponent implements OnInit {
       return;
     }
     this.task.subtasks.forEach(t => (t.completed = completed));
-  }
-
-  setStep(index: number) {
-    this.step = index;
-  }
-  nextStep() {
-    this.step++;
-  }
-  prevStep() {
-    this.step--;
   }
 
   getBugList() {
