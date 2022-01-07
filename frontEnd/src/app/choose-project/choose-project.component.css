@@ -78,3 +78,8 @@ td.ProjectList div:last-child {
 .spanClass {
   color: #117a8b;
 }
+
+.spanClass a {
+  text-decoration: none;
+  color: #4D80E6;
+}

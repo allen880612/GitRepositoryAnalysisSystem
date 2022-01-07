@@ -5,23 +5,23 @@
   <div style="width: 100%; text-align: center">
     <br>
     <table class="total_body">
-      <col style="width: 10%">
-      <col style="width: 90%">
+      <col style="width: 13%">
+      <col style="width: 87%">
 
-      <ng-container *ngFor="let item of datas">
+      <ng-container *ngFor="let item of datas; let i = index">
         <tr style="border-top: rgba(200, 200, 200, 0.5) solid;">
-          <td style="vertical-align: bottom; padding-bottom: 7px; text-align: right; padding-right: 10px; padding-left: 0">
+          <td style="vertical-align: bottom; padding-bottom: 15px; text-align: right; padding-right: 15px; padding-left: 0">
             <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="40px" ></button>
           </td>
           <td rowspan="2" class="ProjectList">
             <div>專案名稱: <span class="spanClass">{{item.projectName}}</span></div>
             <div>專案敘述: <span class="spanClass">{{item.projectDescription}}</span></div>
-            <!--                  <p class="ellipsis3">GitUrl:{{githubUrl}}<br/></p>-->
+            <div>專案網址: <span class="spanClass"><a href={{githubUrl[i]}} target="_blank">{{githubUrl[i]}}</a></span></div>
             <div>開始時間: <span class="spanClass">{{item.projectStartTime}}</span></div>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top; padding-top: 7px; text-align: right; padding-right: 10px; padding-left: 0">
+          <td style="vertical-align: top; padding-top: 15px; text-align: right; padding-right: 15px; padding-left: 0">
             <button class="delete_button" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="40px" ></button>
           </td>
         </tr>
