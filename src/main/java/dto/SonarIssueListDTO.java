@@ -3,20 +3,20 @@ package dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SonarBugListDTO {
+public class SonarIssueListDTO {
     private boolean isSuccessful;
     private int count;
     private double effortTotal;
-    private List<SonarBugInfoDTO> bugs;
+    private List<SonarIssueInfoDTO> bugs;
 
-    public SonarBugListDTO(int count, double effortTotal) {
+    public SonarIssueListDTO(int count, double effortTotal) {
         this.count = count;
         this.effortTotal = effortTotal;
         this.bugs = new ArrayList<>();
         isSuccessful = true;
     }
 
-    public SonarBugListDTO() {
+    public SonarIssueListDTO() {
         this.count = 0;
         this.effortTotal = 0.0;
         this.bugs = new ArrayList<>();
@@ -39,11 +39,11 @@ public class SonarBugListDTO {
         this.effortTotal = effortTotal;
     }
 
-    public List<SonarBugInfoDTO> getBugs() {
+    public List<SonarIssueInfoDTO> getBugs() {
         return bugs;
     }
 
-    public void addBugs(SonarBugInfoDTO bugs) {
+    public void addBugs(SonarIssueInfoDTO bugs) {
         this.bugs.add(bugs);
     }
 

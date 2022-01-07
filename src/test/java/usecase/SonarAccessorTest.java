@@ -1,10 +1,10 @@
 package usecase;
 
 import adapter.SonarQubeAccessorImpl;
-import adapter.gson.SonarBugListGsonAdapter;
+import adapter.gson.SonarIssueListGsonAdapter;
 import com.google.gson.Gson;
 import domain.SonarProject;
-import dto.SonarBugListDTO;
+import dto.SonarIssueListDTO;
 import dto.SonarQubeInfoDTO;
 import adapter.gson.SonarInfoGsonAdapter;
 import org.junit.Assert;
@@ -20,8 +20,8 @@ public class SonarAccessorTest {
 
     @Before
     public void setUp(){
-        token = "tojen";
-        hostUrl = "IP";
+        token = "token";
+        hostUrl = "ip:port";
         projectKey = "GSAS";
     }
 
@@ -37,13 +37,13 @@ public class SonarAccessorTest {
     }
 
     @Test
-    public void GetBugListTest() {
+    public void GetIssueListTest() {
         SonarProject sonarProject = new SonarProject(hostUrl, projectKey, token);
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
 
-        SonarBugListDTO sonarBugListDto = sonarQubeAccessor.getSonarBugs();
+        SonarIssueListDTO sonarIssueListDto = sonarQubeAccessor.getSonarIssueList();
 
-        Assert.assertTrue(sonarBugListDto.isSuccessful());
+        Assert.assertTrue(sonarIssueListDto.isSuccessful());
     }
 
     @Test
@@ -195,7 +195,7 @@ public class SonarAccessorTest {
                 "}";
 
         Gson gson = new Gson();
-        SonarBugListGsonAdapter adapter = gson.fromJson(content,SonarBugListGsonAdapter.class);
+        SonarIssueListGsonAdapter adapter = gson.fromJson(content, SonarIssueListGsonAdapter.class);
 //        System.out.println(gson.toJson(adapter));
     }
 
