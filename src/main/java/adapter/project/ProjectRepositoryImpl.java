@@ -7,6 +7,7 @@ import usecase.project.ProjectRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,24 +20,18 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         conn = Database.getConnection();
     }
 
-    public void createProject(Project project) {
+    public void createProject(Project project) throws SQLException {
 
         final String insert = " INSERT INTO project(project_id, name, description) VALUES(?,?,?) ";
 
-
-        try {
-            assert conn != null;
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, project.getId());
-            preparedStatement.setString(2, project.getName());
-            preparedStatement.setString(3, project.getDescription());
-            preparedStatement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assert conn != null;
+        PreparedStatement preparedStatement = conn.prepareStatement(insert);
+        preparedStatement.setString(1, project.getId());
+        preparedStatement.setString(2, project.getName());
+        preparedStatement.setString(3, project.getDescription());
+        preparedStatement.execute();
 
     }
-
 
 
     @Override
@@ -53,6 +48,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
         return false;
     }
+
     public Project getProjectWithoutRepositoryById(String id) {
         final String query = "SELECT project_id,name,description,starttime FROM PROJECT WHERE  project_id = ?";
 

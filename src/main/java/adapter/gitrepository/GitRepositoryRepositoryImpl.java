@@ -7,6 +7,7 @@ import usecase.gitrepository.GitRepositoryRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,19 +68,15 @@ public class GitRepositoryRepositoryImpl implements GitRepositoryRepository {
     }
 
     @Override
-    public void createGitRepository(GitRepository gitRepository, String projectId) {
+    public void createGitRepository(GitRepository gitRepository, String projectId) throws SQLException {
         final String insert = " INSERT INTO gitrepository(repo_id, reponame, ownername, project_id) VALUES(?,?,?,?) ";
-        try {
-            assert conn != null;
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, gitRepository.getId());
-            preparedStatement.setString(2, gitRepository.getRepoName());
-            preparedStatement.setString(3, gitRepository.getOwnerName());
-            preparedStatement.setString(4, projectId);
-            preparedStatement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assert conn != null;
+        PreparedStatement preparedStatement = conn.prepareStatement(insert);
+        preparedStatement.setString(1, gitRepository.getId());
+        preparedStatement.setString(2, gitRepository.getRepoName());
+        preparedStatement.setString(3, gitRepository.getOwnerName());
+        preparedStatement.setString(4, projectId);
+        preparedStatement.execute();
     }
 
     @Override

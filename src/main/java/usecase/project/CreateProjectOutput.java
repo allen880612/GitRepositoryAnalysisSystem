@@ -11,6 +11,6 @@ public interface CreateProjectOutput {
     void setName(String name);
     String getName();
 
-    void setGitRepositories(List<String> gitRepositories);
-    List<String> getGitRepositories();
+    boolean getIsSuccessful();
+    void setIsSuccessful(boolean isSuccessful);
 }

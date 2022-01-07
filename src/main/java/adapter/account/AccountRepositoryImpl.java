@@ -87,7 +87,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public void updateAccountOwnProject(Account account) {
+    public void updateAccountOwnProject(Account account) throws SQLException{
         if(!accounts.contains(account)) accounts.add(account);
         Account accountInDB = getAccountById(account.getId());
         accountInDB = accountInDB == null ? new Account("", "") : accountInDB;
@@ -96,15 +96,12 @@ public class AccountRepositoryImpl implements AccountRepository {
 
         for(String projectId : account.getProjects()){
             if(accountInDB.getProjects().contains(projectId)) continue;
-            try{
                 assert conn != null;
                 PreparedStatement preparedStatement = conn.prepareStatement(insert);
                 preparedStatement.setString (1, account.getId());
                 preparedStatement.setString (2, projectId);
                 preparedStatement.execute();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+
         }
 
     }

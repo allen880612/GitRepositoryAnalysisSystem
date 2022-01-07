@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import usecase.gitrepository.CreateGitRepositoryUseCase;
 
+import java.sql.SQLException;
+
 public class CreateSonarProjectRepositoryTest {
     private SonarProjectRepository sonarProjectRepository;
 
@@ -18,7 +20,7 @@ public class CreateSonarProjectRepositoryTest {
         this.sonarProjectRepository = new SonarProjectRepositoryImpl();
     }
     @Test
-    public void Create_Sonar_Repository_Should_Commit_To_Repository_Test(){
+    public void Create_Sonar_Repository_Should_Commit_To_Repository_Test() throws SQLException {
         SonarProject sonarProject = new SonarProject("url123","projectkey123","token123");
 
 

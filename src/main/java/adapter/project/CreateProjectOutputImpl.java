@@ -7,7 +7,15 @@ import java.util.List;
 public class CreateProjectOutputImpl implements CreateProjectOutput {
     private String id;
     private String name;
-    private List<String> gitRepositories;
+    private boolean isSuccessful;
+    @Override
+    public boolean getIsSuccessful() {
+        return this.isSuccessful;
+    }
+    @Override
+    public void setIsSuccessful(boolean isSuccessful) {
+        this.isSuccessful = isSuccessful;
+    }
 
     @Override
     public String getId() {
@@ -29,12 +37,4 @@ public class CreateProjectOutputImpl implements CreateProjectOutput {
         this.name = name;
     }
 
-    @Override
-    public List<String> getGitRepositories() {
-        return gitRepositories;
-    }
-
-    public void setGitRepositories(List<String> gitRepositories) {
-        this.gitRepositories = gitRepositories;
-    }
 }
