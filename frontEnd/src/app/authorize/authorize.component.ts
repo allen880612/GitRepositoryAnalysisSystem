@@ -29,9 +29,12 @@ export class AuthorizeComponent implements OnInit {
       request => {
         console.log(request.toString());
 
-        this.router.navigateByUrl('homepage');
+        console.log(request);
         sessionStorage.setItem('Username', request.name);
         sessionStorage.setItem('UserID', request.id);
+        sessionStorage.setItem('avatarUrl', request.avatarUrl);
+        console.log(request.avatarUrl);
+        this.router.navigateByUrl('choose-project');
       });
   }
 }

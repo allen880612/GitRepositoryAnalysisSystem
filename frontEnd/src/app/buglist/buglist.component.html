@@ -1,6 +1,6 @@
 <meta charset="UTF-8" />
 
-<section style="margin-bottom: 20px;">
+<section style="margin-bottom: 20px; display: inline-block; margin-right: 50px">
   <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Type Filter</div>
   <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
     <mat-checkbox [checked]="allComplete"
@@ -19,6 +19,19 @@
   </span>
 </section>
 
+<section style="display: inline-block; font-family: 'Comic Sans MS', serif; font-size: 130%">
+  <tr>
+    <td>
+      Total Effort： {{effort_total}} min
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Issues Amount： {{issue_count}}
+    </td>
+  </tr>
+</section>
+
 <!--<section [formGroup]="sonarGroup">-->
 <!--  <h4>Select Type:</h4>-->
 <!--  <mat-checkbox formControlName="BUG">Bug</mat-checkbox>-->
@@ -28,41 +41,55 @@
 
 <div>
   <table class="mainTable">
-    <tr style="visibility: hidden; display: none;">
-      <td style=" width: 77%;"></td>
-      <td style=" width: 10%;"></td>
-      <td style=" width: 8%;"></td>
-      <td style=" width: 5%;"></td>
-    </tr>
-    <ng-container *ngFor="let title of titles ; let i = index">
-      <tr style="border-top: #DCDCDC solid; font-size: 16px; color: #6B8E23;">
-        <td colspan="4" style="padding-bottom: 5px; padding-top: 10px">
-          <span style="border-bottom: rgba(107, 142, 35, 0.2) solid 2px">
-            Type： BUG
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td style="color: #005cbf">
-          {{title}}
-        </td>
-        <td rowspan="2">
-          {{severities[i]}}
-        </td>
-        <td rowspan="2" style="color: #800000">
-          {{efforts[i]}}
-        </td>
-        <td rowspan="2">
-          <a href={{redirectUrls[i]}} target="_blank">
-            <img src="./assets/images/file.png" width="40px" alt="file">
-          </a>
-        </td>
-      </tr>
-      <tr style="border-bottom: #DCDCDC solid;">
-        <td style="font-size: 18px; color: #696969">
-          {{components[i]}}
-        </td>
-      </tr>
+<!--    <tr style="visibility: hidden; display: none;">-->
+<!--      <td style="width: 60%">-->
+<!--      <td style="width: 20%">-->
+<!--      <td style="width: 15%">-->
+<!--      <td style="width: 5%">-->
+<!--    </tr>-->
+    <col style="width: 75%">
+    <col style="width: 12%">
+    <col style="width: 8%">
+    <col style="width: 5%">
+
+    <ng-container *ngFor="let subtask of task.subtasks">
+      <ng-container *ngIf="subtask.completed">
+        <ng-container *ngFor="let title of titles ; let i = index">
+          <ng-container *ngIf="types[i] == subtask.name">
+            <tr style="border-top: #DCDCDC solid; font-size: 16px; color: #6B8E23;">
+              <td style="padding-bottom: 5px; padding-top: 10px">
+                <span style="border-bottom: rgba(107, 142, 35, 0.2) solid 2px">
+                  Type： {{types[i]}}
+                </span>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="color: #005cbf">
+                {{title}}
+              </td>
+              <td rowspan="2">
+                {{severities[i]}}
+              </td>
+              <td rowspan="2" style="color: #800000">
+                {{efforts[i]}}
+              </td>
+              <td rowspan="2">
+                <a href={{redirectUrls[i]}} target="_blank">
+                  <img src="./assets/images/file.png" width="40px" alt="file">
+                </a>
+              </td>
+            </tr>
+            <tr style="border-bottom: #DCDCDC solid;">
+              <td style="font-size: 18px; color: #696969">
+                {{components[i]}}
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </table>
 </div>

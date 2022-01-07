@@ -27,6 +27,9 @@ export class ChooseProjectComponent implements OnInit {
   repoNames = new Array();
   totalData = new Array();
 
+  githubUrl = new Array();
+  githubUrlDatas: any;
+
   constructor(private router: Router, private getrepoinfoofchosenproject: GetRepoInfoOfChosenProjectService, private getProjectInfoService: GetProjectInfoService, private delProjectService: DeleteProjectService, private activerouter:ActivatedRoute ) {}
 
   ngOnInit(): void {
@@ -36,6 +39,10 @@ export class ChooseProjectComponent implements OnInit {
   }
 
    getTotalProjectInfo() {
+      for (let i = 0; i<this.githubUrl.length; i++) {
+        this.githubUrl.pop();
+      }
+
       const UserProjectData = {
         userId:undefined,
       };
@@ -45,15 +52,34 @@ export class ChooseProjectComponent implements OnInit {
         request => {
           this.datas = request;
           console.log(this.datas);
+
+          for (let item of this.datas) {
+            const UserData = {
+              projectId:undefined,
+            };
+            UserData.projectId  = item.projectId;
+            const data = JSON.stringify(UserData);
+            this.getrepoinfoofchosenproject.getRepoDataOfProject(data).subscribe(
+              request => {
+                this.githubUrlDatas = request;
+                for(let item of this.githubUrlDatas){
+                  console.log(item);
+                  this.githubUrl.push("https://github.com/" + item.ownerName + "/" + item.repoName);
+                }
+              }
+            );
+          }
         }
       );
   }
 
-  choose_repo(event) {
-    console.log(event);
-    const chosenId: string = event.target.id.toString();
-    sessionStorage.setItem('ChosenProjectID', chosenId);
-    console.log("chosenid:",chosenId)
+  choose_repo(projectid, projectName, projectDescription) {
+    console.log(projectid);
+    // const chosenId: string = event.target.id.toString();
+    sessionStorage.setItem('ChosenProjectID', projectid);
+    sessionStorage.setItem('projectName', projectName);
+    sessionStorage.setItem('projectIntroduction', projectDescription);
+    console.log("chosenid:",projectid)
 
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
 

@@ -12,7 +12,7 @@ import {VerifySonarProjectService} from "./verify-sonar-project.service";
 })
 export class AddProjectComponent implements OnInit {
   projectImportMsg = '';
-  InputGitRepoUrl: '';
+  InputGitRepoUrl: string = "";
   badGitImportMsg = '';
   badSonarImportMsg = '';
   datas: any;
@@ -28,15 +28,48 @@ export class AddProjectComponent implements OnInit {
   InputSonarProjectKey: '';
   InputSonarToken: '';
 
+  isGitUrlValid: boolean;
+  isSonarUrlValid: boolean;
+
   constructor(private router: Router, private verifygitreposervice: VerifyGitRepoService,private createprojectservice: CreateProjectService ,private activerouter:ActivatedRoute ,private verifysonarprojectservice: VerifySonarProjectService) {
 
    }
   ngOnInit(): void {
-    this.UserID = window.sessionStorage.getItem('UserID');
     window.scrollTo(0, 0);
+    this.UserID = window.sessionStorage.getItem('UserID');
+    this.isGitUrlValid = false;
+    this.isSonarUrlValid = false;
   }
 
   CheckSonarUrlValid(){
+    // const CreateUserProjectData = {
+    //   userId:undefined,
+    //   projectName:undefined,
+    //   projectDescription:undefined,
+
+    // };
+    // CreateUserProjectData.userId  =  this.UserID.toString();
+    // CreateUserProjectData.projectName  =  this.NameofProject.toString();
+    // CreateUserProjectData.projectDescription = this.DesciptionOfProject.toString();
+
+    // if (this.isGitUrlValid) {
+    //   const data = JSON.stringify(CreateUserProjectData);
+    //   this.createprojectservice.createProject(data).subscribe(
+    //     request => {
+    //       this.datas = request;
+    //       console.log(this.datas);
+    //       if (this.datas.projectId != ""){
+    //         this.IDofProject = this.datas.projectId;
+    //         console.log("CreateProjectSuccess",this.IDofProject);
+    //         for(var index in this.InputGitRepoUrlList){
+    //           this.AppendRepo(index);
+    //         }
+    //         this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
+    //       }
+    //     }
+    //   );
+    // }
+
     const SonarUrlData = {
       sonarHost:undefined,
       sonarProjectKey:undefined,
@@ -51,41 +84,49 @@ export class AddProjectComponent implements OnInit {
       request => {
         this.datas = request;
         console.log(this.datas);
-        if (this.datas.isUrlVaild == "true"){
+        if (this.datas.isUrlVaild == true){
+          this.isSonarUrlValid = true;
 
+          if (this.isGitUrlValid) {
+            const CreateUserProjectData = {
+              userId:undefined,
+              projectName:undefined,
+              projectDescription:undefined,
+              githubUrl:undefined,
+              sonarHost:undefined,
+              sonarProjectKey:undefined,
+              sonarToken:undefined
+            };
+            CreateUserProjectData.userId  =  this.UserID.toString();
+            CreateUserProjectData.projectName  =  this.NameofProject.toString();
+            CreateUserProjectData.projectDescription = this.DesciptionOfProject.toString();
+            CreateUserProjectData.githubUrl  =  this.InputGitRepoUrlList[0].toString();
+            CreateUserProjectData.sonarHost  = this.InputSonarHost.toString();
+            CreateUserProjectData.sonarProjectKey  = this.InputSonarProjectKey.toString();
+            CreateUserProjectData.sonarToken  = this.InputSonarToken.toString();
+
+            const data = JSON.stringify(CreateUserProjectData);
+            this.createprojectservice.createProject(data).subscribe(
+              request => {
+                this.datas = request;
+                console.log(this.datas);
+                if (this.datas.projectId != ""){
+                  this.IDofProject = this.datas.projectId;
+                  console.log("CreateProjectSuccess",this.IDofProject);
+                  for(var index in this.InputGitRepoUrlList){
+                    this.AppendRepo(index);
+                  }
+                  this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
+                }
+              }
+            );
+          }
         }
         else{
-          this.badSonarImportMsg = "此網址無效，請重新輸入";
+          this.badSonarImportMsg = "此sonar url無效，請重新輸入";
         }
       }
     );
-  }
-
-  CheckGitRepoUrlVaild(){
-    // const GitRepoUrlData = {
-    //   githubUrl:undefined
-    // };
-    // GitRepoUrlData.githubUrl  = this.InputGitRepoUrl;
-    // const data = JSON.stringify(GitRepoUrlData);
-    // this.verifygitreposervice.verifyGitUrlVaild(data).subscribe(
-    //   request => {
-    //     this.datas = request;
-    //     console.log(this.datas);
-    //     if (this.datas.isUrlVaild == "true"){
-    //
-    //       //this.projectImportMsg += '\n' + " [導入成功] "+this.InputGitRepoUrl + '\n';
-    //       this.InputGitRepoUrlList.push(this.InputGitRepoUrl);
-    //       this.InputGitRepoUrl = null;
-    //
-    //       if(this.badGitImportMsg != null ){
-    //         this.badGitImportMsg = null;
-    //       }
-    //     }
-    //     else{
-    //       this.badGitImportMsg = "此網址無效，請重新輸入";
-    //     }
-    //   }
-    // );
   }
 
   CreatProject(){
@@ -99,37 +140,16 @@ export class AddProjectComponent implements OnInit {
         this.datas = request;
         console.log(this.datas);
         if (this.datas.isUrlVaild == "true"){
-
           //this.projectImportMsg += '\n' + " [導入成功] "+this.InputGitRepoUrl + '\n';
           this.InputGitRepoUrlList.push(this.InputGitRepoUrl);
           this.InputGitRepoUrl = null;
 
-          const CreateUserProjectData = {
-            userId:undefined,
-            projectName:undefined,
-            projectDescription:undefined
-          };
-          CreateUserProjectData.userId  =  this.UserID.toString();
-          CreateUserProjectData.projectName  =  this.NameofProject.toString();
-          CreateUserProjectData.projectDescription = this.DesciptionOfProject.toString();
-          const data = JSON.stringify(CreateUserProjectData);
-          this.createprojectservice.createProject(data).subscribe(
-            request => {
-              this.datas = request;
-              console.log(this.datas);
-              if (this.datas.projectId != ""){
-                this.IDofProject = this.datas.projectId;
-                console.log("CreateProjectSuccess",this.IDofProject);
-                for(var index in this.InputGitRepoUrlList){
-                  this.AppendRepo(index);
-                }
-                this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
-              }
-            }
-          );
+          this.isGitUrlValid = true;
+          this.CheckSonarUrlValid();
         }
         else{
-          this.badGitImportMsg = "此網址無效，請重新輸入";
+          this.badGitImportMsg = "此git url無效，請重新輸入";
+          this.CheckSonarUrlValid();
         }
       }
     );
@@ -138,11 +158,11 @@ export class AddProjectComponent implements OnInit {
   AppendRepo(index){
 
     const RepoDataOfProject = {
-          projectId:undefined,
-          githubUrl:undefined
+      projectId:undefined,
+      githubUrl:undefined,
     };
-     RepoDataOfProject.projectId  =  this.IDofProject.toString();
-     RepoDataOfProject.githubUrl  =  this.InputGitRepoUrlList[index].toString();
+    RepoDataOfProject.projectId  =  this.IDofProject.toString();
+    RepoDataOfProject.githubUrl  =  this.InputGitRepoUrlList[index].toString();
 
      const repodata = JSON.stringify(RepoDataOfProject);
      this.createprojectservice.appendRepotoProject(repodata).subscribe(
@@ -156,5 +176,4 @@ export class AddProjectComponent implements OnInit {
        }
      );
   }
-
 }

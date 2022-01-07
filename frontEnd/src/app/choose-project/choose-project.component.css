@@ -1,32 +1,25 @@
-
-
-
 .myButton {
-  background-color: #ffffff;
-  border-radius:28px;
-  border:1px solid #312a2a;
-  display:inline-block;
-  cursor:pointer;
-  /*字color*/
-  color: #000000;
-  font-size: 20px;
-  text-align:left;
-  font-family:Arial;
-  padding:20px 200px;
-  text-decoration:none;
-  /*text-shadow:0px 1px 0px #2f6627;*/
-  word-wrap: break-word;
+  border-radius:14px;
+  /*transform:translate(80px,-100px)*/
 }
 .myButton:hover {
   background-color:#5cbf2a;
 }
-.myButton:active {
-  position:relative;
-  top:1px;
+/*.myButton:active {*/
+/*  position:relative;*/
+/*  top:1px;*/
+/*}*/
+
+.delete_button{
+  border-radius:14px;
+  /*transform:translate(146px,-20px)*/
+}
+.delete_button:hover {
+  background-color:#5cbf2a;
 }
 
-
-.myButton2 {
+.add_button {
+  /*transform: translate(425px,20px);*/
   background-color: #ffffff;
   border-radius:28px;
   border:1px solid #312a2a;
@@ -35,17 +28,58 @@
   /*字color*/
   color: #000000;
 
-  font-family:Arial;
+  font-family:Arial, serif;
   font-size:17px;
-  padding:32px 275px;
+  padding:25px 150px;
   text-decoration:none;
-  text-shadow:0px 1px 0px #2f6627;
+  text-shadow:0 1px 0 #2f6627;
 }
-.myButton2:hover {
+.add_button:hover {
   background-color:#5cbf2a;
 }
-.myButton2:active {
+.add_button:active {
   position:relative;
   top:1px;
 }
 
+.total_body{
+  margin: auto auto 12px auto;
+  width: 40%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.total_body td {
+  padding: 15px 5px 15px 5px;
+}
+
+.total_body tr:last-child {
+  border-bottom: rgba(200, 200, 200, 0.5) solid;
+}
+
+td.ProjectList div {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
+
+td.ProjectList div:last-child {
+  margin-bottom: 0;
+}
+
+.ProjectList {
+  text-align: left;
+  font-family:Arial, serif;
+  font-size: 20px;
+  vertical-align: center;
+}
+
+.spanClass {
+  color: #117a8b;
+}
+
+.spanClass a {
+  text-decoration: none;
+  color: #4D80E6;
+}

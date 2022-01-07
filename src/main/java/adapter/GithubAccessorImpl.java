@@ -65,6 +65,7 @@ public class GithubAccessorImpl implements GithubAccessor {
         githubUserDTO.setId(response.get("id").toString());
         githubUserDTO.setName(response.get("login").toString());
         githubUserDTO.setAccount(response.get("email").toString());
+        githubUserDTO.setAvatarUrl(response.get("avatar_url").toString());
         return githubUserDTO;
     }
 }

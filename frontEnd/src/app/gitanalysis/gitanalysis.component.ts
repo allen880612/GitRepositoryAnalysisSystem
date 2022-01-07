@@ -58,10 +58,14 @@ export class GitanalysisComponent implements OnInit {
   commitCounts: any;
   owner: any;
   repo: any;
+  projectName: any;
+  projectIntroduction: any;
 //控制canvas
   total_commit_canvas:boolean;
   contributor_commit_canvas:boolean;
   codebase_canvas:boolean;
+
+  githubUrl: string;
 
   // tslint:disable-next-line:typedef
   ngOnInit(): void {
@@ -69,12 +73,17 @@ export class GitanalysisComponent implements OnInit {
     // document.getElementById('total_canvas').style.display="none"
     this.repo = window.sessionStorage.getItem('repoName');
     this.owner = window.sessionStorage.getItem('owner');
+    this.projectName = window.sessionStorage.getItem('projectName');
+    this.projectIntroduction = window.sessionStorage.getItem('projectIntroduction');
+
     this.total_commit_canvas=false;
     this.contributor_commit_canvas=false;
     console.log(this.repo)
     console.log(this.owner)
-
     // this.getCommitTrend();
+
+    this.githubUrl = "http://github.com/" + this.owner + "/" + this.repo
+    console.log(this.githubUrl);
   }
 
   getContributor(){
@@ -83,6 +92,7 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('issue_track').style.display="none"
     document.getElementById('contributor_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
+    document.getElementById('repo_info').style.display="none"
 
     if(!this.contributor_commit_canvas){
 
@@ -149,6 +159,7 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('issue_track').style.display="none"
     document.getElementById('total_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
+    document.getElementById('repo_info').style.display="none"
     if(!this.total_commit_canvas){
 
     const commitData = {
@@ -185,6 +196,7 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('contributor_canvas').style.display="none"
     document.getElementById('codebase_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
+    document.getElementById('repo_info').style.display="none"
     if(!this.codebase_canvas){
 
 
@@ -217,6 +229,7 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display=""
     document.getElementById('bug_list').style.display="none"
+    document.getElementById('repo_info').style.display="none"
   }
 
   getBugList() {
@@ -225,5 +238,15 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('total_canvas').style.display="none"
     document.getElementById('issue_track').style.display="none"
     document.getElementById('bug_list').style.display=""
+    document.getElementById('repo_info').style.display="none"
+  }
+
+  getRepoInfo() {
+    document.getElementById('codebase_canvas').style.display="none"
+    document.getElementById('contributor_canvas').style.display="none"
+    document.getElementById('total_canvas').style.display="none"
+    document.getElementById('issue_track').style.display="none"
+    document.getElementById('bug_list').style.display="none"
+    document.getElementById('repo_info').style.display=""
   }
 }

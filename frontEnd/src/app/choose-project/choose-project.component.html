@@ -1,40 +1,34 @@
-
 <app-header></app-header>
-<div class="row" style="padding:10px 100px 10px 100px;">
-  <div class="col-4">
+<table class="row" style="padding:10px 100px 50px 100px">
+<!--  <app-personal-imformation></app-personal-imformation>-->
+  <br>
+  <div style="width: 100%; text-align: center">
     <br>
-    <app-personal-imformation></app-personal-imformation>
+    <table class="total_body">
+      <col style="width: 13%">
+      <col style="width: 87%">
+
+      <ng-container *ngFor="let item of datas; let i = index">
+        <tr style="border-top: rgba(200, 200, 200, 0.5) solid;">
+          <td style="vertical-align: bottom; padding-bottom: 15px; text-align: right; padding-right: 15px; padding-left: 0">
+            <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="40px" ></button>
+          </td>
+          <td rowspan="2" class="ProjectList">
+            <div>專案名稱: <span class="spanClass">{{item.projectName}}</span></div>
+            <div>專案敘述: <span class="spanClass">{{item.projectDescription}}</span></div>
+            <div>專案網址: <span class="spanClass"><a href={{githubUrl[i]}} target="_blank">{{githubUrl[i]}}</a></span></div>
+            <div>開始時間: <span class="spanClass">{{item.projectStartTime}}</span></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; padding-top: 15px; text-align: right; padding-right: 15px; padding-left: 0">
+            <button class="delete_button" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="40px" ></button>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+    <div style="padding:10px 0px 10px 0px;"><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
   </div>
+</table>
 
-
-  <div class="col-8">
-    <br>
-    <div>
-      <table>
-        <section *ngFor="let item of datas">
-          <tr>
-            <div>
-              <button  class="myButton" (click)="choose_repo($event)" id = "{{item.projectId}}" >
-                專案名稱:{{item.projectName}}<br/>
-                專案敘述:{{item.projectDescription}}<br/>
-                Repo個數:{{item.gitRepoCount}}<br/>
-                開始時間:{{item.projectStartTime}}
-              </button><button style=" text-align:right;border-radius:10px;" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="50px" ></button>
-<!--              上面binding的變數可以透過"[]"來傳入函數!!!!  -->
-            </div>
-          </tr>
-
-        </section>
-      </table>
-
-    </div >
-          <div><button class="myButton2" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
-
-
-
-  </div>
-</div>
-<app-footer></app-footer>
-
-
-
+<!--<app-footer></app-footer>-->
