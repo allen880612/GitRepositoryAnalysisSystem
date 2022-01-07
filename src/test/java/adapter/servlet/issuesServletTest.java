@@ -8,13 +8,12 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class issuesServletTest {
-    private HttpServletRequest request;
-    private HttpServletResponse response;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
     private IssuesServlet issuesServlet;
 
     @Before
@@ -22,20 +21,22 @@ public class issuesServletTest {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         issuesServlet = new IssuesServlet();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("owner", "octocat");
-        jsonObject.put("repo", "hello-world");
-        request.setAttribute("repoInfo", jsonObject);
+        JSONObject requestJson = new JSONObject();
+        requestJson.put("owner", "allen880612");
+        requestJson.put("repo", "hello-world");
+
+        request.addHeader("Content-Type","text/json");
+        request.setContent(requestJson.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
-    public void GetPersonalCommitsStatsTest() throws IOException {
+    public void GetIssueInfoTest() throws IOException {
         issuesServlet.doPost(request, response);
-        JSONArray jsonArray = (JSONArray) request.getAttribute("issues_info");
+        JSONArray jsonArray = new JSONArray(response.getContentAsString());
         Assert.assertEquals("closed", jsonArray.getJSONObject(0).get("state"));
         Assert.assertEquals("Hello-World", jsonArray.getJSONObject(0).get("title"));
-        Assert.assertEquals("Allo", jsonArray.getJSONObject(0).get("body"));
-        Assert.assertEquals("2020-12-26T04:39:46Z", jsonArray.getJSONObject(0).get("created_at"));
-        Assert.assertEquals("2020-12-26T04:41:31Z", jsonArray.getJSONObject(0).get("closed_at"));
+        Assert.assertEquals("First issue", jsonArray.getJSONObject(0).get("body"));
+        Assert.assertEquals("2022-01-07T19:05:54Z", jsonArray.getJSONObject(0).get("created_at"));
+        Assert.assertEquals("2022-01-07T19:07:16Z", jsonArray.getJSONObject(0).get("closed_at"));
     }
 }

@@ -1,5 +1,6 @@
 package adapter.servlet;
 
+import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -7,14 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class CommitServletTest {
-    private HttpServletRequest request;
-    private HttpServletResponse response;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
     private CommitServlet commitServlet;
 
     @Before
@@ -22,10 +21,13 @@ public class CommitServletTest {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         commitServlet = new CommitServlet();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("owner", "octocat");
-        jsonObject.put("repo", "hello-world");
-        request.setAttribute("repoInfo", jsonObject);
+        JSONObject requestJson = new JSONObject();
+
+        requestJson.put("owner", "octocat");
+        requestJson.put("repo", "hello-world");
+
+        request.addHeader("Content-Type","text/json");
+        request.setContent(requestJson.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
