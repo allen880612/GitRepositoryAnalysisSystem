@@ -44,9 +44,9 @@ export class BuglistComponent implements OnInit {
     completed: true,
     color: 'primary',
     subtasks: [
-      {name: 'BUG', completed: true, color: 'primary'},
-      {name: 'CODE_SMELL', completed: true, color: 'accent'},
-      {name: 'VULNERABILITY', completed: true, color: 'warn'},
+      {name: 'BUG', completed: true, color: 'accent'},
+      {name: 'CODE_SMELL', completed: true, color: 'warn'},
+      {name: 'VULNERABILITY', completed: true, color: 'primary'},
     ],
   };
 

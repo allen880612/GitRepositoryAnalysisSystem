@@ -26,7 +26,7 @@
     <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Severity Filter</div>
     <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
       <mat-checkbox [checked]="severityAllComplete"
-                    [color]="task.color"
+                    [color]="severityTask.color"
                     [indeterminate]="severitySomeComplete()"
                     (change)="severitySetAll($event.checked)">
         {{severityTask.name}}
@@ -43,12 +43,12 @@
   <section style="display: inline-block; font-family: 'Comic Sans MS', serif; font-size: 130%">
     <tr>
       <td>
-        Total Effort： {{effort_total}} min
+        Total Effort： <span style="color: #800000">{{effort_total}} min</span>
       </td>
     </tr>
     <tr>
       <td>
-        Issues Amount： {{issue_count}}
+        Issues Amount： <span style="color: #800000">{{issue_count}}</span>
       </td>
     </tr>
   </section>
