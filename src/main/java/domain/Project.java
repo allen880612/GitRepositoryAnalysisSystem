@@ -77,6 +77,9 @@ public class Project {
         return startTime;
     }
 
+    public String getSonarProjectID() {return sonarProjectID;}
+
+    public void setSonarProjectID(String sonarProjectID) {this.sonarProjectID = sonarProjectID;}
 
     public String getGitRepositoryID() {return gitRepositoryID;}
 
