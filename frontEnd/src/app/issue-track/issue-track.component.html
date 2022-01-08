@@ -47,10 +47,14 @@
           <br>
           <br>
           <br>
-          <p>Since: {{startDates[i]}}</p>
-          <p>Update: {{updateDates[i]}}</p>
-          <p>Close: {{closeDates[i]}}</p>
-          <p>Link: {{html_urls[i]}}</p>
+          <div class="issue_content">
+            <p>Since: <span>{{startDates[i]}}</span></p>
+            <p>Update:<span> {{updateDates[i]}}</span></p>
+            <ng-container *ngIf="closeDates[i]!=null">
+              <p>Close: <span>{{closeDates[i]}}</span></p>
+            </ng-container>
+            <p>Link:<span> {{html_urls[i]}}</span></p>
+          </div>
           <pre class="bodyPre">{{bodys[i]}}</pre>
         </mat-expansion-panel>
       </ng-container>
