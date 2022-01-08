@@ -38,7 +38,7 @@ public class CreateProjectTest {
     }
 
     @Test
-    public void Create_Project_Should_Commit_To_Its_User_Test(){
+    public void Create_Project_Should_Commit_To_Its_User_Test() throws SQLException {
 
         CreateProjectInput input = new CreateProjectInputImpl();
         CreateProjectOutput output = new CreateProjectOutputImpl();
