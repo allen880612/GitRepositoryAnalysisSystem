@@ -8,6 +8,7 @@
       <col style="width: 87%">
 
       <ng-container *ngFor="let item of datas; let i = index">
+        <table class="field_table">
         <tr style="border-top: rgba(200, 200, 200, 0.5) solid;">
           <td style="vertical-align: bottom; padding-bottom: 15px; text-align: right; padding-right: 15px; padding-left: 0">
             <button  class="myButton" (click)="choose_repo(item.projectId, item.projectName, item.projectDescription)" ><img src="./assets/images/maginifier_delete_background.png"  width="40px" ></button>
@@ -24,6 +25,7 @@
             <button class="delete_button" (click)="delete_repo([item.projectId])" ><img src="./assets/images/trash.png"  width="40px" ></button>
           </td>
         </tr>
+        </table>
       </ng-container>
     </table>
     <div style="padding:10px 0px 10px 0px;"><button class="add_button" (click)="goToAddProjectPage()">ADD NEW PROJECT</button></div>
