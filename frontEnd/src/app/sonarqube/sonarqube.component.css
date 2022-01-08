@@ -1,5 +1,7 @@
 .sonar_index{
-  font-size: 180%;
+  font-size: 120%;
+  font-family: 'Comic Sans MS', serif;
+  color: #A9A9A9;
 }
 .sonar_name span{
   font-size: 120%;
@@ -17,11 +19,53 @@
 .sonar_index {
   text-align: left;
   padding-left: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
 }
 
-.sonar_index b {
-  color: #721c24;
+.sonar_index b.IndexClass {
+  font-size: 130%;
+  color: #A52A2A;
+}
+
+.sonar_index b.RankClass {
+  font-size: 125%;
+  color: white;
+  font-family: Bookman, serif;
+}
+
+.RankA {
+  border: #006400 solid 2px;
+  background-color: #228B22;
+  border-radius: 50%;
+  padding: 1px 7px 1px 7px;
+}
+
+.RankB {
+  border: #B8860B solid 2px;
+  background-color: #E6B800;
+  border-radius: 50%;
+  padding: 1px 7px 1px 7px;
+}
+
+.RankC {
+  border: #082567 solid 2px;
+  background-color: #2A52BE;
+  border-radius: 50%;
+  padding: 1px 7px 1px 7px;
+}
+
+.RankD {
+  border: #4B0080 solid 2px;
+  background-color: #9932CC;
+  border-radius: 50%;
+  padding: 1px 7px 1px 7px;
+}
+
+.RankE {
+  border: #8B0000 solid 2px;
+  background-color: #B22222;
+  border-radius: 50%;
+  padding: 1px 7px 1px 7px;
 }
 
 .sonarqubetr td {

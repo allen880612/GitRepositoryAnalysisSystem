@@ -23,6 +23,11 @@ export class SonarqubeComponent implements OnInit {
   githubAvatarUrl: string;
   UserName:any;
 
+  bugClass: string;
+  codeSmellClass: string;
+  vulnerabilityClass: string;
+  securityHotspotClass: string;
+
   constructor(private router: Router, private SonarqubeService: SonarqubeService) {}
 
   ngOnInit(): void {
@@ -30,7 +35,6 @@ export class SonarqubeComponent implements OnInit {
     this.getProjectID();
 
     this.githubAvatarUrl = window.sessionStorage.getItem('avatarUrl');
-    this.UserName = window.sessionStorage.getItem('Username');
   }
 
   getProjectID() {
@@ -52,6 +56,11 @@ export class SonarqubeComponent implements OnInit {
       request => {
         this.datas = request;
         console.log(this.datas);
+
+        this.bugClass = "Rank" + this.datas.reliabilityRating;
+        this.codeSmellClass = "Rank" + this.datas.maintainabilityRating;
+        this.vulnerabilityClass = "Rank" + this.datas.securityRating;
+        this.securityHotspotClass = "Rank" + this.datas.securityReviewRating;
       }
     );
   }
