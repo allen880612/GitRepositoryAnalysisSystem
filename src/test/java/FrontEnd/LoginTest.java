@@ -20,7 +20,7 @@ public class LoginTest extends FrontTestBase {
         login("test","test");
         WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
-        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[normalize-space()='Services']")));
-        Assert.assertEquals(driver.getCurrentUrl(), Variables.HOMEPAGE_URL);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='myButton']")));
+        Assert.assertEquals(driver.getCurrentUrl(), Variables.Choose_project_URL);
     }
 }

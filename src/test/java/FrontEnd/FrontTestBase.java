@@ -87,8 +87,8 @@ public class FrontTestBase {
         loginButton.click();
 
         // Wait page loaded
-        WebDriverWait loginWaiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
-        loginWaiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[normalize-space()='Services']")));
+//        WebDriverWait loginWaiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+//        loginWaiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[normalize-space()='Services']")));
     }
 
     public void scrollToElement(By by){

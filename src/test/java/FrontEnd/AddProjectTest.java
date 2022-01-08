@@ -19,30 +19,151 @@ public class AddProjectTest extends FrontTestBase {
         goToAddProjectPage();
 
         String repoUrl = "https://github.com/qiurunze123/GeekQ-Tools";
-        addRepo(repoUrl);
+        addGitRepo(repoUrl);
 
         WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         String locator = String.format("//h4[normalize-space()='%s[導入成功]']", repoUrl);
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
     }
+
     @Test
-    public void addRepoFailedTest(){
+    public void CreateProjectFailedWithEmptyNameTest(){
+        login("test","test");
+        goToAddProjectPage();
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='Project Name不得為空']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithEmptyGitUrlTest(){
+        login("test","test");
+        goToAddProjectPage();
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='GitHub RepoUrl不得為空']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectGitRepoFailedWithErrorUrlTest(){
         login("test","test");
         goToAddProjectPage();
 
         String repoUrl = "https://qiurunze123/GeekQ-Tools";
-        addRepo(repoUrl);
+        addGitRepo(repoUrl);
 
-        WebElement addRepoButton = driver.findElement(By.xpath("//button[normalize-space()='Add']"));
-        addRepoButton.click();
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
 
         WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
-        String locator = "//h3[normalize-space()='此網址無效，請重新輸入']";
+        String locator = "//h5[normalize-space()='此git url無效，請重新輸入']";
         //System.out.println(locator);
         waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
     }
+
+    @Test
+    public void CreateProjectFailedWithEmptySonarHostTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='Sonar Input不得為空']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithErrorSonarHostTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        addSonarHost(repoUrl);
+        addSonarProjectKey(repoUrl);
+        addSonarToken(repoUrl);
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='此sonar url無效，請重新輸入']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithEmptySonarProjectKeyTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='Sonar Input不得為空']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithErrorSonarProjectKeyTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        addSonarHost(repoUrl);
+        addSonarProjectKey(repoUrl);
+        addSonarToken(repoUrl);
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='此sonar url無效，請重新輸入']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithErrorSonarTokenTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        addSonarHost(repoUrl);
+        addSonarProjectKey(repoUrl);
+        addSonarToken(repoUrl);
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='此sonar url無效，請重新輸入']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    @Test
+    public void CreateProjectFailedWithEmptySonarTokenTest(){
+        login("test","test");
+        goToAddProjectPage();
+        String repoUrl = "https://qiurunze123/GeekQ-Tools";
+        WebElement CreateProjectButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+        CreateProjectButton.click();
+        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
+        String locator = "//h5[normalize-space()='Sonar Input不得為空']";
+        //System.out.println(locator);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
 
     @Test
     public void addProjectSuccessfullyTest(){
@@ -89,26 +210,31 @@ public class AddProjectTest extends FrontTestBase {
         Assert.assertEquals(expectedCount, projectAddeds.size());
     }
 
-    @Test
-    public void LoginSuccessTest(){
-        login("test","test");
-        WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
-        waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
-        waiter.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[normalize-space()='Services']")));
-        Assert.assertEquals(driver.getCurrentUrl(), Variables.HOMEPAGE_URL);
-    }
 
 
-    private void addRepo(String url){
-        WebElement repoUrlInput = driver.findElement(By.xpath("//input[@name='FullNameofUser' and @placeholder='Input Repo url:']"));
+    private void addGitRepo(String url){
+        WebElement repoUrlInput = driver.findElement(By.xpath("//input[@name='GitRepoUrl' and @placeholder='Input Repo url:']"));
         repoUrlInput.sendKeys(url);
 
-        WebElement addRepoButton = driver.findElement(By.xpath("//button[normalize-space()='Add']"));
-        addRepoButton.click();
+//        WebElement addRepoButton = driver.findElement(By.xpath("//button[normalize-space()='Create Project']"));
+//        addRepoButton.click();
+    }
+    private void addSonarHost(String url){
+        WebElement repoUrlInput = driver.findElement(By.xpath("//input[@name='SonarHost' and @placeholder='Sonar Host:']"));
+        repoUrlInput.sendKeys(url);
+    }
+    private void addSonarProjectKey(String url){
+        WebElement repoUrlInput = driver.findElement(By.xpath("//input[@name='SonarProjectKey' and @placeholder='Sonar Project Key:']"));
+        repoUrlInput.sendKeys(url);
+    }
+    private void addSonarToken(String url){
+        WebElement repoUrlInput = driver.findElement(By.xpath("//input[@name='SonarToken' and @placeholder='Sonar Token:']"));
+        repoUrlInput.sendKeys(url);
     }
 
+
     private void editProject(String name, String description, String repoUrl) {
-        addRepo(repoUrl);
+        addGitRepo(repoUrl);
         WebDriverWait waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         waiter = new WebDriverWait(driver, Variables.TIME_OUT_SECONDS);
         String locator = String.format("//h4[normalize-space()='%s[導入成功]']", repoUrl);

@@ -10,6 +10,6 @@ public class Variables {
     public static final String ADD_PROJECT_URL = url_base + "createproject";
     public static final String LOGIN_URL = url_base + "userLogin";
     public static final String REGISTERED_LOGIN_URL = url_base + "LoginPage";
-    public static final String HOMEPAGE_URL = url_base + "homepage";
+    public static final String Choose_project_URL = url_base + "choose-project";
     public static final String REGISTER_URL = url_base + "signup";
 }
