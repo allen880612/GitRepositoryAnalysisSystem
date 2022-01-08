@@ -35,18 +35,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
 
     @Override
-    public boolean deleteProject(String id) {
+    public void deleteProject(String id) throws SQLException {
         final String delete = "DELETE FROM project WHERE project_id=?";
-        try {
+
             assert conn != null;
             PreparedStatement preparedStatement = conn.prepareStatement(delete);
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+
     }
 
     public Project getProjectWithoutRepositoryById(String id) {
