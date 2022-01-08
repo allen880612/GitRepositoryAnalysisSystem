@@ -16,7 +16,4 @@ public interface AccountRepository {
     void deleteAccount(String id);
     void deleteAccountRelations(String id);
     void deleteProjectRelations(String userId, String projectId) throws SQLException;
-
-
-
 }
