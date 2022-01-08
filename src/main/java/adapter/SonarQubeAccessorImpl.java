@@ -14,6 +14,8 @@ import usecase.URLRequester;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SonarQubeAccessorImpl implements SonarQubeAccessor {
     private URLRequester getRequester;
@@ -21,6 +23,13 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
     private String hostUrl;
     private String projectKey;
     private String token;
+    private Map<String, String> ratingMap = new HashMap<String, String>(){{
+        put("1.0", "A");
+        put("2.0", "B");
+        put("3.0", "C");
+        put("4.0", "D");
+        put("5.0", "E");
+    }};
 
     public SonarQubeAccessorImpl(SonarProject sonarProject) {
         this.hostUrl = sonarProject.getHostUrl();
@@ -62,8 +71,10 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
 
     @Override
     public SonarQubeInfoDTO getSonarInfo() {
-        String api = "http://%s/api/measures/search?projectKeys=%s&metricKeys=bugs,code_smells,coverage,duplicated_lines_density";
-        String apiFormatted = String.format(api, hostUrl, projectKey);
+        final String METRIC_KEYS = "bugs,code_smells,coverage,duplicated_lines_density,security_rating," +
+                                   "security_review_rating,new_maintainability_rating,reliability_rating";
+        String api = "http://%s/api/measures/search?projectKeys=%s&metricKeys=%s";
+        String apiFormatted = String.format(api, hostUrl, projectKey,METRIC_KEYS);
         SonarQubeInfoDTO sonarQubeInfoDto = new SonarQubeInfoDTO();
 
         try {
@@ -121,14 +132,38 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
 
             JSONObject measureJson = (JSONObject)measure;
             String key = measureJson.getString("metric");
-            if (key.equals("bugs")) {
-                sonarQubeInfoDto.setBugs(measureJson.getInt("value"));
-            } else if (key.equals("code_smells")) {
-                sonarQubeInfoDto.setCodeSmell(measureJson.getInt("value"));
-            } else if (key.equals("coverage")) {
-                sonarQubeInfoDto.setCoverage(measureJson.getDouble("value"));
-            } else if (key.equals("duplicated_lines_density")) {
-                sonarQubeInfoDto.setDuplication(measureJson.getDouble("value"));
+            switch (key) {
+                case "bugs":
+                    sonarQubeInfoDto.setBugs(measureJson.getInt("value"));
+                    break;
+                case "code_smells":
+                    sonarQubeInfoDto.setCodeSmell(measureJson.getInt("value"));
+                    break;
+                case "coverage":
+                    sonarQubeInfoDto.setCoverage(measureJson.getDouble("value"));
+                    break;
+                case "duplicated_lines_density":
+                    sonarQubeInfoDto.setDuplication(measureJson.getDouble("value"));
+                    break;
+                case "vulnerabilities":
+                    sonarQubeInfoDto.setVulnerabilities(measureJson.getInt("value"));;
+                    break;
+                case "security_hotspots":
+                    sonarQubeInfoDto.setSecurityHotspots(measureJson.getInt("value"));;
+                    break;
+                case "new_maintainability_rating":
+                    JSONObject valueJson = (measureJson.getJSONObject("period"));
+                    sonarQubeInfoDto.setMaintainabilityRating(ratingMap.get(valueJson.getString("value")));
+                    break;
+                case "reliability_rating":
+                    sonarQubeInfoDto.setReliabilityRating(ratingMap.get(measureJson.getString("value")));
+                    break;
+                case "security_rating":
+                    sonarQubeInfoDto.setSecurityRating(ratingMap.get(measureJson.getString("value")));
+                    break;
+                case "security_review_rating":
+                    sonarQubeInfoDto.setSecurityReviewRating(ratingMap.get(measureJson.getString("value")));
+                    break;
             }
         }
         return sonarQubeInfoDto;

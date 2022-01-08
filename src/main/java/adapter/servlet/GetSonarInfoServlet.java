@@ -29,13 +29,12 @@ public class GetSonarInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         JSONObject requestBody = new JSONObject(request.getReader().readLine());
         String projectId = requestBody.getString("projectId");
 
         SonarProjectRepository sonarProjectRepository = new SonarProjectRepositoryImpl();
-        // TODO: get sonarId
         SonarProject sonarProject = sonarProjectRepository.getSonarProjectByProjectId(projectId);
+
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
         SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
 
@@ -44,5 +43,4 @@ public class GetSonarInfoServlet extends HttpServlet {
         out.println(new Gson().toJson(sonarQubeInfoDto)) ;
         out.close();
     }
-
 }

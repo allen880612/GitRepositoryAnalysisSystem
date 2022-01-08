@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/deleteProject", name = "DeleteProjectServlet")
 public class DeleteProjectServlet extends HttpServlet {
@@ -30,14 +31,15 @@ public class DeleteProjectServlet extends HttpServlet {
         ProjectRepository projectRepository = new ProjectRepositoryImpl();
         String userId = String.valueOf(requestBody.get("userId"));
         String projectId = String.valueOf(requestBody.get("projectId"));
+        boolean isSuccessful =true;
 
-        accountRepository.deleteProjectRelations(userId, projectId);
-        projectRepository.deleteProject(projectId);
-        if (projectRepository.getProjectWithoutRepositoryById(projectId) == null
-            && !accountRepository.getAccountById(userId).getProjects().contains(projectId))
-            jsonObject.put("isSuccess", "true");
-        else
-            jsonObject.put("isSuccess", "false");
+        try {
+            projectRepository.deleteProject(projectId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            isSuccessful =false;
+        }
+        jsonObject.put("isSuccess", isSuccessful?"true":"false");
 
         PrintWriter out = response.getWriter();
         out.println(jsonObject);

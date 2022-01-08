@@ -149,7 +149,7 @@ public class GithubRepositoryTest {
         returnJson.put("description", repoJson.get("description"));
         returnJson.put("contributorCount", contributorsJson.length());
 
-        Assert.assertEquals("GRAS", repoJson.get("description"));
         Assert.assertEquals(4, contributorsJson.length());
+        Assert.assertEquals("GitHub SonarQube Analysis System", repoJson.get("description"));
     }
 }

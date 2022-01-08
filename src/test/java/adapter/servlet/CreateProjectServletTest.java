@@ -14,6 +14,7 @@ import usecase.project.ProjectRepository;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 
 public class CreateProjectServletTest {
     private MockHttpServletRequest request;
@@ -40,7 +41,7 @@ public class CreateProjectServletTest {
     }
 
     @Test
-    public void GetPersonalCommitsStatsTest() throws IOException, ServletException {
+    public void GetPersonalCommitsStatsTest() throws IOException, ServletException, SQLException {
         createProjectServlet.doPost(request, response);
         JSONObject jsonObject = new JSONObject(response.getContentAsString());
         Assert.assertTrue(jsonObject.getBoolean("isSuccessful"));
