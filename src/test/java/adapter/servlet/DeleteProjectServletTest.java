@@ -65,17 +65,8 @@ public class DeleteProjectServletTest {
         JSONObject jsonObject = new JSONObject(responseForCreate.getContentAsString());
         return  jsonObject.getString("projectId");
     }
-
     @Test
     public void deleteProjectTest() throws ServletException, IOException {
-        deleteProjectServlet.doPost(requestForDelete,responseForDelete);
-        JSONObject jsonObject = new JSONObject(responseForDelete.getContentAsString());
-
-
-        Assert.assertEquals("true",jsonObject.get("isSuccess"));
-    }
-    @Test
-    public void deleteProjectCheckDB() throws ServletException, IOException {
         deleteProjectServlet.doPost(requestForDelete,responseForDelete);
         JSONObject jsonObject = new JSONObject(responseForDelete.getContentAsString());
         AccountRepository accountRepository = new AccountRepositoryImpl();
@@ -87,7 +78,7 @@ public class DeleteProjectServletTest {
         }        else{
             isSuccessful = false;
         }
+        Assert.assertTrue(isSuccessful);
         Assert.assertEquals(isSuccessful.toString(),jsonObject.get("isSuccess"));
-
     }
 }
