@@ -15,7 +15,7 @@ public interface AccountRepository {
     Account getAccountWithToken(Account account);
     void deleteAccount(String id);
     void deleteAccountRelations(String id);
-    boolean deleteProjectRelations(String userId, String projectId);
+    void deleteProjectRelations(String userId, String projectId) throws SQLException;
 
 
 
