@@ -22,7 +22,7 @@
 .example-headers-align .mat-expansion-panel-header-title{
   align-items: center;
   font-style: oblique;
-  color: green;
+  color: #008000;
   font-size: 24px;
 }
 
@@ -87,4 +87,14 @@ mat-slide-toggle {
 
 mat-panel-title {
   max-width: 250px !important;
+}
+
+.issue_content{
+  font-size:20px;
+  color:#3CB371;
+}
+
+.issue_content span {
+  margin-left: 5px;
+  color:#4D80E6;
 }

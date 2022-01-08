@@ -3,10 +3,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BuglistService} from "./buglist.service";
 import {ThemePalette} from "@angular/material/core";
 
-class JSONObject {
-}
+class JSONObject {}
 
 export  interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
+}
+
+export  interface SeverityTask {
   name: string;
   completed: boolean;
   color: ThemePalette;
@@ -32,8 +38,7 @@ export class BuglistComponent implements OnInit {
   ProjectID: string;
   repo: any;
 
-  allComplete: boolean = false;
-
+  allComplete: boolean = true;
   task: Task = {
     name: 'Select ALL',
     completed: true,
@@ -42,6 +47,20 @@ export class BuglistComponent implements OnInit {
       {name: 'BUG', completed: true, color: 'primary'},
       {name: 'CODE_SMELL', completed: true, color: 'accent'},
       {name: 'VULNERABILITY', completed: true, color: 'warn'},
+    ],
+  };
+
+  severityAllComplete: boolean = true;
+  severityTask: SeverityTask = {
+    name: 'Select ALL',
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: 'BLOCKER', completed: true, color: 'accent'},
+      {name: 'CRITICAL', completed: true, color: 'accent'},
+      {name: 'MAJOR', completed: true, color: 'warn'},
+      {name: 'MINOR', completed: true, color: 'warn'},
+      {name: 'INFO', completed: true, color: 'primary'},
     ],
   };
 
@@ -70,6 +89,25 @@ export class BuglistComponent implements OnInit {
       return;
     }
     this.task.subtasks.forEach(t => (t.completed = completed));
+  }
+
+  severityUpdateAllComplete() {
+    this.severityAllComplete = this.severityTask.subtasks != null && this.severityTask.subtasks.every(t => t.completed);
+  }
+
+  severitySomeComplete(): boolean {
+    if (this.severityTask.subtasks == null) {
+      return false;
+    }
+    return this.severityTask.subtasks.filter(t => t.completed).length > 0 && !this.severityAllComplete;
+  }
+
+  severitySetAll(completed: boolean) {
+    this.severityAllComplete = completed;
+    if (this.severityTask.subtasks == null) {
+      return;
+    }
+    this.severityTask.subtasks.forEach(t => (t.completed = completed));
   }
 
   getBugList() {
@@ -123,5 +161,4 @@ export class BuglistComponent implements OnInit {
       }
     );
   }
-
 }
