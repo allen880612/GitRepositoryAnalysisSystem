@@ -71,8 +71,8 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
 
     @Override
     public SonarQubeInfoDTO getSonarInfo() {
-        final String METRIC_KEYS = "bugs,code_smells,coverage,duplicated_lines_density,security_rating," +
-                                   "security_review_rating,new_maintainability_rating,reliability_rating";
+        final String METRIC_KEYS = "bugs,code_smells,coverage,duplicated_lines_density,vulnerabilities,security_hotspots," +
+                                   "security_rating,security_review_rating,new_maintainability_rating,reliability_rating";
         String api = "http://%s/api/measures/search?projectKeys=%s&metricKeys=%s";
         String apiFormatted = String.format(api, hostUrl, projectKey,METRIC_KEYS);
         SonarQubeInfoDTO sonarQubeInfoDto = new SonarQubeInfoDTO();
