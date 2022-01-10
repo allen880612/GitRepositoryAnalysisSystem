@@ -54,6 +54,7 @@ export class IssueTrackComponent implements OnInit {
     this.issueTrackService.getIssueTrackService(data).subscribe(
       request => {
         this.datas = request;
+        console.log((this.datas));
         for (const temp of this.datas){
           this.titles.push(temp.title);
           this.bodys.push(temp.body);

@@ -50,3 +50,7 @@ button {
       width: 70%;
   }
 }
+
+.fab,  .fa-github-square {
+  margin-bottom: 0 !important;
+}
