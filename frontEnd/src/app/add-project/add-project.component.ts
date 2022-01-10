@@ -47,8 +47,8 @@ export class AddProjectComponent implements OnInit {
     }
     else {
       this.emptyProjectNameMsg = '';
+      this.CheckGitHubRepoUrlValid();
     }
-    this.CheckGitHubRepoUrlValid();
   }
 
   CheckGitHubRepoUrlValid() {

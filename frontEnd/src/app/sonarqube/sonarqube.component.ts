@@ -32,9 +32,9 @@ export class SonarqubeComponent implements OnInit {
 
   ngOnInit(): void {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
-    this.getProjectID();
-
     this.githubAvatarUrl = window.sessionStorage.getItem('avatarUrl');
+    this.UserName = window.sessionStorage.getItem('Username');
+    this.getProjectID();
   }
 
   getProjectID() {
