@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
           console.log("userId =",this.datas.userId.toString());
           sessionStorage.setItem('Username', this.datas.userName.toString());
           sessionStorage.setItem('UserID', this.datas.userId.toString());
-          sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/07/xOmC54.jpg");
+          sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/07/1Z35fr.gif");
+          // sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/07/xOmC54.jpg");
           // sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/03/PVxkFE.png");
         }
         else{

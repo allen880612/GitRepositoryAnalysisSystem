@@ -40,6 +40,7 @@ import { GitanalysisComponent } from './gitanalysis/gitanalysis.component';
 import { ProjectAnalysisComponent } from './project-analysis/project-analysis.component';
 import { BuglistComponent } from './buglist/buglist.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 // import { ContributorComponent } from './contributor/contributor.component';
 
 
@@ -94,7 +95,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatSlideToggleModule
 
 
     ],

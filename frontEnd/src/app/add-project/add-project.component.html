@@ -38,7 +38,7 @@
                 <tr class="InputTable">
                   <td style="vertical-align:top;">
                     <div class="rgba" style="text-align:left; width:auto; display:inline-block">
-                      <h4 class="display-4">Project Name: <br><input type="text" name="FullNameofUser" placeholder="專案名稱" required [(ngModel)]="NameofProject" autocomplete="off">
+                      <h4 class="display-4">Project Name: <br><input type="text" name="ProjectName" placeholder="專案名稱" [(ngModel)]="NameofProject" autocomplete="off">
                       </h4>
                       <h4 class="display-4 ">Project Description(optional):<br>
                         <textarea [(ngModel)]="DesciptionOfProject" class="ProjectDescription"
@@ -60,7 +60,7 @@
                       <tr class="InputTr">
                         <td>
                           <h4 class="display-4">Add Github Repo Link : <br>
-                            <input type="text" name="FullNameofUser" placeholder="Input Repo url:"
+                            <input type="text" name="GitRepoUrl" placeholder="Input Repo url:"
                                    [(ngModel)]="InputGitRepoUrl" autocomplete="off"><span class="  text-black display-4" href="#"></span>
                           </h4>
                         </td>
@@ -87,9 +87,10 @@
             </div>
 
             <div style="text-align:center; margin-top: 20px" class="display-4">
-              <button type="submit" class="ProjectCreation" (click)="CreatProject()" style="border-radius: 8px">Create
+              <button type="submit" class="ProjectCreation" (click)="CreateProjectCheckRepoUrlAndSonarUrl()" style="border-radius: 8px">Create
                 Project
               </button>
+              <h5 style="color:red; margin-top: 15px;">{{emptyProjectNameMsg}}</h5>
               <h5 style="color:red; margin-top: 15px;">{{badGitImportMsg}}</h5>
               <h5 style="color:red; margin-top: 15px;">{{badSonarImportMsg}}</h5>
             </div>

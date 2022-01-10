@@ -1,36 +1,58 @@
 <meta charset="UTF-8" />
 
-<section style="margin-bottom: 20px; display: inline-block; margin-right: 50px">
-  <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Type Filter</div>
-  <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
-    <mat-checkbox [checked]="allComplete"
-                  [color]="task.color"
-                  [indeterminate]="someComplete()"
-                  (change)="setAll($event.checked)">
-      {{task.name}}
-    </mat-checkbox>
-    <ng-container *ngFor="let subtask of task.subtasks">
-      <mat-checkbox [(ngModel)]="subtask.completed"
-                    [color]="subtask.color"
-                    (ngModelChange)="updateAllComplete()">
-          {{subtask.name}}
+<div>
+  <section style="margin-bottom: 20px; display: inline-block; margin-right: 50px">
+    <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Type Filter</div>
+    <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
+      <mat-checkbox [checked]="allComplete"
+                    [color]="task.color"
+                    [indeterminate]="someComplete()"
+                    (change)="setAll($event.checked)">
+        {{task.name}}
       </mat-checkbox>
-    </ng-container>
-  </span>
-</section>
+      <ng-container *ngFor="let subtask of task.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()">
+            {{subtask.name}}
+        </mat-checkbox>
+      </ng-container>
+    </span>
+  </section>
+</div>
 
-<section style="display: inline-block; font-family: 'Comic Sans MS', serif; font-size: 130%">
-  <tr>
-    <td>
-      Total Effort： {{effort_total}} min
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Issues Amount： {{issue_count}}
-    </td>
-  </tr>
-</section>
+<div>
+  <section style="margin-bottom: 20px; display: inline-block; margin-right: 50px">
+    <div style="margin-bottom: 10px; font-family: 'Comic Sans MS', serif; font-size: 130%">Severity Filter</div>
+    <span style="border-top: #0b2e13 solid 3px; padding-top: 8px">
+      <mat-checkbox [checked]="severityAllComplete"
+                    [color]="severityTask.color"
+                    [indeterminate]="severitySomeComplete()"
+                    (change)="severitySetAll($event.checked)">
+        {{severityTask.name}}
+      </mat-checkbox>
+      <ng-container *ngFor="let subtask of severityTask.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="severityUpdateAllComplete()">
+            {{subtask.name}}
+        </mat-checkbox>
+      </ng-container>
+    </span>
+  </section>
+  <section style="display: inline-block; font-family: 'Comic Sans MS', serif; font-size: 130%">
+    <tr>
+      <td>
+        Total Effort： <span style="color: #800000">{{effort_total}} min</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Issues Amount： <span style="color: #800000">{{issue_count}}</span>
+      </td>
+    </tr>
+  </section>
+</div>
 
 <div>
   <table class="mainTable">
@@ -39,41 +61,47 @@
     <col style="width: 8%">
     <col style="width: 5%">
 
-    <ng-container *ngFor="let subtask of task.subtasks">
-      <ng-container *ngIf="subtask.completed">
-        <ng-container *ngFor="let title of titles ; let i = index">
-          <ng-container *ngIf="types[i] == subtask.name">
-            <tr style="border-top: #DCDCDC solid; font-size: 16px; color: #6B8E23;">
-              <td style="padding-bottom: 5px; padding-top: 10px">
-                <span style="border-bottom: rgba(107, 142, 35, 0.2) solid 2px">
-                  Type： {{types[i]}}
-                </span>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td style="color: #005cbf">
-                {{title}}
-              </td>
-              <td rowspan="2">
-                {{severities[i]}}
-              </td>
-              <td rowspan="2" style="color: #800000">
-                {{efforts[i]}}
-              </td>
-              <td rowspan="2">
-                <a href={{redirectUrls[i]}} target="_blank">
-                  <img src="./assets/images/file.png" width="40px" alt="file">
-                </a>
-              </td>
-            </tr>
-            <tr style="border-bottom: #DCDCDC solid;">
-              <td style="font-size: 18px; color: #696969">
-                {{components[i]}}
-              </td>
-            </tr>
+    <ng-container *ngFor="let seveirtySubtask of severityTask.subtasks">
+      <ng-container *ngIf="seveirtySubtask.completed">
+        <ng-container *ngFor="let subtask of task.subtasks">
+          <ng-container *ngIf="subtask.completed">
+            <ng-container *ngFor="let title of titles ; let i = index">
+              <ng-container *ngIf="severities[i] == seveirtySubtask.name">
+                <ng-container *ngIf="types[i] == subtask.name">
+                  <tr style="border-top: #DCDCDC solid; font-size: 16px; color: #6B8E23;">
+                    <td style="padding-bottom: 5px; padding-top: 10px">
+                      <span style="border-bottom: rgba(107, 142, 35, 0.2) solid 2px">
+                        Type： {{types[i]}}
+                      </span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td style="color: #005cbf">
+                      {{title}}
+                    </td>
+                    <td rowspan="2">
+                      {{severities[i]}}
+                    </td>
+                    <td rowspan="2" style="color: #800000">
+                      {{efforts[i]}}
+                    </td>
+                    <td rowspan="2">
+                      <a href={{redirectUrls[i]}} target="_blank">
+                        <img src="./assets/images/file.png" width="40px" alt="file">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr style="border-bottom: #DCDCDC solid;">
+                    <td style="font-size: 18px; color: #696969">
+                      {{components[i]}}
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>

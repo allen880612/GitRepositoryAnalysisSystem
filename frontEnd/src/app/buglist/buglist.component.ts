@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {IssueTrackService} from "../issue-track/issue-track.service";
 import {BuglistService} from "./buglist.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
 
-class JSONObject {
-}
+class JSONObject {}
 
 export  interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
+}
+
+export  interface SeverityTask {
   name: string;
   completed: boolean;
   color: ThemePalette;
@@ -33,28 +37,34 @@ export class BuglistComponent implements OnInit {
   effort_total: string;
   ProjectID: string;
   repo: any;
-  step = 0;
-  sonarGroup: FormGroup;
-  allComplete: boolean = false;
 
+  allComplete: boolean = true;
   task: Task = {
     name: 'Select ALL',
     completed: true,
     color: 'primary',
     subtasks: [
-      {name: 'BUG', completed: true, color: 'primary'},
-      {name: 'CODE_SMELL', completed: true, color: 'accent'},
-      {name: 'VULNERABILITY', completed: true, color: 'warn'},
+      {name: 'BUG', completed: true, color: 'accent'},
+      {name: 'CODE_SMELL', completed: true, color: 'warn'},
+      {name: 'VULNERABILITY', completed: true, color: 'primary'},
     ],
   };
 
-  constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute, fb: FormBuilder) {
-    this.sonarGroup = fb.group({
-      BUG: true,
-      CODE_SMELL: false,
-      VULNERABILITY: false,
-    });
-  }
+  severityAllComplete: boolean = true;
+  severityTask: SeverityTask = {
+    name: 'Select ALL',
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: 'BLOCKER', completed: true, color: 'accent'},
+      {name: 'CRITICAL', completed: true, color: 'accent'},
+      {name: 'MAJOR', completed: true, color: 'warn'},
+      {name: 'MINOR', completed: true, color: 'warn'},
+      {name: 'INFO', completed: true, color: 'primary'},
+    ],
+  };
+
+  constructor(private router: Router, private BuglistService: BuglistService, private acrouter: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.ProjectID = window.sessionStorage.getItem('ChosenProjectID');
@@ -81,14 +91,23 @@ export class BuglistComponent implements OnInit {
     this.task.subtasks.forEach(t => (t.completed = completed));
   }
 
-  setStep(index: number) {
-    this.step = index;
+  severityUpdateAllComplete() {
+    this.severityAllComplete = this.severityTask.subtasks != null && this.severityTask.subtasks.every(t => t.completed);
   }
-  nextStep() {
-    this.step++;
+
+  severitySomeComplete(): boolean {
+    if (this.severityTask.subtasks == null) {
+      return false;
+    }
+    return this.severityTask.subtasks.filter(t => t.completed).length > 0 && !this.severityAllComplete;
   }
-  prevStep() {
-    this.step--;
+
+  severitySetAll(completed: boolean) {
+    this.severityAllComplete = completed;
+    if (this.severityTask.subtasks == null) {
+      return;
+    }
+    this.severityTask.subtasks.forEach(t => (t.completed = completed));
   }
 
   getBugList() {
@@ -142,5 +161,4 @@ export class BuglistComponent implements OnInit {
       }
     );
   }
-
 }

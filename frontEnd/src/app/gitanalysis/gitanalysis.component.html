@@ -8,7 +8,7 @@
       <button (click)="getRepoInfo()">Repo Info</button>
   </div>
 
-  <div id="total_canvas" style="display:none; margin-top: 30px">
+  <div id="total_canvas" style="display:none; margin-top: 30px; width: 76%">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -18,7 +18,7 @@
     </canvas>
   </div>
 
-  <div id="codebase_canvas" style="display:none; margin-top: 30px">
+  <div id="codebase_canvas" style="display:none; margin-top: 30px; width: 76%">
     <canvas baseChart
             [datasets]="barCodeBaseChartData"
             [labels]="barCodeBaseChartLabels"
@@ -29,28 +29,51 @@
   </div>
 
   <div id="contributor_canvas" style="display:none; margin-top: 30px">
-    <td>
-      <caption style="text-align:center; color:blue" *ngFor="let barChar of leftTatolbarCharlist">{{barChar[5]}}
-        <canvas baseChart width="500%"
-                [datasets]="barChar[4]"
-                [labels]="barChar[3]"
-                [options]="barChar[0]"
-                [legend]="barChar[2]"
-                [chartType]="barChar[1]">
-        </canvas>
-      </caption>
-    </td>
-    <td>
-      <caption style="text-align:center; color:blue" *ngFor="let barChar of rightTatolbarCharlist">{{barChar[5]}}
-        <canvas baseChart  width="500%"
-                [datasets]="barChar[4]"
-                [labels]="barChar[3]"
-                [options]="barChar[0]"
-                [legend]="barChar[2]"
-                [chartType]="barChar[1]">
-        </canvas>
-      </caption>
-    </td>
+    <ng-container *ngFor="let barChar of tatolbarCharlist; let i = index">
+      <ng-container *ngIf="i%2 == 0 && i+1 < tatolbarCharlist.length">
+        <tr>
+          <td>
+            <caption style="text-align:center; color:blue">{{tatolbarCharlist[i][5]}}
+              <canvas baseChart width="500%"
+                      [datasets]="tatolbarCharlist[i][4]"
+                      [labels]="tatolbarCharlist[i][3]"
+                      [options]="tatolbarCharlist[i][0]"
+                      [legend]="tatolbarCharlist[i][2]"
+                      [chartType]="tatolbarCharlist[i][1]">
+              </canvas>
+            </caption>
+          </td>
+          <td>
+            <caption style="text-align:center; color:blue">{{tatolbarCharlist[i+1][5]}}
+              <canvas baseChart  width="500%"
+                      [datasets]="tatolbarCharlist[i+1][4]"
+                      [labels]="tatolbarCharlist[i+1][3]"
+                      [options]="tatolbarCharlist[i+1][0]"
+                      [legend]="tatolbarCharlist[i+1][2]"
+                      [chartType]="tatolbarCharlist[i+1][1]">
+              </canvas>
+            </caption>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="i+1 == tatolbarCharlist.length && tatolbarCharlist.length%2 == 1">
+        <tr>
+          <td>
+            <caption style="text-align:center; color:blue">{{tatolbarCharlist[i][5]}}
+              <canvas baseChart width="500%"
+                      [datasets]="tatolbarCharlist[i][4]"
+                      [labels]="tatolbarCharlist[i][3]"
+                      [options]="tatolbarCharlist[i][0]"
+                      [legend]="tatolbarCharlist[i][2]"
+                      [chartType]="tatolbarCharlist[i][1]">
+              </canvas>
+            </caption>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
   </div>
 
   <div id="issue_track" style="display:none; margin-top: 30px">
