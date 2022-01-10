@@ -10,14 +10,14 @@ public class Account {
     private String password;
     private String account;
 
-    private String githubToken;
+    private String githubId;
     private List<String> projects;
 
     public Account(String account, String password) {
         this.id = UUID.randomUUID().toString();
         this.password = password;
         this.account = account;
-        this.githubToken = "";
+        this.githubId = "";
         projects = new ArrayList<>();
     }
 
@@ -26,7 +26,7 @@ public class Account {
         this.name = name;
         this.password = password;
         this.account = account;
-        this.githubToken = "";
+        this.githubId = "";
         projects = new ArrayList<>();
 
     }
@@ -36,7 +36,7 @@ public class Account {
         this.name = name;
         this.password = password;
         this.account = account;
-        this.githubToken = "";
+        this.githubId = "";
         projects = new ArrayList<>();
     }
 
@@ -67,11 +67,11 @@ public class Account {
         return this.projects;
     }
 
-    public String getGithubToken() {
-        return githubToken;
+    public String getGithubId() {
+        return githubId;
     }
 
-    public void setGithubToken(String githubToken) {
-        this.githubToken = githubToken;
+    public void setGithubId(String githubId) {
+        this.githubId = githubId;
     }
 }

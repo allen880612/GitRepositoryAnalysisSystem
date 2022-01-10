@@ -42,8 +42,10 @@ public class AuthorizeGithubServlet extends HttpServlet{
         authOutput.setAvatarUrl(githubUserDto.getAvatarUrl());
 
         if (githubUserDto.isSuccessful()) {
-            AuthorizeGithubInput authInput = new AuthorizeGithubInputImpl
-                    (githubUserDto.getAccount(), "", githubUserDto.getName(), githubUserDto.getId());
+            AuthorizeGithubInput authInput = new AuthorizeGithubInputImpl();
+            authInput.setAccount(githubUserDto.getAccount());
+            authInput.setName(githubUserDto.getName());
+            authInput.setGithubId(githubUserDto.getId());
 
             AuthorizeGithubUseCase authorizeGithubUseCase = new AuthorizeGithubUseCase(new AccountRepositoryImpl());
             authorizeGithubUseCase.execute(authInput, authOutput);

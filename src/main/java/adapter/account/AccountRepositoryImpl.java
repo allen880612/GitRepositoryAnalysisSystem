@@ -2,8 +2,6 @@ package adapter.account;
 
 import database.Database;
 import domain.Account;
-import domain.GitRepository;
-import domain.Project;
 import usecase.account.AccountRepository;
 
 import java.sql.*;
@@ -22,14 +20,14 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void createAccount(Account account) throws SQLException {
         accounts.add(account);
-        final String insert = " INSERT INTO user(user_id, name, account, password, token) VALUES(?,?,?,?,?) ";
+        final String insert = " INSERT INTO user(user_id, name, account, password, github_id) VALUES(?,?,?,?,?) ";
         assert conn != null;
         PreparedStatement preparedStatement = conn.prepareStatement(insert);
         preparedStatement.setString(1, account.getId());
         preparedStatement.setString(2, account.getName());
         preparedStatement.setString(3, account.getAccount());
         preparedStatement.setString(4, account.getPassword());
-        preparedStatement.setString(5, account.getGithubToken());
+        preparedStatement.setString(5, account.getGithubId());
         preparedStatement.execute();
     }
 
@@ -133,8 +131,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public boolean verifyAccountWithToken(Account account) {
-        final String query = " SELECT user_id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ? ";
+    public boolean verifyAccountWithGithubId(Account account) {
+        final String query = " SELECT user_id, name, account, github_id FROM user WHERE name = ? AND account = ? AND github_id = ? ";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -144,7 +142,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
             ps.setString(1, account.getName());
             ps.setString(2, account.getAccount());
-            ps.setString(3, account.getGithubToken());
+            ps.setString(3, account.getGithubId());
             resultSet = ps.executeQuery();
             resultSet.last();
             if (resultSet.getRow() == 1) {
@@ -158,8 +156,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Account getAccountWithToken(Account account) {
-        final String query = " SELECT user_id, name, account, token FROM user WHERE name = ? AND account = ? AND token = ?";
+    public Account getAccountWithGithubId(Account account) {
+        final String query = " SELECT user_id, name, account, github_id FROM user WHERE name = ? AND account = ? AND github_id = ?";
         Account queryAccount = null;
         try {
             PreparedStatement ps = null;
@@ -170,7 +168,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
             ps.setString(1, account.getName());
             ps.setString(2, account.getAccount());
-            ps.setString(3, account.getGithubToken());
+            ps.setString(3, account.getGithubId());
             resultSet = ps.executeQuery();
             if (!resultSet.first()) return null;
             queryAccount = new Account(
@@ -179,7 +177,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                     resultSet.getString("account"),
                     ""
             );
-            queryAccount.setGithubToken(resultSet.getString("token"));
+            queryAccount.setGithubId(resultSet.getString("github_id"));
 
         } catch (SQLException e) {
             e.printStackTrace();

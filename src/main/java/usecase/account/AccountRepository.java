@@ -11,9 +11,10 @@ public interface AccountRepository {
     Account getAccountByAccountAndPassword(Account account);
     void updateAccountOwnProject(Account account) throws SQLException;
     boolean verifyAccount(Account account);
-    boolean verifyAccountWithToken(Account account);
-    Account getAccountWithToken(Account account);
+    boolean verifyAccountWithGithubId(Account account);
+    Account getAccountWithGithubId(Account account);
     void deleteAccount(String id);
     void deleteAccountRelations(String id);
+    // TODO: check this should use where
     void deleteProjectRelations(String userId, String projectId) throws SQLException;
 }
