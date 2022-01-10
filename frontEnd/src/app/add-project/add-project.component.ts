@@ -21,7 +21,6 @@ export class AddProjectComponent implements OnInit {
   DesciptionOfProject= '';
   UserID = '';
   IDofProject:'';
-  InputGitRepoUrlList = new Array();
   ProjectOverviewpageurl = "choose-project";
 
   InputSonarHost = '';
@@ -42,6 +41,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   CreateProjectCheckRepoUrlAndSonarUrl(){
+    this.isGitUrlValid = false;
     if (this.NameofProject == '') {
       this.emptyProjectNameMsg = "Project Name不得為空";
     }
@@ -53,6 +53,7 @@ export class AddProjectComponent implements OnInit {
 
   CheckGitHubRepoUrlValid() {
     this.badGitImportMsg = '';
+    console.log(this.InputGitRepoUrl);
     if (this.InputGitRepoUrl != '') {
       const GitRepoUrlData = {
         githubUrl:undefined
@@ -64,10 +65,6 @@ export class AddProjectComponent implements OnInit {
           this.datas = request;
           console.log(this.datas);
           if (this.datas.isUrlVaild == "true"){
-            //this.projectImportMsg += '\n' + " [導入成功] "+this.InputGitRepoUrl + '\n';
-            this.InputGitRepoUrlList.push(this.InputGitRepoUrl);
-            this.InputGitRepoUrl = '';
-
             this.isGitUrlValid = true;
             this.CheckSonarUrlValid();
           }
@@ -110,9 +107,6 @@ export class AddProjectComponent implements OnInit {
             if (this.isGitUrlValid) {
               this.CreateProject();
             }
-            else {
-              this.ResetSonarInput();
-            }
           }
           else{
             this.ResetSonarInput();
@@ -146,7 +140,7 @@ export class AddProjectComponent implements OnInit {
     CreateUserProjectData.userId  =  this.UserID.toString();
     CreateUserProjectData.projectName  =  this.NameofProject.toString();
     CreateUserProjectData.projectDescription = this.DesciptionOfProject.toString();
-    CreateUserProjectData.githubUrl  =  this.InputGitRepoUrlList[0].toString();
+    CreateUserProjectData.githubUrl  =  this.InputGitRepoUrl.toString();
     CreateUserProjectData.sonarHost  = this.InputSonarHost.toString();
     CreateUserProjectData.sonarProjectKey  = this.InputSonarProjectKey.toString();
     CreateUserProjectData.sonarToken  = this.InputSonarToken.toString();
@@ -163,33 +157,10 @@ export class AddProjectComponent implements OnInit {
         if (this.datas.projectId != ""){
           this.IDofProject = this.datas.projectId;
           console.log("CreateProjectSuccess",this.IDofProject);
-          for(var index in this.InputGitRepoUrlList){
-            this.AppendRepo(index);
-          }
-          this.router.navigate([this.ProjectOverviewpageurl]); //create project ok ,navi to projectoverview
+
+          this.router.navigate([this.ProjectOverviewpageurl]);
         }
       }
     );
-  }
-
-  AppendRepo(index){
-    const RepoDataOfProject = {
-      projectId:undefined,
-      githubUrl:undefined,
-    };
-    RepoDataOfProject.projectId  =  this.IDofProject.toString();
-    RepoDataOfProject.githubUrl  =  this.InputGitRepoUrlList[index].toString();
-
-     const repodata = JSON.stringify(RepoDataOfProject);
-     this.createprojectservice.appendRepotoProject(repodata).subscribe(
-       request => {
-         this.datas = request;
-         console.log(this.datas);
-         if (this.datas.isSuccess == "true"){
-           this.IDofProject = this.datas.projectId;
-           console.log("appendRepotoProjectSuccess");
-         }
-       }
-     );
   }
 }
