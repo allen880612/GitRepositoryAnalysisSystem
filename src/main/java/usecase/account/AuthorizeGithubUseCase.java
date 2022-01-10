@@ -16,13 +16,13 @@ public class AuthorizeGithubUseCase {
         Account authAccount = new Account(
                 input.getName(),
                 input.getAccount(),
-                input.getPassword()
+                ""
         );
-        authAccount.setGithubToken(input.getToken());
+        authAccount.setGithubId(input.getGithubId());
 
-        boolean isRegistered = accountRepository.verifyAccountWithToken(authAccount);
+        boolean isRegistered = accountRepository.verifyAccountWithGithubId(authAccount);
         if (isRegistered) {
-            Account existAccount = accountRepository.getAccountWithToken(authAccount);
+            Account existAccount = accountRepository.getAccountWithGithubId(authAccount);
             output.setId(existAccount.getId());
             output.setName(existAccount.getName());
         } else {

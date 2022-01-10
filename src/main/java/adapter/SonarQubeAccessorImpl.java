@@ -23,34 +23,39 @@ public class SonarQubeAccessorImpl implements SonarQubeAccessor {
     private String hostUrl;
     private String projectKey;
     private String token;
-    private Map<String, String> ratingMap = new HashMap<String, String>(){{
-        put("1.0", "A");
-        put("2.0", "B");
-        put("3.0", "C");
-        put("4.0", "D");
-        put("5.0", "E");
-    }};
+    private Map<String, String> ratingMap;
 
     public SonarQubeAccessorImpl(SonarProject sonarProject) {
         this.hostUrl = sonarProject.getHostUrl();
         this.projectKey = sonarProject.getProjectKey();
         this.token = sonarProject.getToken();
-
-        this.getRequester = new HttpRequester();
-        initializeAuthorization();
+        initialize();
     }
 
     public SonarQubeAccessorImpl(String hostUrl, String projectKey, String token) {
         this.hostUrl = hostUrl;
         this.projectKey = projectKey;
         this.token = token;
+        initialize();
+    }
 
-        this.getRequester = new HttpRequester();
-        getRequester.addHTTPSGetProperty("Content-Type", "application/json");
+    private void initialize() {
         initializeAuthorization();
+        initializeRatingMap();
+    }
+
+    private void initializeRatingMap() {
+        ratingMap = new HashMap<String, String>();
+        ratingMap.put("1.0", "A");
+        ratingMap.put("2.0", "B");
+        ratingMap.put("3.0", "C");
+        ratingMap.put("4.0", "D");
+        ratingMap.put("5.0", "E");
     }
 
     private void initializeAuthorization() {
+        this.getRequester = new HttpRequester();
+        getRequester.addHTTPSGetProperty("Content-Type", "application/json");
         String encoded = Base64.getEncoder().encodeToString((token+":").getBytes(StandardCharsets.UTF_8));
         this.getRequester.addHTTPSGetProperty("Authorization", "Basic " + encoded);
     }
