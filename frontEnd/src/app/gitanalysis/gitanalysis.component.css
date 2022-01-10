@@ -15,6 +15,11 @@ div.myButton > button {
   border-radius: 10px;
 }
 
+.TabButton {
+  color: #e83e8c !important;
+  font-weight: bold;
+}
+
 div.myButton > button:hover {
   color: 	#F08080;
 }

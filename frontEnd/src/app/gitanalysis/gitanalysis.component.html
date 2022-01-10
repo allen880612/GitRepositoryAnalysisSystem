@@ -1,11 +1,11 @@
 <div style="padding:0 10px 10px 10px;">
   <div class="myButton" style="display: inline; border-bottom: #0b2e13 solid; padding-bottom: 10px">
-      <button (click)="getIssueTrack()">Issue</button>
-      <button (click)="getContributor()">Contributor</button>
-      <button (click)="getCodeBase()">Code Base</button>
-      <button (click)="getCommitTrend()">Commit</button>
-      <button (click)="getBugList()">Issues List</button>
-      <button (click)="getRepoInfo()">Repo Info</button>
+      <button class={{IssueTrackButton}} (click)="getIssueTrack()">Issue</button>
+      <button class={{ContributorButton}} (click)="getContributor()">Contributor</button>
+      <button class={{CodeBaseButton}} (click)="getCodeBase()">Code Base</button>
+      <button class={{CommitButton}} (click)="getCommitTrend()">Commit</button>
+      <button class={{IssueListButton}} (click)="getBugList()">Issues List</button>
+      <button class={{RepoInfoButton}} (click)="getRepoInfo()">Repo Info</button>
   </div>
 
   <div id="total_canvas" style="display:none; margin-top: 30px; width: 76%">

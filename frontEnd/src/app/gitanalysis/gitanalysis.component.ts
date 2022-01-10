@@ -67,6 +67,13 @@ export class GitanalysisComponent implements OnInit {
 
   githubUrl: string;
 
+  IssueTrackButton: string = "";
+  ContributorButton: string = "";
+  CodeBaseButton: string = "";
+  CommitButton: string = "";
+  IssueListButton: string = "";
+  RepoInfoButton: string = "";
+
   // tslint:disable-next-line:typedef
   ngOnInit(): void {
     this.repo = window.sessionStorage.getItem('repoName');
@@ -90,6 +97,12 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('contributor_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
     document.getElementById('repo_info').style.display="none"
+    this.IssueTrackButton = "";
+    this.ContributorButton = "TabButton";
+    this.CodeBaseButton = "";
+    this.CommitButton = "";
+    this.IssueListButton = "";
+    this.RepoInfoButton = "";
 
     if(!this.contributor_commit_canvas){
       const commitData = {
@@ -158,6 +171,13 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('total_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
     document.getElementById('repo_info').style.display="none"
+    this.IssueTrackButton = "";
+    this.ContributorButton = "";
+    this.CodeBaseButton = "";
+    this.CommitButton = "TabButton";
+    this.IssueListButton = "";
+    this.RepoInfoButton = "";
+
     if(!this.total_commit_canvas){
 
     const commitData = {
@@ -195,6 +215,12 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('codebase_canvas').style.display=""
     document.getElementById('bug_list').style.display="none"
     document.getElementById('repo_info').style.display="none"
+    this.IssueTrackButton = "";
+    this.ContributorButton = "";
+    this.CodeBaseButton = "TabButton";
+    this.CommitButton = "";
+    this.IssueListButton = "";
+    this.RepoInfoButton = "";
 
     if(!this.codebase_canvas){
       const commitData = {
@@ -227,6 +253,12 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('issue_track').style.display=""
     document.getElementById('bug_list').style.display="none"
     document.getElementById('repo_info').style.display="none"
+    this.IssueTrackButton = "TabButton";
+    this.ContributorButton = "";
+    this.CodeBaseButton = "";
+    this.CommitButton = "";
+    this.IssueListButton = "";
+    this.RepoInfoButton = "";
   }
 
   getBugList() {
@@ -236,6 +268,12 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('issue_track').style.display="none"
     document.getElementById('bug_list').style.display=""
     document.getElementById('repo_info').style.display="none"
+    this.IssueTrackButton = "";
+    this.ContributorButton = "";
+    this.CodeBaseButton = "";
+    this.CommitButton = "";
+    this.IssueListButton = "TabButton";
+    this.RepoInfoButton = "";
   }
 
   getRepoInfo() {
@@ -245,5 +283,11 @@ export class GitanalysisComponent implements OnInit {
     document.getElementById('issue_track').style.display="none"
     document.getElementById('bug_list').style.display="none"
     document.getElementById('repo_info').style.display=""
+    this.IssueTrackButton = "";
+    this.ContributorButton = "";
+    this.CodeBaseButton = "";
+    this.CommitButton = "";
+    this.IssueListButton = "";
+    this.RepoInfoButton = "TabButton";
   }
 }
