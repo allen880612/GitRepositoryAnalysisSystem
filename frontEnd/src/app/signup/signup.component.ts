@@ -9,9 +9,7 @@ import {DOCUMENT} from "@angular/common";
   styleUrls: ['./signupstyle.css']
 })
 
-
 export class SignupComponent implements OnInit {
-  // @ViewChild('submit') submitButton;
   submitButton: any;
   UserInput = '';
   accountInput='';
@@ -29,43 +27,44 @@ export class SignupComponent implements OnInit {
     this.submitButton = document.getElementById('submit');
     this.submitButton.disabled = true;
   }
+
   redirectTo(url){
     this.router.navigateByUrl(url.toString());
   }
+
   RoutetoLoginPage(){
     this.redirectTo("LoginPage");
   }
-  SignUpCheck(){
-      const UserSignUpData = {
-          userName:undefined,
-          account: undefined,
-          password: undefined
-        };
-        UserSignUpData.userName  = this.UserInput;
-        UserSignUpData.account  = this.accountInput;
-        UserSignUpData.password = this.passwordInput;
 
-        const data = JSON.stringify(UserSignUpData);
-        this.signupService.verifySignUpUserAccount(data).subscribe(
-          request => {
-            this.datas = request;
-            if (this.datas.isSuccess == "true"){
-              alert("註冊成功!轉至登入頁面")
-              this.redirectTo("LoginPage");
-              console.log(this.datas.redirect);
-            }
-            else{
-              this.badRequest = "此帳號已被使用，請重新命名";
-            }
-          }
-        );
+  SignUpCheck(){
+    const UserSignUpData = {
+      userName:undefined,
+      account: undefined,
+      password: undefined
+    };
+    UserSignUpData.userName  = this.UserInput;
+    UserSignUpData.account  = this.accountInput;
+    UserSignUpData.password = this.passwordInput;
+
+    const data = JSON.stringify(UserSignUpData);
+    this.signupService.verifySignUpUserAccount(data).subscribe(
+    request => {
+        this.datas = request;
+        if (this.datas.isSuccess == "true"){
+          alert("註冊成功!轉至登入頁面")
+          this.redirectTo("LoginPage");
+          console.log(this.datas.redirect);
+        }
+        else{
+          this.badRequest = "此帳號已被使用，請重新命名";
+        }
+      }
+    );
   }
 
   onPasswordChange(value: any) {
     this.isPasswordValid = this.isInputValid(value);
     this.isAllInputValid();
-    // console.log(this.submitButton.textContent);
-    // console.log(value);
   }
 
   onAccountChange(value: any) {

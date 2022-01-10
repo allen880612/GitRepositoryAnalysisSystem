@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 
 public class SonarAccessorTest {
 
@@ -31,7 +33,8 @@ public class SonarAccessorTest {
         SonarQubeAccessor sonarQubeAccessor = new SonarQubeAccessorImpl(sonarProject);
 
         SonarQubeInfoDTO sonarQubeInfoDto = sonarQubeAccessor.getSonarInfo();
-
+        String j = new Gson().toJson(sonarQubeInfoDto, SonarQubeInfoDTO.class);
+        System.out.println(j);
         Assert.assertTrue(sonarQubeInfoDto.isSuccessful());
 //        Assert.assertEquals(16, sonarQubeInfoDto.getBugs());
     }
@@ -196,6 +199,20 @@ public class SonarAccessorTest {
 
         Gson gson = new Gson();
         SonarIssueListGsonAdapter adapter = gson.fromJson(content, SonarIssueListGsonAdapter.class);
+        Assert.assertEquals(adapter.getTotal(), 16);
+        Assert.assertEquals(adapter.getEffortTotal(), 80);
+
+        List<SonarIssueListGsonAdapter.IssueInfo> issues = adapter.getIssues();
+        Assert.assertEquals(issues.size(), 2);
+
+        SonarIssueListGsonAdapter.IssueInfo issueInfo = issues.get(0);
+        Assert.assertEquals(issueInfo.getType(), "BUG");
+        Assert.assertEquals(issueInfo.getKey(), "AX3OQLB4sNsGAYBEYhkF");
+        Assert.assertEquals(issueInfo.getSeverity(), "BLOCKER");
+        Assert.assertEquals(issueInfo.getComponent(), "GSAS:src/main/java/adapter/account/AccountRepositoryImpl.java");
+        Assert.assertEquals(issueInfo.getMessage(), "Use try-with-resources or close this \"PreparedStatement\" in a \"finally\" clause.");
+        Assert.assertEquals(issueInfo.getEffort(), "5min");
+        Assert.assertEquals(issueInfo.getUpdateDate(), "2021-12-18T15:54:30+0000");
 //        System.out.println(gson.toJson(adapter));
     }
 

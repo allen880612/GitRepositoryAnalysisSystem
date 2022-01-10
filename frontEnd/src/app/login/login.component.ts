@@ -18,17 +18,14 @@ export class LoginComponent implements OnInit {
   code:any;
   Username = "";
   UserID = "";
-  constructor(private router: Router, private loginService: LoginService , private acrouter: ActivatedRoute) {
-   }
+  constructor(private router: Router, private loginService: LoginService , private acrouter: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
-  // tslint:disable-next-line:typedef
   redirectTo(url){
     this.router.navigateByUrl(url.toString());
   }
 
-  // tslint:disable-next-line
   logInCheck() {
     const UserLoginData = {
       account: undefined,
@@ -47,7 +44,8 @@ export class LoginComponent implements OnInit {
           console.log("userId =",this.datas.userId.toString());
           sessionStorage.setItem('Username', this.datas.userName.toString());
           sessionStorage.setItem('UserID', this.datas.userId.toString());
-          sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/03/PVxkFE.png");
+          sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/07/xOmC54.jpg");
+          // sessionStorage.setItem('avatarUrl', "https://upload.cc/i1/2022/01/03/PVxkFE.png");
         }
         else{
           this.badRequest = '帳號或密碼錯誤';
@@ -63,12 +61,11 @@ export class LoginComponent implements OnInit {
   RoutetoGitOAuth(){
     const params = {
       client_id: '27ea0af1aeabd39a7d5d',
-      // redirect_uri: 'oauth2/github/callback',
       scope: 'repo',
       state: 'RRRRRRRRR',
       allow_signup: 'true'
     };
-    // console.log('clientId: ', env.clientId);
+
     const url = 'https://github.com/login/oauth/authorize?';
     const searchParams = new URLSearchParams(params);
     const authUrl = url + searchParams.toString();

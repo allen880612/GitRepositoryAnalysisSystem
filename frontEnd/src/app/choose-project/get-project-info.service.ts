@@ -9,14 +9,14 @@ export class GetProjectInfoService {
   constructor(private httpClient: HttpClient) { }
 
   public getUserProjectData(body) {
-      const headers = new HttpHeaders({
-        'Content-Type': 'text/json'
-      });
-      const options = {
-        headers
-      };
-      return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getUserProject', body, options);
-    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/json'
+    });
+    const options = {
+      headers
+    };
+    return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/getUserProject', body, options);
+  }
 
   public getRepoDataOfProject(body) {
     const headers = new HttpHeaders({

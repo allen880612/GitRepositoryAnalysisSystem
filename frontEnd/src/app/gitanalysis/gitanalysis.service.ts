@@ -16,7 +16,6 @@ export class GitanalysisService {
       headers
     };
     return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/commitServlet', body, options);
-
   }
 
   public getCommit(body) {
@@ -27,7 +26,5 @@ export class GitanalysisService {
       headers
     };
     return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/commitServlet', body, options);
-
   }
-
 }

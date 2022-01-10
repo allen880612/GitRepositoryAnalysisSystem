@@ -8,6 +8,7 @@ import {AuthorizeService} from './authorize.service';
   styleUrls: ['./authorize.component.css']
 })
 export class AuthorizeComponent implements OnInit {
+
   constructor(private router: Router, private acRouter: ActivatedRoute, private  authorizeService: AuthorizeService) { }
 
   ngOnInit(): void {
@@ -19,6 +20,7 @@ export class AuthorizeComponent implements OnInit {
         }
       );
   }
+
   authorize(grant): void {
     const callBackData = {
       code: grant,
@@ -35,6 +37,7 @@ export class AuthorizeComponent implements OnInit {
         sessionStorage.setItem('avatarUrl', request.avatarUrl);
         console.log(request.avatarUrl);
         this.router.navigateByUrl('choose-project');
-      });
+      }
+    );
   }
 }

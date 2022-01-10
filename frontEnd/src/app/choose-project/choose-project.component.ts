@@ -9,6 +9,7 @@ import {GetRepoInfoOfChosenProjectService} from "../choose-repository/get-repo-i
   templateUrl: './choose-project.component.html',
   styleUrls: ['./choose-project.component.css']
 })
+
 export class ChooseProjectComponent implements OnInit {
   projectNames = new Array();
   projectIntroduction = new Array();
@@ -38,44 +39,43 @@ export class ChooseProjectComponent implements OnInit {
     this.getTotalProjectInfo();
   }
 
-   getTotalProjectInfo() {
-      for (let i = 0; i<this.githubUrl.length; i++) {
-        this.githubUrl.pop();
-      }
+  getTotalProjectInfo() {
+    for (let i = 0; i<this.githubUrl.length; i++) {
+      this.githubUrl.pop();
+    }
 
-      const UserProjectData = {
-        userId:undefined,
-      };
-      UserProjectData.userId  = this.UserID;
-      const data = JSON.stringify(UserProjectData);
-      this.getProjectInfoService.getUserProjectData(data).subscribe(
-        request => {
-          this.datas = request;
-          console.log(this.datas);
+    const UserProjectData = {
+      userId:undefined,
+    };
+    UserProjectData.userId  = this.UserID;
+    const data = JSON.stringify(UserProjectData);
+    this.getProjectInfoService.getUserProjectData(data).subscribe(
+      request => {
+        this.datas = request;
+        console.log(this.datas);
 
-          for (let item of this.datas) {
-            const UserData = {
-              projectId:undefined,
-            };
-            UserData.projectId  = item.projectId;
-            const data = JSON.stringify(UserData);
-            this.getrepoinfoofchosenproject.getRepoDataOfProject(data).subscribe(
-              request => {
-                this.githubUrlDatas = request;
-                for(let item of this.githubUrlDatas){
-                  console.log(item);
-                  this.githubUrl.push("https://github.com/" + item.ownerName + "/" + item.repoName);
-                }
+        for (let item of this.datas) {
+          const UserData = {
+            projectId:undefined,
+          };
+          UserData.projectId  = item.projectId;
+          const data = JSON.stringify(UserData);
+          this.getrepoinfoofchosenproject.getRepoDataOfProject(data).subscribe(
+            request => {
+              this.githubUrlDatas = request;
+              for(let item of this.githubUrlDatas){
+                console.log(item);
+                this.githubUrl.push("https://github.com/" + item.ownerName + "/" + item.repoName);
               }
-            );
-          }
+            }
+          );
         }
-      );
+      }
+    );
   }
 
   choose_repo(projectid, projectName, projectDescription) {
     console.log(projectid);
-    // const chosenId: string = event.target.id.toString();
     sessionStorage.setItem('ChosenProjectID', projectid);
     sessionStorage.setItem('projectName', projectName);
     sessionStorage.setItem('projectIntroduction', projectDescription);
@@ -103,14 +103,8 @@ export class ChooseProjectComponent implements OnInit {
           sessionStorage.setItem('owner', this.owner[0]);
         }
         this.router.navigate(['project-analysis']);
-        // this.router.navigate(['issue-track']);
-
       }
     );
-
-    // this.router.navigate(['choose-repository']);
-    // this.router.navigate(['sonarqube']);
-
   }
 
 
@@ -142,17 +136,11 @@ export class ChooseProjectComponent implements OnInit {
       );
     }else{
       //this.router.navigate(['choose-project']);
-
     }
     window.location.reload();
-
   }
 
-  // tslint:disable-next-line:typedef
   goToAddProjectPage() {
     this.router.navigate(['createproject']);
   }
-
-
-
 }

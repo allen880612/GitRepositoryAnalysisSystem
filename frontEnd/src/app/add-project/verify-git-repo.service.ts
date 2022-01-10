@@ -8,15 +8,13 @@ export class VerifyGitRepoService {
 
   constructor(private httpClient: HttpClient) { }
 
-   public verifyGitUrlVaild(body) {
-        const headers = new HttpHeaders({
-          'Content-Type': 'text/json'
-        });
-        const options = {
-          headers
-        };
-        return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/verifyUrl', body, options);
+  public verifyGitUrlVaild(body) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/json'
+    });
+    const options = {
+      headers
+    };
+    return this.httpClient.post<any>('/GitRepositoryAnalysisSystem/verifyUrl', body, options);
    }
-
-
 }
