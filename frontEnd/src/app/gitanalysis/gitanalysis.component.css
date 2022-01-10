@@ -30,7 +30,6 @@ div.myButton > button:last-child {
 
 .RepoInfoTable {
   text-align: left;
-  vertical-align: top;
   table-layout: fixed;
   word-wrap: break-word;
   max-width: 100%;
@@ -42,6 +41,19 @@ div.myButton > button:last-child {
   border: #DCDCDC solid;
   padding: 20px;
   color: #454d55;
+  vertical-align: bottom;
+}
+
+.RepoInfoTable td img {
+  margin-right: 3px;
+}
+
+.ProjectNameImg {
+  transform: translateY(-5px);
+}
+
+.RepoOwnerImg {
+  transform: translateY(-3px);
 }
 
 .RepoInfoTable tr>td:last-child {

@@ -1,10 +1,10 @@
 <div style="padding:0 10px 10px 10px;">
   <div class="myButton" style="display: inline; border-bottom: #0b2e13 solid; padding-bottom: 10px">
-      <button class={{IssueTrackButton}} (click)="getIssueTrack()">Issue</button>
+      <button class={{IssueTrackButton}} (click)="getIssueTrack()">Git Issues</button>
       <button class={{ContributorButton}} (click)="getContributor()">Contributor</button>
       <button class={{CodeBaseButton}} (click)="getCodeBase()">Code Base</button>
       <button class={{CommitButton}} (click)="getCommitTrend()">Commit</button>
-      <button class={{IssueListButton}} (click)="getBugList()">Issues List</button>
+      <button class={{IssueListButton}} (click)="getBugList()">Sonar Issues</button>
       <button class={{RepoInfoButton}} (click)="getRepoInfo()">Repo Info</button>
   </div>
 
@@ -32,8 +32,16 @@
     <ng-container *ngFor="let barChar of tatolbarCharlist; let i = index">
       <ng-container *ngIf="i%2 == 0 && i+1 < tatolbarCharlist.length">
         <tr>
-          <td>
-            <caption style="text-align:center; color:blue">{{tatolbarCharlist[i][5]}}
+          <td style="padding-bottom: 15px;">
+            <caption style="text-align:center; color:blue; font-weight: bold">
+              <div style="margin-bottom: 10px;">
+                <a href={{tatolbarCharlist[i][9]}} style="text-decoration: none" target="_blank">{{tatolbarCharlist[i][5]}}</a><br>
+                <span style="border-bottom: rgba(220, 220, 220, 0.6) solid 3px; padding-bottom: 2px">
+                  <span style="color: #7a7a7a">{{tatolbarCharlist[i][6]}} commits </span>
+                  <span style="color: #7a7a7a">/ </span><span style="color: #3CB371">{{tatolbarCharlist[i][7]}} ++ </span>
+                  <span style="color: #7a7a7a">/ </span><span style="color: #A52A2A">{{tatolbarCharlist[i][8]}} -- </span>
+                </span>
+              </div>
               <canvas baseChart width="500%"
                       [datasets]="tatolbarCharlist[i][4]"
                       [labels]="tatolbarCharlist[i][3]"
@@ -43,8 +51,16 @@
               </canvas>
             </caption>
           </td>
-          <td>
-            <caption style="text-align:center; color:blue">{{tatolbarCharlist[i+1][5]}}
+          <td style="padding-bottom: 15px;">
+            <caption style="text-align:center; color:blue; font-weight: bold">
+              <div style="margin-bottom: 10px;">
+                <a href={{tatolbarCharlist[i+1][9]}} style="text-decoration: none" target="_blank">{{tatolbarCharlist[i+1][5]}}</a><br>
+                <span style="border-bottom: rgba(220, 220, 220, 0.6) solid 3px; padding-bottom: 2px">
+                  <span style="color: #7a7a7a">{{tatolbarCharlist[i+1][6]}} commits </span>
+                  <span style="color: #7a7a7a">/ </span><span style="color: #3CB371">{{tatolbarCharlist[i+1][7]}} ++ </span>
+                  <span style="color: #7a7a7a">/ </span><span style="color: #A52A2A">{{tatolbarCharlist[i+1][8]}} -- </span>
+                </span>
+              </div>
               <canvas baseChart  width="500%"
                       [datasets]="tatolbarCharlist[i+1][4]"
                       [labels]="tatolbarCharlist[i+1][3]"
@@ -86,11 +102,12 @@
 
   <div id="repo_info" style="display:none; margin-top: 30px; width: 80%">
     <table class="RepoInfoTable">
-      <col style="width: 250px">
+      <col style="width: 285px">
       <col style="width: auto">
 
       <tr>
         <td>
+          <img class="ProjectNameImg" src="./assets/images/ProjectName.png" width="30" height="30" alt="ProjectName">
           Project Name
         </td>
         <td>
@@ -99,6 +116,7 @@
       </tr>
       <tr>
         <td>
+          <img src="./assets/images/ProjectIntroduction.png" width="30" height="30" alt="ProjectIntroduction">
           Project Introduction
         </td>
         <td>
@@ -107,6 +125,7 @@
       </tr>
       <tr>
         <td>
+          <img src="./assets/images/RepoUrl.png" width="30" height="30" alt="RepoUrl">
           GitHub Repo Url
         </td>
         <td>
@@ -115,6 +134,7 @@
       </tr>
       <tr>
         <td>
+          <img class="RepoOwnerImg" src="./assets/images/RepoOwner.png" width="30" height="30" alt="RepoOwner">
           GitHub Repo Owner
         </td>
         <td>

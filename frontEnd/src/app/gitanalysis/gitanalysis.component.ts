@@ -88,6 +88,8 @@ export class GitanalysisComponent implements OnInit {
 
     this.githubUrl = "http://github.com/" + this.owner + "/" + this.repo
     console.log(this.githubUrl);
+
+    this.getRepoInfo();
   }
 
   getContributor(){
@@ -114,7 +116,8 @@ export class GitanalysisComponent implements OnInit {
       const data = JSON.stringify(commitData);
       this.commitTrendService.getCommit(data).subscribe(
       request => {
-            this.datas = request;
+          this.datas = request;
+          console.log(this.datas);
         //個別圖
           for (let i = 1; i < this.datas.length; i++) {
             for (const temp of this.datas[i].weeks_stats) {
@@ -148,6 +151,10 @@ export class GitanalysisComponent implements OnInit {
             temp.push(barChartLabels2);
             temp.push(barChartData2);
             temp.push(this.datas[i].user_name);
+            temp.push(this.datas[i].total_commits);
+            temp.push(this.datas[i].total_additions);
+            temp.push(this.datas[i].total_deletions);
+            temp.push("https://github.com/" + this.datas[i].user_name);
 
             this.tatolbarCharlist.push(temp);
           }
