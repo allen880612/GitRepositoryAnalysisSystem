@@ -23,9 +23,11 @@ export class IssueTrackComponent implements OnInit {
   avatars = [];
   StatusColor = [];
   html_urls = [];
+  lead_time = [];
   owner: any;
   repo: any;
   options: string[] = ['ByLabel'];
+  averageLeadTime: string;
 
   slideToggleColor: ThemePalette = 'accent';
   slideToggleChecked = true;
@@ -70,8 +72,39 @@ export class IssueTrackComponent implements OnInit {
           this.posterIds.push(temp.issuePosterId);
           this.html_urls.push(temp.html_url);
         }
+
+        let totalLeadTime = 0;
+        let countLeadTime = 0;
+        for (let k=0; k<this.startDates.length; k++) {
+          if (this.closeDates[k] != null) {
+            let parseTime = ((Date.parse(this.closeDates[k]) - Date.parse(this.startDates[k]))/1000);
+            countLeadTime += 1;
+            totalLeadTime += parseTime;
+            this.lead_time.push(this.formatSecond(parseTime));
+          }
+          else {
+            this.lead_time.push(0);
+          }
+        }
+
+        if (countLeadTime == 0) {
+          this.averageLeadTime = "Empty Closed Issues";
+        }
+        else {
+          this.averageLeadTime =  this.formatSecond(Math.round(totalLeadTime / countLeadTime));
+        }
       }
     );
+  }
+
+  formatSecond(secs) {
+    let hr = Math.round((secs - 1800) / 3600);
+    let day = Math.round(hr / 24);
+    hr %= 24;
+    let min = Math.round(((secs - 30) / 60) % 60);
+    let sec = secs % 60;
+
+    return (day > 0 ? (day + "d") : "") +" "+ (hr > 0 ? (hr + "h") : "") +" "+ (min > 0 ? (min + "m") : "") +" "+ (sec > 0 ? (sec + "s") : "");
   }
 
   changed() {

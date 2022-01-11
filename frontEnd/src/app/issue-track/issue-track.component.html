@@ -11,6 +11,9 @@
       </ng-container>
     </mat-slide-toggle>
   </div>
+  <ng-container *ngIf="!slideToggleChecked">
+    <span style="margin-left: 80px; font-family: 'Comic Sans MS', serif; font-size: 20px;">Average Lead Time: <span style="color: #A52A2A;">{{averageLeadTime}}</span></span>
+  </ng-container>
 </div>
 <div>
   <mat-accordion class="example-headers-align">
@@ -26,13 +29,13 @@
             </mat-panel-title>
 
             <mat-panel-description>
-              <tr>
-                <p>{{title}}</p>
-                  <ng-container *ngFor="let label of labels[i] ; let j = index">
-                    <td>
-                      <mat-basic-chip [style.background-color]= label.color>  &nbsp;{{label.name}}&nbsp;</mat-basic-chip>
-                    </td>
-                  </ng-container>
+              <tr style="width: 100%">
+                <p style="width: 90%; word-wrap: break-word;">{{title}}</p>
+                <ng-container *ngFor="let label of labels[i] ; let j = index">
+                  <td>
+                    <mat-basic-chip [style.background-color]= label.color>  &nbsp;{{label.name}}&nbsp;</mat-basic-chip>
+                  </td>
+                </ng-container>
               </tr>
 
               <ng-container *ngIf="slideToggleChecked">
@@ -52,6 +55,7 @@
             <p>Update:<span> {{updateDates[i]}}</span></p>
             <ng-container *ngIf="closeDates[i]!=null">
               <p>Close: <span>{{closeDates[i]}}</span></p>
+              <p>Lead Time: <span style="color: #A52A2A;">{{lead_time[i]}}</span></p>
             </ng-container>
             <p>Link:<span> {{html_urls[i]}}</span></p>
           </div>
