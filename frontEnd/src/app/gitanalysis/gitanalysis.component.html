@@ -9,6 +9,13 @@
   </div>
 
   <div id="total_canvas" style="display:none; margin-top: 30px; width: 76%">
+    <div style="text-align: center; margin-bottom: 15px">
+      <span style="border-bottom: rgba(220, 220, 220, 0.6) solid 3px; padding-bottom: 2px; font-weight: bold">
+        <span style="color: #7a7a7a">{{commitTitleList[0]}} commits </span>
+        <span style="color: #7a7a7a">/ </span><span style="color: #3CB371">{{commitTitleList[1]}} ++ </span>
+        <span style="color: #7a7a7a">/ </span><span style="color: #A52A2A">{{commitTitleList[2]}} -- </span>
+      </span>
+    </div>
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -19,6 +26,11 @@
   </div>
 
   <div id="codebase_canvas" style="display:none; margin-top: 30px; width: 76%">
+    <div style="text-align: center; margin-bottom: 15px">
+      <span style="border-bottom: rgba(220, 220, 220, 0.6) solid 3px; padding-bottom: 2px; font-weight: bold">
+        <span style="color: #7a7a7a">{{codebaseTitleList[0]}} lines </span>
+      </span>
+    </div>
     <canvas baseChart
             [datasets]="barCodeBaseChartData"
             [labels]="barCodeBaseChartLabels"

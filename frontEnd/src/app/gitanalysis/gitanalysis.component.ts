@@ -55,6 +55,9 @@ export class GitanalysisComponent implements OnInit {
   leftTatolbarCharlist = [];
   rightTatolbarCharlist = [];
 
+  commitTitleList = [];
+  codebaseTitleList = [];
+
   commitCounts: any;
   owner: any;
   repo: any;
@@ -186,16 +189,15 @@ export class GitanalysisComponent implements OnInit {
     this.RepoInfoButton = "";
 
     if(!this.total_commit_canvas){
+      const commitData = {
+        owner: undefined,
+        repo: undefined
+      };
 
-    const commitData = {
-      owner: undefined,
-      repo: undefined
-    };
-
-    commitData.owner = this.owner;
-    commitData.repo = this.repo;
-    const data = JSON.stringify(commitData);
-    this.commitTrendService.getCommit(data).subscribe(
+      commitData.owner = this.owner;
+      commitData.repo = this.repo;
+      const data = JSON.stringify(commitData);
+      this.commitTrendService.getCommit(data).subscribe(
       request => {
           this.datas = request;
           // all 圖
@@ -210,6 +212,10 @@ export class GitanalysisComponent implements OnInit {
           }
           this.commitCounts = this.datas[0].total_commits;
           this.total_commit_canvas=true;
+
+          this.commitTitleList.push(this.datas[0].total_commits);
+          this.commitTitleList.push(this.datas[0].total_additions);
+          this.commitTitleList.push(this.datas[0].total_deletions);
         }
       );
     }
@@ -248,6 +254,7 @@ export class GitanalysisComponent implements OnInit {
             this.barCodeBaseChartData[0].data.push(+temp.lines_count.toString());
           }
           this.codebase_canvas=true;
+          this.codebaseTitleList.push(this.datas[0].lines_count);
         }
       );
     }
